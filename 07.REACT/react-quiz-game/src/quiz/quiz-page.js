@@ -1,8 +1,9 @@
+import Game from "./game";
+
 function QuizPage() {
   return (
     <main>
-      <h1>Quiz Page</h1>
-      <p>This is the quiz page</p>
+      <Game />
     </main>
   );
 }

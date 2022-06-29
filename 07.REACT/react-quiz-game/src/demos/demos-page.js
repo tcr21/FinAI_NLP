@@ -5,11 +5,19 @@ import ClickButton from "./state/click-button";
 import WelcomeMessage from "./props/welcome-message";
 import SpeakButton from "./props/speak-button";
 import ChatMessage from "./props/chat-message";
+import Todos from "./arrays/todos";
+import FramerMotionDemos from "./animation/framer-motion-demo";
 
 function DemosPage() {
   return (
     <main>
       <h1>Financial Literacy App</h1>
+
+      <h2>Animation demos</h2>
+      <FramerMotionDemos />
+
+      <h2>Rendering Arrays</h2>
+      <Todos />
 
       <h2>Confetti Demo</h2>
       <ConfettiDemo></ConfettiDemo>
