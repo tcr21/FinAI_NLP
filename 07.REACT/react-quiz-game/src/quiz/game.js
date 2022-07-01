@@ -3,7 +3,6 @@ import { useState } from "react";
 import EndScreen from "./end-screen";
 import Stats from "./stats";
 import TriviaItem from "./trivia-item";
-import triviaData from "./trivia-data";
 import { FadeTransition, FadeWrapper } from "./fade-transition";
 
 /**
@@ -15,7 +14,7 @@ import { FadeTransition, FadeWrapper } from "./fade-transition";
  */
 
 // Has 3 different elements of state
-function Game() {
+function Game({ triviaData }) {
   const [gameState, setGameState] = useState({
     score: 0,
     triviaIndex: 0,
