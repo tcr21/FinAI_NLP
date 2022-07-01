@@ -4,10 +4,10 @@ import ErrorMessage from "../common/error-message";
 import useGetTriviaData from "./hooks/use-get-trivia-data";
 
 function QuizPage() {
-  const [loading, error, quizData] = useGetTriviaData(5, "easy");
+  const [isLoading, error, quizData] = useGetTriviaData(5, "easy");
 
   let contents;
-  if (loading) contents = <LoadingSpinner />;
+  if (isLoading) contents = <LoadingSpinner />;
   else if (error !== "") contents = <ErrorMessage>{error}</ErrorMessage>;
   else contents = <Game triviaData={quizData} />;
 
