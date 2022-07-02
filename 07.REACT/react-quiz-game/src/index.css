@@ -39,6 +39,11 @@ button:hover {
 button:active {
   background: hsl(204, 100%, 24%);
 }
+
+button:disabled {
+  opacity: 0.5;
+}
+
 input {
   font-size: 0.75rem;
 }

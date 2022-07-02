@@ -1,7 +1,8 @@
 // Import core functionality
 import firebase from "firebase/compat/app"; // Added compat due to updates
-// Import firestore functionality specifically
+// Import specific services we wish to use
 import "firebase/compat/firestore"; // Added compat due to updates
+import "firebase/compat/auth";
 
 // TO DO: should not be directly in source code, do not want to commit directly to GitHub (any client needs this info to connect but don't want to make it easy for them either)
 // Pasted from Config Firebase tab online
@@ -27,5 +28,7 @@ if (!firebaseConfig.apiKey)
 firebase.initializeApp(firebaseConfig);
 
 const db = firebase.firestore();
+const auth = firebase.auth();
+const provider = new firebase.auth.GoogleAuthProvider();
 
-export { db, firebase };
+export { db, auth, provider, firebase };
