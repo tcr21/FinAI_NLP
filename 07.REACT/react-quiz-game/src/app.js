@@ -11,11 +11,12 @@ import { BrowserRouter, Route, Routes } from "react-router-dom"; // removed Link
 import HomePage from "./home/home-page";
 import QuizPage from "./quiz/quiz-page";
 import DemosPage from "./demos/demos-page";
-import AboutPage from "./about/about-page";
+// import AboutPage from "./about/about-page";
 import PageHeader from "./common/page-header";
 import PageFooter from "./common/page-footer";
 import LoadingSpinner from "./common/loading-spinner";
 import useUser, { UserProvider } from "./data/hooks/use-user";
+import NotFoundPage from "./not-found/page-not-found";
 
 function ProviderWrappedApp() {
   return (
@@ -44,8 +45,9 @@ function App() {
         TR: had to do element notation as opposed to usual within Route because HomePage not route component*/}
           <Route path="/" exact element={<HomePage />}></Route>
           <Route path="/quiz" exact element={<QuizPage />}></Route>
-          <Route path="/about" exact element={<AboutPage />}></Route>
+          {/* <Route path="/about" exact element={<AboutPage />}></Route> */}
           <Route path="/demos" exact element={<DemosPage />}></Route>
+          <Route path="*" exact element={<NotFoundPage />}></Route>
         </Routes>
       )}
       <PageFooter />

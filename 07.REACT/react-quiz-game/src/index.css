@@ -1,13 +1,71 @@
-@import url("https://fonts.googleapis.com/css2?family=Inconsolata&family=PT+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=PT+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap");
 
 html {
-  /* Create base font size that is inherited for elements on the page */
   font-size: 22px;
-  /* Same for font-family */
+  font-family: "PT Sans", sans-serif;
+  box-sizing: border-box;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+  font-family: inherit;
+}
+
+body {
+  background: url("./images/memphis-colorful-dim.png");
+  color: rgb(4, 0, 17);
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+button {
+  padding: 0.4rem 1rem;
+  font-size: 0.75rem;
+}
+
+button {
+  background: #0c7fdb;
+  color: white;
+  border: 2px solid #084270;
+  cursor: pointer;
+  transition: all 0.2s;
+  border-radius: 0.2rem;
+}
+
+button:hover {
+  background: #0a67b1;
+}
+
+button:active {
+  background: #084d85;
+}
+
+button:disabled {
+  opacity: 0.8;
+}
+
+input {
+  font-size: 0.75rem;
+}
+
+label {
+  margin-right: 0.5rem;
+}
+
+
+
+/* @import url("https://fonts.googleapis.com/css2?family=Inconsolata&family=PT+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap");
+
+html {
+  // Create base font size that is inherited for elements on the page 
+  font-size: 22px;
+  // Same for font-family 
   font-family: "PT Sans", sans-serif;
 }
 
-/* Force all elements to inherit font family. Same elements (like button) don't inherity by default */
+// Force all elements to inherit font family. Same elements (like button) don't inherity by default 
 * {
   font-family: inherit;
 }
@@ -16,11 +74,11 @@ body {
   background: url(./images/memphis-colorful-dim.png);
   color: rgb(4, 0, 17);
   max-width: 800px;
-  /* This margin auto trick centers block elements */
+  // This margin auto trick centers block elements
   margin: 0 auto;
 }
 
-/* Button style */
+// Button style 
 
 button {
   padding: 0.5rem 1rem;
@@ -49,4 +107,4 @@ input {
 }
 label {
   margin-right: 0.5rem;
-}
+} */
