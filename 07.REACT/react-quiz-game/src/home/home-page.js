@@ -5,7 +5,6 @@ import useUser from "../data/hooks/use-user";
 // Sign in through google account (but could do through email and password if wanted to)
 function HomePage() {
   const userState = useUser();
-  console.log(userState);
 
   let contents;
   if (userState.isSignedIn) {

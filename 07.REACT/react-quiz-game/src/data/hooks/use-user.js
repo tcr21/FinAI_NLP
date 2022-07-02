@@ -1,7 +1,7 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, createContext, useContext } from "react";
 import { auth, provider } from "../firebase";
 
-function useUser() {
+function useUserInternal() {
   const [userState, setUserState] = useState({
     user: auth.currentUser,
     isLoading: auth.currentUser === null ? true : false,
@@ -83,4 +83,27 @@ function useUser() {
     signOut,
   };
 }
+
+// Create context for user, default value is null so we can determine if context has been properly initialised in app tree
+const UserContext = createContext(null);
+
+function UserProvider({ children }) {
+  const userState = useUserInternal();
+  return (
+    <UserContext.Provider value={userState}>{children}</UserContext.Provider>
+  );
+}
+
+function useUser() {
+  const userState = useContext(UserContext);
+  // Check if provider is missing
+  if (userState === null) {
+    throw new Error(
+      "useUser needs to have a UserProvider component as parent component in React tree"
+    );
+  }
+  return userState;
+}
+
 export default useUser;
+export { UserContext, UserProvider };
