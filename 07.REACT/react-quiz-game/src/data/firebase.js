@@ -8,6 +8,7 @@ import "firebase/compat/auth";
 // Pasted from Config Firebase tab online
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 // [RE-INSERT FIREBASE CONFIG HERE TEMPORARILY]
+// TEST COMMIT
 
 // For future debugging
 if (!firebaseConfig.apiKey)
