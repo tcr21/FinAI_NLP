@@ -10,7 +10,8 @@ function HomePage() {
   if (userState.isSignedIn) {
     contents = (
       <>
-        <p>TO DO: put user's quizzes on this page</p>
+        {/* <p>TO DO: put user's quizzes/ dashboard/ welcome back message on this page</p> */}
+        <p>Head to the quizzes page to start playing!</p>
         <button onClick={userState.signOut} disabled={userState.isLoading}>
           {userState.isLoading ? "Signing out..." : "Sign out"}
         </button>

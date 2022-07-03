@@ -28,7 +28,7 @@ function EndScreen({ score, bestScore, onRetryClick }) {
         🏆
       </motion.div>
       <EndStat label="Score" value={score} />
-      <EndStat label="Best score" value={bestScore} />
+      {/* <EndStat label="Best score" value={bestScore} /> */}
       <button className="end-screen__button" onClick={onRetryClick}>
         Try again
       </button>
