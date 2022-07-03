@@ -24,11 +24,14 @@ function QuizPreview({ id, data }) {
       </ul>
       <div className="quiz-preview__author">By: {ownerName}</div>
       <p className="quiz-preview__description">{description}</p>
-      <Link to={`play-quiz/${id}`} className="quiz-preview__play">
+      <Link to={`/play-quiz/${id}`} className="quiz-preview__play">
         <button>Play</button>
       </Link>
     </article>
   );
 }
+
+// Note above: if want quizzes/play-quiz then link to 'play-quiz...'
+// If want /play-quiz only then link to '/play-quiz...'
 
 export default QuizPreview;

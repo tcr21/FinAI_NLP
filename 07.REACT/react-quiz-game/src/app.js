@@ -9,7 +9,7 @@
 // TR: Replaced Switch by Routes based on version update
 import { BrowserRouter, Route, Routes } from "react-router-dom"; // removed Link import
 import HomePage from "./home/home-page";
-import QuizPage from "./quiz/quiz-page";
+import QuizPage from "./play-quiz/play-quiz-page";
 // import DemosPage from "./demos/demos-page";
 // import AboutPage from "./about/about-page";
 import PageHeader from "./common/page-header";
@@ -46,7 +46,7 @@ function App() {
         TR: had to do element notation as opposed to usual within Route because HomePage not route component*/}
           <Route path="/" exact element={<HomePage />}></Route>
           <Route path="/quizzes" exact element={<QuizzesPage />}></Route>
-          <Route path="/quiz" exact element={<QuizPage />}></Route>
+          <Route path="/play-quiz/:id" exact element={<QuizPage />}></Route>
           {/* <Route path="/about" exact element={<AboutPage />}></Route> */}
           {/* <Route path="/demos" exact element={<DemosPage />}></Route> */}
           <Route path="*" exact element={<NotFoundPage />}></Route>

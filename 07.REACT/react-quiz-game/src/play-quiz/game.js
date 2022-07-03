@@ -4,42 +4,53 @@ import EndScreen from "./end-screen";
 import Stats from "./stats";
 import TriviaItem from "./trivia-item";
 import { FadeTransition, FadeWrapper } from "./fade-transition";
+import StartScreen from "./start-screen";
 
 /**
  * Game determines flow of quiz
- * @param {object} props
- * @param {number} props.score
- * @param {number} props.bestScore
- * @param {function} props.onRetryClick A function that runs when retry button is clicked
  */
+//  @param {object} props
+//  * @param {number} props.score
+//  * @param {number} props.bestScore
+//  * @param {function} props.onRetryClick A function that runs when retry button is clicked
 
 // Has 3 different elements of state
-function Game({ triviaData }) {
+function Game({ quizData }) {
   const [gameState, setGameState] = useState({
     score: 0,
     triviaIndex: 0,
-    isGameOver: false,
+    state: "start",
   });
 
-  const { score, triviaIndex, isGameOver } = gameState;
+  const questions = quizData.questions ?? [];
+  const { score, triviaIndex, state } = gameState;
   const questionNumber = triviaIndex + 1;
-  const numQuestions = triviaData.length;
+  const numQuestions = questions.length;
 
   const restartGame = () => {
     setGameState({
       score: 0,
       triviaIndex: 0,
-      isGameOver: false,
+      state: "start",
+    });
+  };
+
+  const onStart = () => {
+    setGameState({
+      score: 0,
+      triviaIndex: 0,
+      state: "running",
     });
   };
 
   const loadNextQuestion = () => {
-    if (triviaIndex >= triviaData.length - 1) {
-      setGameState({ ...gameState, isGameOver: true });
+    if (triviaIndex >= questions.length - 1) {
+      setGameState({ ...gameState, state: "end" });
     } else {
       // Using spread operator to copy gameState and override triviaIndex
       setGameState({
         ...gameState,
+        state: "running",
         triviaIndex: triviaIndex + 1,
       });
     }
@@ -57,21 +68,24 @@ function Game({ triviaData }) {
   let pageContent;
   let pageKey;
 
-  if (isGameOver) {
+  if (state === "start") {
+    pageKey = "QuizDetails";
+    pageContent = <StartScreen quizData={quizData} onPlayClick={onStart} />;
+  } else if (state === "end") {
     pageKey = "EndScreen";
     pageContent = (
       <EndScreen score={score} bestScore={0} onRetryClick={restartGame} />
     );
   } else {
     pageKey = triviaIndex;
-    const triviaQuestion = triviaData[triviaIndex];
-    const { correct_answer, incorrect_answers, question } = triviaQuestion;
+    const triviaQuestion = questions[triviaIndex];
+    const { correctAnswer, incorrectAnswers, question } = triviaQuestion;
     pageContent = (
       <TriviaItem
         key={triviaIndex}
         question={question}
-        correctAnswer={correct_answer}
-        incorrectAnswers={incorrect_answers}
+        correctAnswer={correctAnswer}
+        incorrectAnswers={incorrectAnswers}
         onNextClick={loadNextQuestion}
         onAnswerSelected={onAnswerSelected}
       />

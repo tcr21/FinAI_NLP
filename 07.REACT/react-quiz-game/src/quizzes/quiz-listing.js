@@ -14,7 +14,7 @@ function QuizListing() {
   if (quizzes.status === "error") {
     return <ErrorMessage>Something went wrong. Please try again.</ErrorMessage>;
   }
-  if (quizzes.isEmpty) return <p>No quizzes found</p>;
+  if (quizzes.isEmpty) return <p>No quizzes found.</p>;
 
   return (
     <ul className="quiz-listing">
