@@ -8,9 +8,9 @@ const formalFinanceQuiz = {
       "Learn about the main products offered by banks and other formal financial institutions.",
     difficulty: "easy",
     tags: ["formal finance"],
-    createdAt: firebase.firestore.Timestamp.fromDate(new Date("Sat 02, 2022")),
+    createdAt: firebase.firestore.Timestamp.fromDate(new Date("July 02, 2022")),
     lastModifiedAt: firebase.firestore.Timestamp.fromDate(
-      new Date("Jan 02, 2021")
+      new Date("July 03, 2022")
     ),
     ownerId: "1111111111TpivifTwaaot",
     ownerName: "Tiphaine",

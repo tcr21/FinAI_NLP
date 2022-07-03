@@ -1,9 +1,12 @@
 import { Link } from "react-router-dom";
 import "./quiz-preview.css";
 
+// Takes quiz ID and data as properties, and formats in card format with title, tags, owner name, description etc. on page
+
 function QuizPreview({ id, data }) {
   let { title, tags, description, ownerName } = data;
 
+  // Defensive coding
   if (!tags) tags = [];
   if (!title) title = "Untitled Quiz";
   if (!description) description = "No description provided.";

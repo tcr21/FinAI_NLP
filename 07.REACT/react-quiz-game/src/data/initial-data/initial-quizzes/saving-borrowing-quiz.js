@@ -8,9 +8,9 @@ const savingBorrowingQuiz = {
       "Learn about about saving and borrowing money to improve your finances.",
     difficulty: "easy",
     tags: ["saving & borrowing"],
-    createdAt: firebase.firestore.Timestamp.fromDate(new Date("Sat 02, 2022")),
+    createdAt: firebase.firestore.Timestamp.fromDate(new Date("July 02, 2022")),
     lastModifiedAt: firebase.firestore.Timestamp.fromDate(
-      new Date("Jan 02, 2021")
+      new Date("July 03, 2022")
     ),
     ownerId: "1111111112TpivifTwaaot",
     ownerName: "Tiphaine",
@@ -22,41 +22,45 @@ const savingBorrowingQuiz = {
         incorrectAnswers: [
           "Giving my money to my family members in order to support them",
           "Putting money aside for the expenses next week",
-          "",
+          "Keeping any extra money that doesn't need to be spent immediately",
         ],
       },
       {
-        question: "What is borrowing money?",
+        question: "What is a loan?",
         // TO DO: ANSWERS FROM HERE
-        correctAnswer: "The amount of money I can borrow",
+        correctAnswer:
+          "When money is given to me in exchange for repayment of that money over an agreed amount of time plus interest",
         incorrectAnswers: [
-          "The amount of money I owe",
-          "Something I have to repay immediately",
-          "An alternative to saving",
+          "When money is given to me in exchange for me repaying it as soon as I am asked to do so",
+          "When money is given to me in exchange for me repaying it plus any additional amount deemed appropriate by loan provider",
+          "An alternative to saving money each month",
         ],
       },
       {
         question: "What is an interest rate?",
         correctAnswer:
-          "A payment card that charges against the amount of money I can borrow and repay later",
+          "The cost of borrowing money, typically a percentage of the amount of money I borrow, agreed upon with the loan provider",
         incorrectAnswers: [
-          "A payment card that charges against the cash I have in my bank account",
+          "Any amount of money that the borrower claims I owe them on top of the amount of money I borrowed",
         ],
       },
       {
-        question: "What is a maximum reasonable interest rate?",
-        correctAnswer:
-          "A payment card that charges against the cash I have in my bank account",
+        question: "What is a typical range for an interest rate?",
+        correctAnswer: "~5-25% of the amount of money I borrowed",
         incorrectAnswers: [
-          "A payment card that charges against the amount of money I can borrow and repay later",
+          "35-220% of the amount of money I borrowed",
+          "~0-5% of the amount of money I borrowed",
+          "Any flat fee required by the loan provider",
         ],
       },
       {
-        question: "Who should I turn to if I need to borrow money?",
+        question: "Who should I turn to if I need to borrow a lot of money?",
         correctAnswer:
-          "A way to safeguard me or my property against risk of loss, damage or theft",
+          "A bank; if they turn me down I ask them for alternatives",
         incorrectAnswers: [
-          "An optional fee charged by some financial institutions",
+          "Any microfinance institution that offers loans",
+          "Someone from my local community",
+          "Any organisation that gives out loans",
         ],
       },
     ],

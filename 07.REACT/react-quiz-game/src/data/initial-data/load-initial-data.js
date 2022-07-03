@@ -13,7 +13,7 @@ async function loadData() {
   for (let quizData of quizzes) {
     const { id, data } = quizData;
     try {
-      await db.collection("quizzes").doc(id).set(data);
+      await db.collection("Quizzes").doc(id).set(data);
     } catch (error) {
       console.error(error);
       console.error("Could not load data!");
