@@ -146,11 +146,27 @@ for i in range(len(dtf)):
 # print(dtf)
 # plt.show()
 
+#  TEST !!!
+
+
 # # MAP DATA (USER ANSWERS) ON CLUSTERS==============================================
 
-# tokenizer = transformers.BertTokenizer.from_pretrained('bert-base-uncased', do_lower_case=True)
+# Tensorflow version - don't use
+# // tokenizer = transformers.BertTokenizer.from_pretrained('bert-base-uncased', do_lower_case=True)
+# // bert_model = transformers.TFBertModel.from_pretrained('bert-base-uncased')
 
-# bert_model = transformers.TFBertModel.from_pretrained('bert-base-uncased')
+# TO DO: TORCH VERSION BELOW
+# tokenizer = torch.hub.load('huggingface/pytorch-transformers', 'tokenizer', 'bert-base-uncased')    # Download vocabulary from S3 and cache.
+# // OPTIONAL // tokenizer = torch.hub.load('huggingface/pytorch-transformers', 'tokenizer', './test/bert_saved_model/')  # E.g. tokenizer was saved using `save_pretrained('./test/saved_model/')`
+# model = torch.hub.load('huggingface/pytorch-transformers', 'model', 'bert-base-uncased')    # Download model and configuration from S3 and cache.
+# model = torch.hub.load('huggingface/pytorch-transformers', 'model', './test/bert_model/')  # E.g. model was saved using `save_pretrained('./test/saved_model/')`
+# model = torch.hub.load('huggingface/pytorch-transformers', 'model', 'bert-base-uncased', output_attentions=True)  # Update configuration during loading
+# assert model.config.output_attentions == True
+# # Loading from a TF checkpoint file instead of a PyTorch model (slower)
+# config = AutoConfig.from_json_file('./tf_model/bert_tf_model_config.json')
+# model = torch.hub.load('huggingface/pytorch-transformers', 'model', './tf_model/bert_tf_checkpoint.ckpt.index', from_tf=True, config=config)
+
+
 
 # txt = "river bank"
 # ## tokenize
