@@ -2,6 +2,7 @@
 
 ## for data
 import json
+from tkinter.messagebox import YES
 import pandas as pd
 import numpy as np
 from sklearn import metrics, manifold
@@ -146,8 +147,6 @@ for i in range(len(dtf)):
 # print(dtf)
 # plt.show()
 
-#  TEST !!!
-
 
 # # MAP DATA (USER ANSWERS) ON CLUSTERS==============================================
 
@@ -155,27 +154,67 @@ for i in range(len(dtf)):
 # // tokenizer = transformers.BertTokenizer.from_pretrained('bert-base-uncased', do_lower_case=True)
 # // bert_model = transformers.TFBertModel.from_pretrained('bert-base-uncased')
 
-# TO DO: TORCH VERSION BELOW
-# tokenizer = torch.hub.load('huggingface/pytorch-transformers', 'tokenizer', 'bert-base-uncased')    # Download vocabulary from S3 and cache.
-# // OPTIONAL // tokenizer = torch.hub.load('huggingface/pytorch-transformers', 'tokenizer', './test/bert_saved_model/')  # E.g. tokenizer was saved using `save_pretrained('./test/saved_model/')`
-# model = torch.hub.load('huggingface/pytorch-transformers', 'model', 'bert-base-uncased')    # Download model and configuration from S3 and cache.
-# model = torch.hub.load('huggingface/pytorch-transformers', 'model', './test/bert_model/')  # E.g. model was saved using `save_pretrained('./test/saved_model/')`
-# model = torch.hub.load('huggingface/pytorch-transformers', 'model', 'bert-base-uncased', output_attentions=True)  # Update configuration during loading
-# assert model.config.output_attentions == True
-# # Loading from a TF checkpoint file instead of a PyTorch model (slower)
-# config = AutoConfig.from_json_file('./tf_model/bert_tf_model_config.json')
-# model = torch.hub.load('huggingface/pytorch-transformers', 'model', './tf_model/bert_tf_checkpoint.ckpt.index', from_tf=True, config=config)
+# TORCH: LOAD TOKENIZER
+bert_tokenizer = torch.hub.load('huggingface/pytorch-transformers', 'tokenizer', 'bert-base-uncased', trust_repo=True)    # Download vocabulary from S3 and cache.
+# Optional
+# tokenizer = torch.hub.load('huggingface/pytorch-transformers', 'tokenizer', './test/bert_saved_model/')  # E.g. tokenizer was saved using `save_pretrained('./test/saved_model/')`
 
+# TORCH: LOAD MODEL
+bert_model = torch.hub.load('huggingface/pytorch-transformers', 'model', 'bert-base-uncased')    # Download model and configuration from S3 and cache.
+# Optional
+# bert_model = torch.hub.load('huggingface/pytorch-transformers', 'model', './test/bert_model/')  # E.g. model was saved using `save_pretrained('./test/saved_model/')`
+# bert_model = torch.hub.load('huggingface/pytorch-transformers', 'model', 'bert-base-uncased', output_attentions=True)  # Update configuration during loading
+# assert bert_model.config.output_attentions == True
 
-
+# TESTING
 # txt = "river bank"
 # ## tokenize
-# idx = tokenizer.encode(txt)
-# print("tokens:", tokenizer.convert_ids_to_tokens(idx))
-# print("ids   :", tokenizer.encode(txt))
+# idx = bert_tokenizer.encode(txt)
+# print("tokens:", bert_tokenizer.convert_ids_to_tokens(idx))
+# print("ids   :", bert_tokenizer.encode(txt))
 # ## word embedding
 # idx = np.array(idx)[None,:]
+# idx = torch.from_numpy(idx) # bert model expects a torch tensor
 # embedding = bert_model(idx)
 # print("shape:", embedding[0][0].shape)
 # ## vector of the second input word
-# embedding[0][0][2]
+# print(embedding[0][0][2])
+
+# Function to apply to input text and clusters for embedding
+def embed_text_with_bert(text, tokenizer, model):
+    idx = tokenizer.encode(text)
+    idx = np.array(idx)[None,:]  
+    idx = torch.from_numpy(idx) # bert model expects a torch tensor
+    embedding = model(idx)
+    X = embedding[0][0][1:-1].detach().numpy() 
+    return X
+
+# Apply to input text
+# create list of input text vector
+input_text_mean_vecs_list = [embed_text_with_bert(text, bert_tokenizer, bert_model).mean(0) 
+                 for text in df["1. What is your primary concern when it comes to finance?_clean"]]
+# create the feature matrix (n news x 768)
+X = np.array(input_text_mean_vecs_list)
+
+# print(X)
+
+# TO DO: v is causing error below: TypeError: TextEncodeInput must be Union[TextInputSequence, Tuple[InputSequence, InputSequence]]
+# Apply to clusters 
+clusters_mean_vecs_dict = {k: embed_text_with_bert(v, bert_tokenizer, bert_model).mean(0) for k,v
+         in clusters_dict.items()}
+
+print(clusters_mean_vecs_dict)
+
+
+
+
+clusters_dict = {}
+clusters_dict["Route 1: Learning"] = get_similar_words(['learn','understand','skills','education'], 
+                  top_number=30, nlp_model=glove_model)
+clusters_dict["Route 2: Personal finance"] = get_similar_words(['loan','need','money','family', 'debt', 'help', 'budget', 'household']
+                  , top_number=30, nlp_model=glove_model)
+clusters_dict["Route 3: Emergency"] = get_similar_words(['attack','threat','danger', 'death'], 
+                   top_number=30, nlp_model=glove_model)
+# Print some similar words
+# for k,v in clusters_dict.items():
+#     print(k, ": ", v[0:30], "...", len(v))
