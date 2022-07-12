@@ -322,14 +322,14 @@ ax[1].legend(loc="best")
 ax[1].grid(True)
 plt.show()
 
-# UNDERSTAND EVALUATION=========================================
+# UNDERSTAND EVALUATION PLOT 1=========================================
 
 i = 7
 txt_instance = df["1. What is your primary concern when it comes to finance?_clean"].iloc[i]
 print("True:", y_test[i], "--> Pred:", predicted[i], " | Similarity:", round(np.max(predicted_prob[i]),2))
 print(txt_instance)
 
-## create embedding Matrix
+# create embedding Matrix
 # Same issue as before so used data frame
 # y = np.concatenate([embed_text_with_bert(v, bert_tokenizer, bert_model) for v in 
 #                     clusters_dict.values()])
@@ -366,7 +366,6 @@ print(y)
 print("X POST PCA")
 print(X)
 
-# FIXING
 # create dtf clusters
 dtf2 = pd.DataFrame()
 for k,v in clusters_dict.items():
@@ -379,17 +378,7 @@ for k,v in clusters_dict.items():
 print("Printing dtf2=====")
 print(dtf2)
 
-# # FOR REF: create dtf
-# dtf = pd.DataFrame()
-# for k,v in clusters_dict.items():
-#     size = len(dtf) + len(v)
-#     dtf_group = pd.DataFrame(X[len(dtf):size], columns=["x","y"], 
-#                              index=v)
-#     dtf_group["cluster"] = k
-#     dtf = pd.concat([dtf, dtf_group])
-
-
-## plot clusters
+# plot clusters
 fig, ax = plt.subplots()
 sns.scatterplot(data=dtf2, x="x", y="y", hue="cluster", ax=ax)
 ax.legend().texts[0].set_text(None)
@@ -401,12 +390,12 @@ for i in range(len(dtf)):
                xytext=(5,2), textcoords='offset points', 
                ha='right', va='bottom')
 
-## add txt_instance
+# add txt_instance
 ax.scatter(x=X[0][0], y=X[0][1], c="red", linewidth=10)
 ax.annotate("x", xy=(X[0][0],X[0][1]), 
 ha='center', va='center', fontsize=25)
 
-## calculate similarity
+# calculate similarity
 sim_matrix = metrics.pairwise.cosine_similarity(X, y)
 
 ## add top similarity
@@ -423,4 +412,111 @@ for row in range(sim_matrix.shape[0]):
         ax.plot([p1[0],p2[0]], [p1[1],p2[1]], c="red", alpha=0.5)
 plt.show()
 
+# UNDERSTAND EVALUATION PLOT 2=========================================
 
+print("UNDERSTAND EVALUATION PLOT 2")
+
+# create embedding Matrix
+# Same issue as before so used data frame
+# y = np.concatenate([embed_text_with_bert(v, bert_tokenizer, bert_model) for v in 
+#                     clusters_dict.values()])
+
+print(dtf.index)
+
+y = np.concatenate([embed_text_with_bert(text, bert_tokenizer, bert_model)
+                for text in dtf.index])
+
+print("y shape=====")
+print(y.shape) # (46, 768)
+print("y ARRAY PRINT==========")
+print(y)
+
+X = np.concatenate([embed_text_with_bert(word, bert_tokenizer, bert_model)
+        for word in txt_instance.split()])
+
+print("Printing X shape")
+print(X.shape) # (1, 768)
+print("Printing X======")
+print(X)
+
+M = np.concatenate([y,X])
+
+# pca
+pca = manifold.TSNE(perplexity=40, n_components=2, init='pca')
+M = pca.fit_transform(M)
+y, X = M[:len(y)], M[len(y):]
+
+print("M POST PCA")
+print(M)
+print("y POST PCA")
+print(y)
+print("X POST PCA")
+print(X)
+
+# create dtf clusters
+dtf3 = pd.DataFrame()
+for k,v in clusters_dict.items():
+    size = len(dtf3) + len(v)
+    dtf_group3 = pd.DataFrame(y[len(dtf3):size], columns=["x","y"],index=v)
+    dtf_group3["cluster"] = k
+    dtf3 = pd.concat([dtf3, dtf_group3])
+
+print("Printing dtf3=====")
+print(dtf3)
+
+
+## plot clusters
+fig, ax = plt.subplots()
+sns.scatterplot(data=dtf3, x="x", y="y", hue="cluster", ax=ax)
+ax.legend().texts[0].set_text(None)
+ax.set(xlabel=None, ylabel=None, xticks=[], xticklabels=[], 
+       yticks=[], yticklabels=[])
+for i in range(len(dtf3)):
+    ax.annotate(dtf3.index[i], 
+               xy=(dtf3["x"].iloc[i],dtf3["y"].iloc[i]), 
+               xytext=(5,2), textcoords='offset points', 
+               ha='right', va='bottom')
+
+
+
+# add txt_instance
+tokens = bert_tokenizer.convert_ids_to_tokens(
+               bert_tokenizer.encode(txt_instance))[1:-1]
+# ERROR: Shape of passed values (X) is (1, 2), indices imply (5, 2) due to X having 5 words (but only one x, y pair)
+dtf4 = pd.DataFrame(X, columns=["x","y"], index=tokens)
+dtf4 = dtf4[~dtf4.index.str.contains("#")]
+dtf4 = dtf4[dtf4.index.str.len() > 1]
+X = dtf4.values
+
+print("Printing dtf4=====")
+print(dtf4)
+
+print("Printing X====")
+print(X)
+
+ax.scatter(x=dtf4["x"], y=dtf4["y"], c="red")
+for i in range(len(dtf4)):
+     ax.annotate(dtf4.index[i], 
+                 xy=(dtf4["x"].iloc[i],dtf4["y"].iloc[i]), 
+                 xytext=(5,2), textcoords='offset points', 
+                 ha='right', va='bottom')
+
+# calculate similarity
+sim_matrix = metrics.pairwise.cosine_similarity(X, y)
+
+# add top similarity
+for row in range(sim_matrix.shape[0]):
+    # sorted {keyword:score}
+    dic_sim = {n:sim_matrix[row][n] for n in 
+               range(sim_matrix.shape[1])}
+    dic_sim = {k:v for k,v in sorted(dic_sim.items(), 
+                key=lambda item:item[1], reverse=True)}
+    # plot lines
+    for k in dict(list(dic_sim.items())[0:5]).keys():
+        p1 = [X[row][0], X[row][1]]
+        p2 = [y[k][0], y[k][1]]
+        ax.plot([p1[0],p2[0]], [p1[1],p2[1]], c="red", alpha=0.5)
+
+print("Show last plot")
+
+plt.show()
