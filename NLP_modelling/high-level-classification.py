@@ -23,6 +23,7 @@ import gensim.downloader as gensim_api
 import transformers
 
 import ssl
+import random
 
 # ERROR HANDLING ===============================================================
 
@@ -103,12 +104,12 @@ def get_similar_words(list_words, top_number, nlp_model):
 
 # Create dictionary {category:[keywords]}
 glove_clusters_dict = {}
-glove_clusters_dict["Route 1: ENTERTAINMENT"] = get_similar_words(['celebrity','cinema','movie','music'], 
-                  top_number=30, nlp_model=glove_model)
-glove_clusters_dict["Route 2: POLITICS"] = get_similar_words(['gop','clinton','president','obama','republican']
-                  , top_number=30, nlp_model=glove_model)
-glove_clusters_dict["Route 3: TECH"] = get_similar_words(['amazon','android','app','apple','facebook',
-                   'google','tech'], top_number=30, nlp_model=glove_model)
+glove_clusters_dict["Route 1: Learning"] = get_similar_words(['learn','skills','education','teach'], 
+                    top_number=30, nlp_model=glove_model)
+glove_clusters_dict["Route 2: Personal finance"] = get_similar_words(['loan','debt','income', 'finance', 'job', 'fired'], 
+                    top_number=30, nlp_model=glove_model)
+glove_clusters_dict["Route 3: Emergency"] = get_similar_words(['danger','attack', 'threat', 'physical'], 
+                    top_number=30, nlp_model=glove_model)
 # Print some similar words
 # for k,v in glove_clusters_dict.items():
 #     print(k, ": ", v[:], "...", len(v))
@@ -209,26 +210,26 @@ bert_model = torch.hub.load('huggingface/pytorch-transformers', 'model', 'bert-b
 # Function to apply to input text and clusters for embedding
 def embed_text_with_bert(text, tokenizer, model):
     tokenized_text = tokenizer.encode(text)
-    print("EMBED WITH BERT: TOKENIZED TEXT================")
+    # print("EMBED WITH BERT: TOKENIZED TEXT================")
     # print(tokenized_text)
 
     tokenized_text = np.array(tokenized_text)[None,:]  
-    print("EMBED WITH BERT: TOKENIZED TEXT NP ARRAY================")
+    # print("EMBED WITH BERT: TOKENIZED TEXT NP ARRAY================")
     # print(tokenized_text.shape) # returned (1, 9) for 7 words, bert tokenizer inserts special tokens at beginning and end of sentences (101 and 102)
     # print(tokenized_text)
 
     tokenized_text = torch.from_numpy(tokenized_text) # bert model expects a torch tensor
-    print("EMBED WITH BERT: TOKENIZED TEXT TORCH TENSOR================")
+    # print("EMBED WITH BERT: TOKENIZED TEXT TORCH TENSOR================")
     # print(tokenized_text.shape) # as above
     # print(tokenized_text)
 
     bert_embedded_text = model(tokenized_text)
-    print("EMBED WITH BERT: BERT EMBEDDED TEXT================")
+    # print("EMBED WITH BERT: BERT EMBEDDED TEXT================")
     # print(bert_embedded_text)
 
     bert_embedded_text_array = bert_embedded_text[0][0][1:-1].detach().numpy() 
-    print("EMBED WITH BERT: BERT EMBEDDED TEXT ARRAY================")
-    print(bert_embedded_text_array.shape) # returns (no of words, 768)
+    # print("EMBED WITH BERT: BERT EMBEDDED TEXT ARRAY================")
+    # print(bert_embedded_text_array.shape) # returns (no of words, 768)
     # print(bert_embedded_text_array)
 
     return bert_embedded_text_array
@@ -299,17 +300,17 @@ for k, v in glove_clusters_dict.items():
     mean_vec_per_cluster_dict[k] = mean_vec_per_cluster_array[i]
     i = i + 1
 print("MEAN VECTOR PER CLUSTER (DICT)==========")
-print(mean_vec_per_cluster_dict)
+# print(mean_vec_per_cluster_dict)
 
 # MODEL ALGORITHM==============================================
 
 # Compute cosine similarities
 #  TO DO: Is the issue here? Could the similarities be being computed wrong?
 print("MEAN VEC PER INPUT TEXT (DICT)============")
-print(mean_vec_per_input_text_dict)
+# print(mean_vec_per_input_text_dict)
 
 # Create text input column
-dtf_similarity_scores_by_input_text_and_cluster = pd.DataFrame(columns=["input"])
+dtf_similarity_scores_by_input_text_and_cluster = pd.DataFrame(columns=["Input"])
 # Create 1 column per route
 for cluster, cluster_vector in mean_vec_per_cluster_dict.items():
     dtf_similarity_scores_by_input_text_and_cluster[cluster] = ""
@@ -317,98 +318,85 @@ for cluster, cluster_vector in mean_vec_per_cluster_dict.items():
 # Populate cosine similarities
 keys_clst = list(mean_vec_per_cluster_dict.keys())
 keys_ipt = list(mean_vec_per_input_text_dict.keys())
-
-print("CLUSTER VECTOR======")
-print(mean_vec_per_cluster_dict.get(keys_clst[0]).shape)
-print(mean_vec_per_cluster_dict.get(keys_clst[0]))
-print("INPUT TEXT VECTOR======")
-print(mean_vec_per_input_text_dict.get(keys_ipt[0]).shape)
-print(mean_vec_per_input_text_dict.get(keys_ipt[0]))
-
+# print("CLUSTER VECTOR======")
+# print(mean_vec_per_cluster_dict.get(keys_clst[0]).shape)
+# print(mean_vec_per_cluster_dict.get(keys_clst[0]))
+# print("INPUT TEXT VECTOR======")
+# print(mean_vec_per_input_text_dict.get(keys_ipt[0]).shape)
+# print(mean_vec_per_input_text_dict.get(keys_ipt[0]))
 for input, input_vector in mean_vec_per_input_text_dict.items():
-    # TO DO: make vectors as : array_vec_1 = np.array([[12,41,60,11,21]])
-
     dtf_similarity_scores_by_input_text_and_cluster.loc[len(dtf_similarity_scores_by_input_text_and_cluster.index)] = [input,  
     metrics.pairwise.cosine_similarity([input_vector], [mean_vec_per_cluster_dict.get(keys_clst[0])]),
     metrics.pairwise.cosine_similarity([input_vector], [mean_vec_per_cluster_dict.get(keys_clst[1])]),
     metrics.pairwise.cosine_similarity([input_vector], [mean_vec_per_cluster_dict.get(keys_clst[2])])]
 
+# Create 1 column per route for rescaling
+for cluster, cluster_vector in mean_vec_per_cluster_dict.items():
+    dtf_similarity_scores_by_input_text_and_cluster["Rescaled: "+cluster] = ""
+# Create 1 column for predicted label
+dtf_similarity_scores_by_input_text_and_cluster["Predicted"] = ""
+# Rescale
+for i in range(len(dtf_similarity_scores_by_input_text_and_cluster.index)):
+    # If all 3 route scores = 0, then assign 1 to random route in the rescaled columns
+    dtf_similarity_scores_by_input_text_and_cluster.iloc[i,1:4][0] = int(dtf_similarity_scores_by_input_text_and_cluster.iloc[i,1:4][0])
+    if sum(dtf_similarity_scores_by_input_text_and_cluster.iloc[i,1:4]) == 0: # Note: sum does work
+        random_assigned_index = random.randint(4, 6) # Note: not tested
+        dtf_similarity_scores_by_input_text_and_cluster.iloc[i,random_assigned_index] = 1
+    # Track max score
+    max_score = 0
+    max_pred = ""
+    # For each cluster score column (cols 1, 2, 3)
+    for j in range(1, 4):
+        # Add rescaled scores to 3 empty rescaled score columns. Note: rescaling does work
+        dtf_similarity_scores_by_input_text_and_cluster.iloc[i,j+3] = dtf_similarity_scores_by_input_text_and_cluster.iloc[i,j] / sum(dtf_similarity_scores_by_input_text_and_cluster.iloc[i,1:4])
+        # Determine highest score: right now using initial highest score (not scaled one, but should be the same) 
+        if dtf_similarity_scores_by_input_text_and_cluster.iloc[i,j][0] > max_score:
+            max_score = dtf_similarity_scores_by_input_text_and_cluster.iloc[i,j][0] 
+            max_pred = dtf_similarity_scores_by_input_text_and_cluster.columns[j] 
+    # TO DO: set min for max_score (if below a certain threshold then get user to pick path themselves)
+    # Set prediction based on highest score
+    dtf_similarity_scores_by_input_text_and_cluster.iloc[i, 7] = max_pred
+
+# Create 1 column for true label
+dtf_similarity_scores_by_input_text_and_cluster["True"] = dtf_input_data["category"]
+
 print("DTF SIMILARITIES======")
 print(dtf_similarity_scores_by_input_text_and_cluster)
+# print("DTF SIMILARITIES SCORES======")
+# print(dtf_similarity_scores_by_input_text_and_cluster["Route 1: Learning"])  
+# print(dtf_similarity_scores_by_input_text_and_cluster["Route 2: Personal finance"]) 
+# print(dtf_similarity_scores_by_input_text_and_cluster["Route 3: Emergency"]) 
+# print("DTF SIMILARITIES RESCALED SCORES======")
+# print(dtf_similarity_scores_by_input_text_and_cluster["Rescaled: Route 1: Learning"])  
+# print(dtf_similarity_scores_by_input_text_and_cluster["Rescaled: Route 2: Personal finance"]) 
+# print(dtf_similarity_scores_by_input_text_and_cluster["Rescaled: Route 3: Emergency"]) 
 
-# Didn't work: expecting 2D input but got 1D
-# i = 0
-# for text in dtf_input_data:
-#     dtf_similarity_scores_by_input_text_and_cluster.loc[len(dtf_similarity_scores_by_input_text_and_cluster)] = [text, metrics.pairwise.cosine_similarity(mean_vec_per_input_text_array[i], mean_vec_per_input_text_array[0]),
-#     metrics.pairwise.cosine_similarity(mean_vec_per_input_text_array[i], mean_vec_per_input_text_array[1]),
-#     metrics.pairwise.cosine_similarity(mean_vec_per_input_text_array[i], mean_vec_per_input_text_array[2])]
-#     i = i + 1
+# EVALUATE=======================================================
 
-# For ref
-# dtf_glove_clusters_as_strings.loc[len(dtf_glove_clusters_as_strings.index)] = [k, cluster_words_string]
+# Accuracy, Precision, Recall
+accuracy = metrics.accuracy_score(dtf_similarity_scores_by_input_text_and_cluster["True"], dtf_similarity_scores_by_input_text_and_cluster["Predicted"])
+print("Accuracy:",  round(accuracy,3)) # Note: tested
+print("Detail:")
+print(metrics.classification_report(dtf_similarity_scores_by_input_text_and_cluster["True"], dtf_similarity_scores_by_input_text_and_cluster["Predicted"]))
 
-# For ref
-# for k,v in glove_clusters_dict.items():
-#     size = len(dtf_glove_cluster_words_coordinates) + len(v)
-#     dtf_next_cluster = pd.DataFrame(glove_word_encodings[len(dtf_glove_cluster_words_coordinates):size], columns=["x","y"], 
-#                              index=v)
-#     dtf_next_cluster["cluster"] = k
-#     dtf_glove_cluster_words_coordinates = pd.concat([dtf_glove_cluster_words_coordinates, dtf_next_cluster])
+# Plot confusion matrix
+classes_array = []
+for j in range(1, 4):
+    classes_array.append(dtf_similarity_scores_by_input_text_and_cluster.columns[j])
+classes = np.array(classes_array)
 
-# For np
-# similarities = np.array([metrics.pairwise.cosine_similarity(mean_vec_per_input_text_dict, v)
-#             for k,v in mean_vec_per_cluster_dict.items()])
+cm = metrics.confusion_matrix(dtf_similarity_scores_by_input_text_and_cluster["True"], dtf_similarity_scores_by_input_text_and_cluster["Predicted"])
+fig, ax = plt.subplots()
+sns.heatmap(cm, annot=True, fmt='d', ax=ax, cmap=plt.cm.Blues, 
+            cbar=False)
+ax.set(xlabel="Predicted", ylabel="True", xticklabels=classes, 
+       yticklabels=classes, title="Confusion matrix")
+plt.yticks(rotation=0)
+fig, ax = plt.subplots(nrows=1, ncols=2)
 
+plt.show()
 
-# print("SIMILARITIES============")
-# similarities = similarities.reshape(25, 3)
-# print(similarities.shape)
-# print(similarities)
-
-# TO DO: SOMEHOW PUT EVERYTHING IN THE SAME DTF (INPUT TEXT, REAL VALUE, PREDICTION) so I know not doing wrong things
-
-# # adjust and rescale
-# labels = list(mean_vec_per_cluster_dict.keys()) 
-# for i in range(len(similarities)):
-#     # assign randomly if there is no similarity
-#     if sum(similarities[i]) == 0:
-#        similarities[i] = [0]*len(labels)
-#        similarities[i][np.random.choice(range(len(labels)))] = 1
-#     # rescale so they sum = 1
-#     similarities[i] = similarities[i] / sum(similarities[i])
-
-# # classify the label with highest similarity score
-# predicted_prob = similarities
-# predicted = [labels[np.argmax(pred)] for pred in predicted_prob]
-
-# print("PREDICTED LABELS========")
-# print(predicted) 
-
-# # EVALUATE=======================================================
-
-# y_test = df["category"].values
-# classes = np.unique(y_test)
-# y_test_array = pd.get_dummies(y_test, drop_first=False).values
-
-# # Accuracy, Precision, Recall
-# accuracy = metrics.accuracy_score(y_test, predicted)
-# auc = metrics.roc_auc_score(y_test, predicted_prob, 
-#                             multi_class="ovr")
-# print("Accuracy:",  round(accuracy,2))
-# print("Auc:", round(auc,2))
-# print("Detail:")
-# print(metrics.classification_report(y_test, predicted))
-
-# # Plot confusion matrix
-# cm = metrics.confusion_matrix(y_test, predicted)
-# fig, ax = plt.subplots()
-# sns.heatmap(cm, annot=True, fmt='d', ax=ax, cmap=plt.cm.Blues, 
-#             cbar=False)
-# ax.set(xlabel="Pred", ylabel="True", xticklabels=classes, 
-#        yticklabels=classes, title="Confusion matrix")
-# plt.yticks(rotation=0)
-# fig, ax = plt.subplots(nrows=1, ncols=2)
-
+# NOT DONE FROM HERE (Further eval and interpretation)
 # # Plot roc
 # for i in range(len(classes)):
 #     fpr, tpr, thresholds = metrics.roc_curve(y_test_array[:,i],  
@@ -424,7 +412,7 @@ print(dtf_similarity_scores_by_input_text_and_cluster)
 #           title="Receiver operating characteristic")
 # ax[0].legend(loc="lower right")
 # ax[0].grid(True)
-    
+
 # # Plot precision-recall curve
 # for i in range(len(classes)):
 #     precision, recall, thresholds = metrics.precision_recall_curve(
