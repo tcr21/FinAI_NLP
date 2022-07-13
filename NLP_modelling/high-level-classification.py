@@ -103,12 +103,13 @@ def get_similar_words(list_words, top_number, nlp_model):
 
 # Create dictionary {category:[keywords]}
 clusters_dict = {}
-clusters_dict["Route 1: Learning"] = get_similar_words(['learn','understand','skills','education'], 
-                  top_number=10, nlp_model=glove_model)
-clusters_dict["Route 2: Personal finance"] = get_similar_words(['loan','need','money','family', 'debt', 'help', 'budget', 'household']
-                  , top_number=10, nlp_model=glove_model)
-clusters_dict["Route 3: Emergency"] = get_similar_words(['attack','threat','danger', 'death'], 
-                   top_number=10, nlp_model=glove_model)
+clusters_dict["Route 1: ENTERTAINMENT"] = get_similar_words(['celebrity','cinema','movie','music'], 
+                  top_number=30, nlp_model=glove_model)
+clusters_dict["Route 2: POLITICS"] = get_similar_words(['gop','clinton','president','obama','republican']
+                  , top_number=30, nlp_model=glove_model)
+clusters_dict["Route 3: TECH"] = get_similar_words(['amazon','android','app','apple','facebook',
+                   'google','tech'], 
+                   top_number=30, nlp_model=glove_model)
 # Print some similar words
 # for k,v in clusters_dict.items():
 #     print(k, ": ", v[:], "...", len(v))
@@ -151,8 +152,8 @@ for i in range(len(dtf)):
                xytext=(5,2), textcoords='offset points', 
                ha='right', va='bottom')
 
-# print(dtf)
-# plt.show()
+print(dtf)
+plt.show()
 
 
 # MAP DATA (USER ANSWERS) ON CLUSTERS==============================================
@@ -219,11 +220,19 @@ clusters_mean_vecs_list = [embed_text_with_bert(text, bert_tokenizer, bert_model
 # create feature matrix
 Y = np.array(clusters_mean_vecs_list)
 
+print("Printing Y========")
+print(Y)
+print("Printing Y shape========")
+print(Y.shape)
+
 # create clusters dict mean
 clusters_mean_vecs_dict = {}
 clusters_mean_vecs_dict["Route 1: Learning"] = Y[0]
 clusters_mean_vecs_dict["Route 2: Personal finance"] = Y[1]
 clusters_mean_vecs_dict["Route 3: Emergency"] = Y[2]
+
+print("CLUSTER MEAN VECTOR DICT======")
+print(clusters_mean_vecs_dict)
 
 # print("CLUSTER DATAFRAME======")
 # print(dtf)
@@ -232,13 +241,13 @@ clusters_mean_vecs_dict["Route 3: Emergency"] = Y[2]
 # print("CLUSTER FEATURE MATRIX======")
 # print(Y.shape) # Returned (3, 768) due to 3 clusters 
 # print(Y)
-# print("CLUSTER MEAN VECTOR DICT======")
-# print(clusters_mean_vecs_dict)
+
 
 
 # MODEL ALGORITHM==============================================
 
 # compute cosine similarities
+#  TO DO: Is the issue here? Could the similarities be being computed wrong?
 similarities = np.array(
             [metrics.pairwise.cosine_similarity(X, Y)])
             # .T.tolist()[0] 
