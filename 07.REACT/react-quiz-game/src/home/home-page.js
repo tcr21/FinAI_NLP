@@ -1,11 +1,25 @@
 // TO DO: add loading, error handling etc.
 import ErrorMessage from "../common/error-message";
 import useUser from "../data/hooks/use-user";
+import axios from "axios";
+import { useState } from "react";
 
 // Sign in through google account (but could do through email and password if wanted to)
 function HomePage() {
+  // EDIT MADE 14/07
   const userState = useUser();
+  const [donkeyText, setDonkeyText] = useState(null);
 
+  // EDIT MADE 14/07
+  const callServer = () => {
+    axios
+      .get("http://127.0.0.1:5000/")
+      .then((res) => {
+        console.log(res);
+        setDonkeyText(res.data);
+      })
+      .catch((err) => console.error(err));
+  };
   let contents;
   if (userState.isSignedIn) {
     contents = (
@@ -38,6 +52,9 @@ function HomePage() {
         <ErrorMessage>Something went wrong. Please try again.</ErrorMessage>
       )}
       {contents}
+      {/* EDIT MADE 14/07 */}
+      <button onClick={() => callServer()}>Call Server</button>
+      <p>{donkeyText}</p>
     </main>
   );
 }
