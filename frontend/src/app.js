@@ -35,7 +35,7 @@ function App() {
   const userState = useUser();
 
   // ALTERNATIVE TO HAVING DATABASE
-  const quizContent = [{ question: "AXf", answer: "asdfsdadf" }];
+  // const quizContent = [{ question: "AXf", answer: "asdfsdadf" }];
 
   return (
     <>

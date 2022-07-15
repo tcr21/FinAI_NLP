@@ -36,7 +36,7 @@ else:
 
 # READ IN DATA===============================================================
 
-with open('initial-data.json', mode='r', errors='ignore') as json_file:
+with open('data/initial-data.json', mode='r', errors='ignore') as json_file:
     string = json_file.read()
 
 json_string = json.loads(string)
