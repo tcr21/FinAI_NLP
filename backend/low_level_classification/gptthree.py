@@ -1,13 +1,13 @@
 import os
 
-import openai
+import openai 
 from flask import Flask, redirect, render_template, request, url_for
 
 app = Flask(__name__)
 openai.api_key = os.getenv("OPENAI_API_KEY") 
 
 
-def get_response(text):
+def get_response_gpt(text):
     response = openai.Completion.create(
         model="text-davinci-002",
         prompt=generate_prompt(text),

@@ -1,38 +1,5 @@
-#===============================================================
 
-## for data
-import json
-from tkinter.messagebox import YES
-import pandas as pd
-import numpy as np
-from pyparsing import col
-from sklearn import metrics, manifold
 
-# for processing
-import torch
-import re
-import nltk
-
-# for plotting
-import matplotlib.pyplot as plt
-import seaborn as sns
-# for w2v
-import gensim
-import gensim.downloader as gensim_api
-# for bert
-import transformers
-
-import ssl
-import random
-
-# ERROR HANDLING ===============================================================
-
-try:
-    _create_unverified_https_context = ssl._create_unverified_context
-except AttributeError:
-    pass
-else:
-    ssl._create_default_https_context = _create_unverified_https_context
 
 # READ IN DATA===============================================================
 
