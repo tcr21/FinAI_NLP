@@ -1,0 +1,31 @@
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# TO DO: Uncomment this and delete .gitignore in React App
+# REACT====================================
+
+# # dependencies
+# 07.REACT/react-quiz-game/node_modules
+# 07.REACT/react-quiz-game/.pnp
+# 07.REACT/react-quiz-game.pnp.js
+
+# # testing
+# 07.REACT/react-quiz-game/coverage
+
+# # production
+# 07.REACT/react-quiz-game/build
+
+# # misc
+# 07.REACT/react-quiz-game/.DS_Store
+# 07.REACT/react-quiz-game/.env.local
+# 07.REACT/react-quiz-game/.env.development.local
+# 07.REACT/react-quiz-game/.env.test.local
+# 07.REACT/react-quiz-game/.env.production.local
+
+# 07.REACT/react-quiz-game/npm-debug.log*
+# 07.REACT/react-quiz-game/yarn-debug.log*
+# 07.REACT/react-quiz-game/yarn-error.log*
+# 07.REACT/react-quiz-game/.vercel
+
+# NLP====================================
+
+/venv
