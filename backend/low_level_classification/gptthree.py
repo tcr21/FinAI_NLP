@@ -7,23 +7,29 @@ app = Flask(__name__)
 openai.api_key = os.getenv("OPENAI_API_KEY") 
 
 
-def get_response_gpt(text):
+def get_response_gpt(user_input_json, res_bert):
     response = openai.Completion.create(
         model="text-davinci-002",
-        prompt=generate_prompt(text),
+        prompt=generate_prompt(user_input_json, res_bert),
         temperature=0.6,
     )
-    return response
+    response_value = response['choices'][0]['text']
+    return response_value
 
+# TO DO: See guide on prompts: replace animal param
+def generate_prompt(animal, user_input_json, res_bert):
+    user_input = user_input_json['message']['message']
+    if res_bert == "Route 1: Learning":
+            # TO DO : See guide on prompts: how to add both user input and additional prompt
+            return user_input + """Is the person more concerned about savings and budget, or about formal finance?
+            """.format(
+            animal.capitalize()
+        )
 
-def generate_prompt(animal):
-    return """Suggest three names for an animal that is a superhero.
+    elif res_bert == "Route 2: Personal finance":
+        # TO DO
 
-Animal: Cat
-Names: Captain Sharpclaw, Agent Fluffball, The Incredible Feline
-Animal: Dog
-Names: Ruff the Protector, Wonder Canine, Sir Barks-a-Lot
-Animal: {}
-Names:""".format(
-        animal.capitalize()
-    )
+    else:
+        # TO DO Emergency
+    
+    
