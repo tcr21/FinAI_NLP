@@ -9,12 +9,11 @@ Route 3: Emergency
 1. What is your primary concern when it comes to finance?
 
 // on hold
+2. How would you describe your financial needs? 
 
-2. Please describe your personal situation
+3. Please describe your personal situation
 
-3. How would you describe your financial situation?
-
-4. How would you describe your financial needs? 
+4. How would you describe your financial situation?
 
 5. What is your income?
 

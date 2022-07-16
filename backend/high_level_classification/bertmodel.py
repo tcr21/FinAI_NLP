@@ -16,11 +16,14 @@ from bertmodel_utilities.evaluate import plot_confusion_matrix
 
 # Training data dtf (optional), Clusters dict, User input text
 
-def get_response_bert(user_input):
+def get_response_bert(user_input_json):
     # Read in "training" data (optional)
     dirname = os.path.dirname(__file__)
     dtf_training_data = read_training_data_into_dtf(os.path.join(dirname, '../data/initial-data.json'))
-    
+    # Read in user input json into string
+    # user_input = user_input_json.get('message')
+    user_input = user_input_json['message']['message']
+
     # Preprocess "training" data (optional)
     preprocess_training_data(dtf_training_data)
     # Preprocess user input
