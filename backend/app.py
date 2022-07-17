@@ -29,9 +29,9 @@ def start():
     print("TEST: start() function is running...")
     if request.method == "POST":
         user_input_json =  request.json # Get message value from callServer
-        print("User input:", user_input_json)
-        res = get_response_bert(user_input_json)
+        res_bert = get_response_bert(user_input_json)
+
+        res_gpt = get_response_gpt(user_input_json, res_bert)
+        res = res_bert+" : "+res_gpt # TBC if works to return 2 values to home page
         print("TEST: done running get_bert_response!")
-        # res = get_response_gpt(text)
-        # ret_val = res['choices'][0]['text']
         return res
