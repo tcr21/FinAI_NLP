@@ -17,19 +17,39 @@ def get_response_gpt(user_input_json, res_bert):
     return response_value
 
 # TO DO: See guide on prompts: replace animal param
-def generate_prompt(animal, user_input_json, res_bert):
+def generate_prompt(user_input_json, res_bert):
     user_input = user_input_json['message']['message']
     if res_bert == "Route 1: Learning":
-            # TO DO : See guide on prompts: how to add both user input and additional prompt
-            return user_input + """Is the person more concerned about savings and budget, or about formal finance?
-            """.format(
-            animal.capitalize()
+        return """Which quiz is better for the person who wrote this account?
+        Formal finance quiz
+        Saving & budgeting quiz
+        Account: {}
+        """.format(
+        user_input.capitalize()
         )
-
     elif res_bert == "Route 2: Personal finance":
-        # TO DO
-
+        return """Which service is better for the person who wrote this account? 
+        Budgeting calculator
+        Interest rate calculator
+        Account: {}
+            """.format(
+            user_input.capitalize()
+            )
     else:
-        # TO DO Emergency
+        return """Can you confirm this person is in danger and needs to call an emergency contact? 
+        If yes, say: Please contact an emergency number.
+        Account: {}
+            """.format(
+            user_input.capitalize()
+            )
     
-    
+        # For ref:
+        # return """Suggest three names for an animal that is a superhero.
+            # Animal: Cat
+            # Names: Captain Sharpclaw, Agent Fluffball, The Incredible Feline
+            # Animal: Dog
+            # Names: Ruff the Protector, Wonder Canine, Sir Barks-a-Lot
+            # Animal: {}
+            # Names:""".format(
+            #         animal.capitalize()
+            #     )
