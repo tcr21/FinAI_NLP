@@ -6,6 +6,7 @@ import QuizPreview from "../quizzes/quiz-preview";
 
 function ResultsListing({ route, serviceName }) {
   let contents;
+  console.log("SERVICE NAME", serviceName);
   const quiz = useQuizOnceByName(serviceName); // TO EDIT: compiler didn't want hook to be conditional but shouldn't load all quizzes every time
   console.log("TEST QUIZ:", quiz);
 

@@ -1,7 +1,7 @@
 import os 
 import sys
 import openai
-from flask import Flask, redirect, render_template, request, url_for
+from flask import Flask, redirect, render_template, request, url_for, jsonify
 from flask_cors import CORS, cross_origin
 
 # Import bert
@@ -31,6 +31,6 @@ def start():
         user_input_json =  request.json # Get message value from callServer
         res_bert = get_response_bert(user_input_json)
         res_gpt = get_response_gpt(user_input_json, res_bert)
-        res = res_bert+" | "+res_gpt 
+        res = jsonify(route=res_bert, service=res_gpt)
         print("TEST: done running get_bert_response!")
         return res

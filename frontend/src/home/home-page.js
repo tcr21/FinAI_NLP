@@ -10,7 +10,7 @@ function HomePage() {
   const userState = useUser();
   const [message, setMessage] = useState("");
   // TO FIX
-  const [recommendedRoute, setRecommendedRoute] = useState(null);
+  // const [recommendedRoute, setRecommendedRoute] = useState(null);
   const [recommendedService, setRecommendedService] = useState(null); // Didn't work
 
   const onMessageChange = (e) => setMessage(e.target.value);
@@ -21,13 +21,11 @@ function HomePage() {
         message,
       })
       .then((res) => {
-        console.log("Receiving server output:", res.data); // res.data is a string, res is json
-        let res_route = res.data.split(" |")[0]; // FIND BETTER ALTERNATIVE
-        let res_service = res.data.split("| ")[1];
-        console.log("Res route:", res_route);
-        console.log("Res_service", res_service);
-        setRecommendedService(res_service);
-        setRecommendedRoute(res_route);
+        console.log("Receiving server output:", res);
+        // console.log("Res route:", res.data.route);
+        // console.log("Res_service", res.data.service);
+        setRecommendedService(res);
+        // setRecommendedRoute(res.data.route);
       })
       .catch((err) => console.error(err));
   };
@@ -58,7 +56,7 @@ function HomePage() {
         {/* TO DO: Redirect to right page (add route to app.js) */}
         <ResultsPage
           // TO FIX
-          route={recommendedRoute}
+          // route={recommendedRoute}
           serviceName={recommendedService}
         ></ResultsPage>
         <button onClick={userState.signOut} disabled={userState.isLoading}>
@@ -80,7 +78,7 @@ function HomePage() {
     );
   }
 
-  console.log("recommendedRoute:", recommendedRoute);
+  // console.log("recommendedRoute:", recommendedRoute);
   console.log("recommendedService:", recommendedService); // Is null for some reason
 
   return (

@@ -7,6 +7,8 @@ function useQuizOnceByName(quizName) {
     status: "loading",
     snapshot: null,
     error: null,
+    docID: null,
+    docData: null,
   });
 
   useEffect(() => {
