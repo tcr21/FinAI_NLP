@@ -11,10 +11,12 @@ function HomePage() {
   const userState = useUser();
   const [message, setMessage] = useState("");
   const [recommendedRouteService, setRecommendedRouteService] = useState(null);
+  const [isLoading, setLoading] = useState(null);
 
   const onMessageChange = (e) => setMessage(e.target.value);
 
   const callServer = (message) => {
+    setLoading(true);
     axios
       .post("http://127.0.0.1:5000/", {
         message,
@@ -22,37 +24,67 @@ function HomePage() {
       .then((res) => {
         console.log("Receiving server output:", res);
         setRecommendedRouteService(res);
+        setLoading(false);
       })
       .catch((err) => console.error(err));
   };
 
+  console.log("recommendedRouteService", recommendedRouteService);
+
   let contents;
 
   if (userState.isSignedIn) {
-    contents = (
-      <>
-        {/* <p>TO DO: put user's quizzes/ dashboard/ welcome back message on this page</p> */}
-        <h3>Please answer the following questions.</h3>
-        <form action="#" method="post">
-          <p>1. What is your primary concern when it comes to finance?</p>
-          <p>
-            <input
-              type="text"
-              name="message"
-              id="message"
-              value={message}
-              onChange={onMessageChange}
-            />
-          </p>
-        </form>
-        <button onClick={() => callServer({ message })}>Submit answers</button>
-
-        <ResultsPage routeServiceName={recommendedRouteService}></ResultsPage>
-        <button onClick={userState.signOut} disabled={userState.isLoading}>
-          {userState.isLoading ? "Signing out..." : "Sign out"}
-        </button>
-      </>
-    );
+    if (isLoading) {
+      contents = (
+        <>
+          <h3>Please answer the following questions.</h3>
+          <form action="#" method="post">
+            <p>1. What is your primary concern when it comes to finance?</p>
+            <p>
+              <input
+                type="text"
+                name="message"
+                id="message"
+                value={message}
+                onChange={onMessageChange}
+              />
+            </p>
+          </form>
+          <button onClick={() => callServer({ message })} disabled={isLoading}>
+            Submit answers
+          </button>
+          <LoadingSpinner />
+          <button onClick={userState.signOut} disabled={userState.isLoading}>
+            {userState.isLoading ? "Signing out..." : "Sign out"}
+          </button>
+        </>
+      );
+    } else {
+      contents = (
+        <>
+          <h3>Please answer the following questions.</h3>
+          <form action="#" method="post">
+            <p>1. What is your primary concern when it comes to finance?</p>
+            <p>
+              <input
+                type="text"
+                name="message"
+                id="message"
+                value={message}
+                onChange={onMessageChange}
+              />
+            </p>
+          </form>
+          <button onClick={() => callServer({ message })} disabled={isLoading}>
+            Submit answers
+          </button>
+          <ResultsPage routeServiceName={recommendedRouteService}></ResultsPage>
+          <button onClick={userState.signOut} disabled={userState.isLoading}>
+            {userState.isLoading ? "Signing out..." : "Sign out"}
+          </button>
+        </>
+      );
+    }
   } else {
     contents = (
       <>

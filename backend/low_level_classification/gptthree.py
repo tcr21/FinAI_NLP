@@ -16,15 +16,14 @@ def get_response_gpt(user_input_json, res_bert):
     response_value = response['choices'][0]['text']
     return response_value
 
-# TO DO: See guide on prompts: replace animal param
 def generate_prompt(user_input_json, res_bert):
     user_input = user_input_json['message']['message']
     if res_bert == "Route 1: Learning":
         return """Solutions: Formal finance; Saving and borrowing
-        Account: I want to learn about formal banks
-        Solution: Formal finance
+        Account: I want to learn about products in finance
+        Solution: Financial products quiz
         Account: I want to learn about how to save money
-        Solution: Saving and borrowing
+        Solution: Saving and borrowing quiz
         Account: {}
         Solution: 
         """.format(
@@ -42,8 +41,7 @@ def generate_prompt(user_input_json, res_bert):
             user_input.capitalize()
             )
     else:
-        return """Can you confirm this person is in danger and needs to call an emergency contact? 
-        If yes, say: Please contact an emergency number.
+        return """If this person is in danger and needs to call an emergency contact, say: Please contact an emergency number.
         Account: {}
             """.format(
             user_input.capitalize()

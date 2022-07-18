@@ -1,23 +1,14 @@
-// import ConfettiDemo from "./demos/dependencies/confetti-demo";
-// import MusicalButton from "./demos/dependencies/musical-button";
-// import ChatMessage from "./demos/props/chat-message";
-// import SpeakButton from "./demos/props/speak-button";
-// import WelcomeMessage from "./demos/props/welcome-message";
-// import ClickButton from "./demos/state/click-button";
-// import SpeakForm from "./demos/state/speak-form";
-
 // TR: Replaced Switch by Routes based on version update
 import { BrowserRouter, Route, Routes } from "react-router-dom"; // removed Link import
 import HomePage from "./home/home-page";
 import QuizPage from "./play-quiz/play-quiz-page";
-// import DemosPage from "./demos/demos-page";
-// import AboutPage from "./about/about-page";
 import PageHeader from "./common/page-header";
 import PageFooter from "./common/page-footer";
 import LoadingSpinner from "./common/loading-spinner";
 import useUser, { UserProvider } from "./data/hooks/use-user";
 import NotFoundPage from "./not-found/page-not-found";
 import QuizzesPage from "./quizzes/quizzes-page";
+import PersonalFinancePage from "./personal-finance/personal-finance-page";
 
 function ProviderWrappedApp() {
   return (
@@ -48,8 +39,13 @@ function App() {
         Note: order matters. If 2 lines have same path, will only show first line
         TR: had to do element notation as opposed to usual within Route because HomePage not route component*/}
           <Route path="/" exact element={<HomePage />}></Route>
-          <Route path="/quizzes" exact element={<QuizzesPage />}></Route>
+          <Route path="/learning" exact element={<QuizzesPage />}></Route>
           <Route path="/play-quiz/:id" exact element={<QuizPage />}></Route>
+          <Route
+            path="/personal-finance"
+            exact
+            element={<PersonalFinancePage />}
+          ></Route>
           {/* <Route path="/about" exact element={<AboutPage />}></Route> */}
           {/* <Route path="/demos" exact element={<DemosPage />}></Route> */}
           <Route path="*" exact element={<NotFoundPage />}></Route>

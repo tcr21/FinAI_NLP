@@ -54,8 +54,9 @@ function ResultsListing({ route, serviceName }) {
       );
     }
   } else if (route === "Route 2: Personal finance") {
+    console.log("serviceName.trim: ", serviceName.trim());
     if (
-      serviceName.trim() !== "Budget calculator" ||
+      serviceName.trim() !== "Budget calculator" &&
       serviceName.trim() !== "Loan calculator"
     ) {
       contents = (
