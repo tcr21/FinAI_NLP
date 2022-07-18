@@ -33,9 +33,9 @@ def generate_prompt(user_input_json, res_bert):
     elif res_bert == "Route 2: Personal finance":
         return """Solutions: Budgeting calculator; Interest rate calculator
         Account: I need help with my personal finances especially a budgeting and saving
-        Solution: Budgeting calculator
+        Solution: Budget calculator
         Account: I need help with my personal finances especially loans and interest rates
-        Solution: Interest rate calculator
+        Solution: Loan calculator
         Account: {}
         Solution:
             """.format(
@@ -49,13 +49,3 @@ def generate_prompt(user_input_json, res_bert):
             user_input.capitalize()
             )
     
-        # For ref:
-        # return """Suggest three names for an animal that is a superhero.
-            # Animal: Cat
-            # Names: Captain Sharpclaw, Agent Fluffball, The Incredible Feline
-            # Animal: Dog
-            # Names: Ruff the Protector, Wonder Canine, Sir Barks-a-Lot
-            # Animal: {}
-            # Names:""".format(
-            #         animal.capitalize()
-            #     )

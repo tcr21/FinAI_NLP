@@ -1,7 +1,7 @@
 import ResultsListing from "./results-listing";
 
 function ResultsPage({ routeServiceName }) {
-  if (routeServiceName === null) return <p>Waiting for user input</p>;
+  if (routeServiceName === null) return <></>;
   return (
     <main>
       <h1>Results</h1>
