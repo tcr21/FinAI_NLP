@@ -9,9 +9,7 @@ import ResultsPage from "../results/results-page";
 function HomePage() {
   const userState = useUser();
   const [message, setMessage] = useState("");
-  // TO FIX
-  // const [recommendedRoute, setRecommendedRoute] = useState(null);
-  const [recommendedService, setRecommendedService] = useState(null); // Didn't work
+  const [recommendedRouteService, setRecommendedRouteService] = useState(null); // Didn't work
 
   const onMessageChange = (e) => setMessage(e.target.value);
 
@@ -22,10 +20,7 @@ function HomePage() {
       })
       .then((res) => {
         console.log("Receiving server output:", res);
-        // console.log("Res route:", res.data.route);
-        // console.log("Res_service", res.data.service);
-        setRecommendedService(res);
-        // setRecommendedRoute(res.data.route);
+        setRecommendedRouteService(res);
       })
       .catch((err) => console.error(err));
   };
@@ -54,11 +49,7 @@ function HomePage() {
         </form>
         <button onClick={() => callServer({ message })}>Submit answers</button>
         {/* TO DO: Redirect to right page (add route to app.js) */}
-        <ResultsPage
-          // TO FIX
-          // route={recommendedRoute}
-          serviceName={recommendedService}
-        ></ResultsPage>
+        <ResultsPage routeServiceName={recommendedRouteService}></ResultsPage>
         <button onClick={userState.signOut} disabled={userState.isLoading}>
           {userState.isLoading ? "Signing out..." : "Sign out"}
         </button>
@@ -77,9 +68,6 @@ function HomePage() {
       </>
     );
   }
-
-  // console.log("recommendedRoute:", recommendedRoute);
-  console.log("recommendedService:", recommendedService); // Is null for some reason
 
   return (
     <main>

@@ -21,21 +21,14 @@ function useQuizOnceByName(quizName) {
         docData: null,
       });
       try {
-        // TO FIX
         // Get gives promise to doc snapshot
-        console.log("QUIZ NAME", quizName);
         const q = query(
           collection(db, "Quizzes"),
-          where("title", "==", quizName.trim()) // FIND BETTER ALTERNATIVE
+          where("title", "==", quizName.trim())
         );
-        console.log("TEST QUERY", q);
         const snapshot = await getDocs(q);
-        console.log("QUERY SNAPSHOT", snapshot);
         snapshot.forEach((doc) => {
-          // doc.data() is never undefined for query doc snapshots
-          console.log("TEST DOCS");
-          console.log(doc.id, " => ", doc.data());
-          // TO CLEAN UP / TO FIX
+          // NOTE: if had multiple quizzes (docs) in snapshot, would be updating it to each doc and ultimately to the last doc
           setQuizState({
             status: "success",
             snapshot: snapshot,
@@ -50,37 +43,22 @@ function useQuizOnceByName(quizName) {
       }
     }
     getDocument();
-  }, [quizName]); // When quizName changes, we do a new get. TO FIX
-
-  console.log(quizState);
+  }, [quizName]);
 
   const { status, snapshot, error, docID, docData } = quizState;
 
-  // TO CLEAN UP / TO FIX
-  // let id;
-  // let exists;
-  // let data;
-  // // See documentation on DocSnapshot
-  // // Our defined API
-  // if (snapshot) {
-  //   id = snapshot.id;
-  //   exists = snapshot.exists;
-  //   data = snapshot.data();
-  // }
-
-  // Note firebase will not throw error if collection id does not exist, but exists boolean below will be false
-  // console.log("QUIZ ID", id);
-  // return {
-  //   id,
-  //   exists,
-  //   data,
-  //   status,
-  //   error,
-  // };
+  let exists;
+  if (snapshot) {
+    exists = snapshot.exists;
+  }
 
   return {
+    status,
+    snapshot,
+    error,
     docID,
     docData,
+    exists,
   };
 }
 
