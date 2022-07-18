@@ -1,9 +1,14 @@
 import { Link } from "react-router-dom";
+import ErrorMessage from "../common/error-message";
 import "./quiz-preview.css";
 
 // Takes quiz ID and data as properties, and formats in card format with title, tags, owner name, description etc. on page
 
 function QuizPreview({ id, data }) {
+  // Duplicate error handling with results listing
+  if (data === null || data === undefined)
+    return <ErrorMessage>Something went wrong. Please try again.</ErrorMessage>;
+
   let { title, tags, description, ownerName } = data;
 
   // Defensive coding
