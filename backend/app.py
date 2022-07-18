@@ -32,6 +32,5 @@ def start():
         res_bert = get_response_bert(user_input_json)
         res_gpt = get_response_gpt(user_input_json, res_bert)
         res = res_bert+" | "+res_gpt 
-        # res = [res_bert, res_gpt] # Alternative
         print("TEST: done running get_bert_response!")
         return res

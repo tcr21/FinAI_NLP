@@ -6,34 +6,39 @@ import QuizPreview from "../quizzes/quiz-preview";
 
 function ResultsListing({ route, serviceName }) {
   let contents;
-  const quiz = useQuizOnceByName(serviceName);
+  const quiz = useQuizOnceByName(serviceName); // TO EDIT: compiler didn't want hook to be conditional but shouldn't load all quizzes every time
+  console.log("TEST QUIZ:", quiz);
 
-  if (route === "Route 1: Learning") {
-    //Create effect that runs when component mounts so we can do our fetching
-    if (quiz.status === "loading") {
-      contents = <LoadingSpinner />;
-    }
-    if (quiz.status === "error") {
-      contents = (
-        <ErrorMessage>Something went wrong. Please try again.</ErrorMessage>
-      );
-    }
-    if ((quiz.exists = false)) return <p>Quiz no longer exists.</p>;
+  // TO FIX (Once sort out null setRecommnededRoute)
+  // if (route === "Route 1: Learning") {
+  //Create effect that runs when component mounts so we can do our fetching
+  // TO FIX ERROR HANDLING
+  // if (quiz.status === "loading") {
+  //   contents = <LoadingSpinner />;
+  // }
+  // if (quiz.status === "error") {
+  //   contents = (
+  //     <ErrorMessage>Something went wrong. Please try again.</ErrorMessage>
+  //   );
+  // }
+  // if (quiz.exists === false) return <p>Quiz not found.</p>;
 
-    contents = (
-      <>
-        <h2>
-          Sounds like you need to learn more about finance. Based on what you've
-          told us, we recommend:{" "}
-        </h2>
-        <ul className="quiz-listing">
-          <li key={quiz.id}>
-            <QuizPreview id={quiz.id} data={quiz.data} />
-          </li>
-        </ul>
-      </>
-    );
-  } else if (route === "Route 2: Personal finance") {
+  contents = (
+    <>
+      <h2>
+        Sounds like you need to learn more about finance. Based on what you've
+        told us, we recommend:{" "}
+      </h2>
+      <ul className="quiz-listing">
+        <li key={quiz.docID}>
+          <QuizPreview id={quiz.docID} data={quiz.docData} />
+        </li>
+      </ul>
+    </>
+  );
+  //}
+  // else
+  if (route === "Route 2: Personal finance") {
     contents = (
       <>
         <h2>
@@ -49,8 +54,8 @@ function ResultsListing({ route, serviceName }) {
         It sounds like you are at risk. Please contact emergency services.
       </h2>
     );
-  } else {
-    return <ErrorMessage>Something went wrong. Please try again.</ErrorMessage>;
+  } else if (route === null) {
+    return <ErrorMessage>No results found for your answer yet.</ErrorMessage>;
   }
 
   return <>{contents}</>;

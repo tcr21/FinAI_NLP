@@ -21,22 +21,19 @@ function HomePage() {
         message,
       })
       .then((res) => {
-        console.log("Receiving server output:", res);
-        // TO FIX
-        // let res_route = res.data.split(" |")[0]; // TBC if was issue or not. Have res as string in app.py for this
-        // let res_service = res.data.split("| ")[1];
-        // setRecommendedRoute(res_route);
-        // setRecommendedService(res_service);
-        setRecommendedRoute(res.data);
-        setRecommendedService(res.data);
-        // let parsedRes = JSON.parse(res.data); // TBC if was issue or not. Make res an array in app.py for this
-        // setRecommendedRoute(parsedRes[0]);
-        // setRecommendedService(parsedRes[1]);
+        console.log("Receiving server output:", res.data); // res.data is a string, res is json
+        let res_route = res.data.split(" |")[0]; // FIND BETTER ALTERNATIVE
+        let res_service = res.data.split("| ")[1];
+        console.log("Res route:", res_route);
+        console.log("Res_service", res_service);
+        setRecommendedService(res_service);
+        setRecommendedRoute(res_route);
       })
       .catch((err) => console.error(err));
   };
 
   let contents;
+
   if (userState.isSignedIn) {
     contents = (
       <>
@@ -59,8 +56,8 @@ function HomePage() {
         </form>
         <button onClick={() => callServer({ message })}>Submit answers</button>
         {/* TO DO: Redirect to right page (add route to app.js) */}
-        {/* TO FIX */}
         <ResultsPage
+          // TO FIX
           route={recommendedRoute}
           serviceName={recommendedService}
         ></ResultsPage>
@@ -82,6 +79,9 @@ function HomePage() {
       </>
     );
   }
+
+  console.log("recommendedRoute:", recommendedRoute);
+  console.log("recommendedService:", recommendedService); // Is null for some reason
 
   return (
     <main>

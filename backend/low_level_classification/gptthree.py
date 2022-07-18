@@ -11,7 +11,7 @@ def get_response_gpt(user_input_json, res_bert):
     response = openai.Completion.create(
         model="text-davinci-002",
         prompt=generate_prompt(user_input_json, res_bert),
-        temperature=0.6,
+        temperature=0.0,
     )
     response_value = response['choices'][0]['text']
     return response_value
@@ -20,18 +20,24 @@ def get_response_gpt(user_input_json, res_bert):
 def generate_prompt(user_input_json, res_bert):
     user_input = user_input_json['message']['message']
     if res_bert == "Route 1: Learning":
-        return """Which quiz is better for the person who wrote this account?
-        Formal finance quiz
-        Saving & budgeting quiz
+        return """Solutions: Formal finance; Saving and borrowing
+        Account: I want to learn about formal banks
+        Solution: Formal finance
+        Account: I want to learn about how to save money
+        Solution: Saving and borrowing
         Account: {}
+        Solution: 
         """.format(
         user_input.capitalize()
         )
     elif res_bert == "Route 2: Personal finance":
-        return """Which service is better for the person who wrote this account? 
-        Budgeting calculator
-        Interest rate calculator
+        return """Solutions: Budgeting calculator; Interest rate calculator
+        Account: I need help with my personal finances especially a budgeting and saving
+        Solution: Budgeting calculator
+        Account: I need help with my personal finances especially loans and interest rates
+        Solution: Interest rate calculator
         Account: {}
+        Solution:
             """.format(
             user_input.capitalize()
             )
