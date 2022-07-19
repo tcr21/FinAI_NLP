@@ -19,13 +19,13 @@ def get_response_gpt(user_input_json, res_bert):
 def generate_prompt(user_input_json, res_bert):
     user_input = user_input_json['message']['message']
     if res_bert == "Route 1: Learning":
-        return """Solutions: Formal finance; Saving and borrowing
+        return """Solutions: Financial products quiz; Saving and borrowing quiz
         Account: I want to learn about products in finance
         Solution: Financial products quiz
         Account: I want to learn about how to save money
         Solution: Saving and borrowing quiz
         Account: {}
-        Solution: 
+        Solution:
         """.format(
         user_input.capitalize()
         )
