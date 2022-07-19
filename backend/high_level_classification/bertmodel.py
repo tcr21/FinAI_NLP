@@ -1,7 +1,7 @@
 import os
-# functions
+# functions 
 from bertmodel_utilities.read_training_data import read_training_data_into_dtf
-from bertmodel_utilities.preprocess_data import preprocess_training_data
+from bertmodel_utilities.preprocess_data import preprocess_data_dtf
 from bertmodel_utilities.preprocess_data import preprocess_text_input
 from glovemodel_utilities.generate_clusters import load_glove_model
 from glovemodel_utilities.generate_clusters import generate_clusters_dict
@@ -22,10 +22,10 @@ def get_response_bert(user_input_json):
     dtf_training_data = read_training_data_into_dtf(os.path.join(dirname, '../data/initial-data.json'))
     # Read in user input json into string
     # user_input = user_input_json.get('message')
-    user_input = user_input_json['message']['message']
+    user_input = user_input_json['messages']['message1']
 
     # Preprocess "training" data (optional)
-    preprocess_training_data(dtf_training_data)
+    preprocess_data_dtf(dtf_training_data)
     # Preprocess user input
     user_input_clean = preprocess_text_input(user_input, flag_stemm=False, flag_lemm=True)
     

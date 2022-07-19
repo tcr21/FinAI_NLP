@@ -7,15 +7,15 @@ BACKEND PARAMETERS==========================
 - Route names
 - User questions
 - Cluster key words
-Cluster size
-GPT model name, temperature
-GPT prompts
+- Cluster size
+- GPT model name, temperature
+- GPT prompts
 
 FILES AFFECTED BY BACKEND PARAMETERS==========================
 
 High level classification/
 - bert utilities/encode_with_bert : bert tokenizer params, bert model params
-bert utilities/preprocess_data.py : user questions
+->> bert utilities/preprocess_data.py : user questions
 - glove utilities/generate_clusters : glove model name, route names, key words, 
 cluster size (number of similarity words)
 

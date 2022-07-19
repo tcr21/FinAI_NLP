@@ -9,17 +9,20 @@ import LoadingSpinner from "../common/loading-spinner";
 // Sign in through google account (but could do through email and password if wanted to)
 function HomePage() {
   const userState = useUser();
-  const [message, setMessage] = useState("");
+  const [message1, setMessage1] = useState("");
+  const [message2, setMessage2] = useState("");
   const [recommendedRouteService, setRecommendedRouteService] = useState(null);
   const [isLoading, setLoading] = useState(null);
 
-  const onMessageChange = (e) => setMessage(e.target.value);
+  const onMessage1Change = (e) => setMessage1(e.target.value);
+  const onMessage2Change = (e) => setMessage2(e.target.value);
 
-  const callServer = (message) => {
+  const callServer = (message1, message2) => {
+    let messages = Object.assign(message1, message2);
     setLoading(true);
     axios
       .post("http://127.0.0.1:5000/", {
-        message,
+        messages,
       })
       .then((res) => {
         console.log("Receiving server output:", res);
@@ -37,22 +40,20 @@ function HomePage() {
     if (isLoading) {
       contents = (
         <>
-          <h3>Please answer the following questions.</h3>
+          {/* <h3>Please answer the following questions.</h3>
           <form action="#" method="post">
             <p>1. What is your primary concern when it comes to finance?</p>
             <p>
               <input
                 type="text"
-                name="message"
-                id="message"
-                value={message}
-                onChange={onMessageChange}
+                name="message1"
+                id="message1"
+                value={message1}
+                onChange={onMessage1Change}
               />
             </p>
           </form>
-          <button onClick={() => callServer({ message })} disabled={isLoading}>
-            Submit answers
-          </button>
+          <button disabled={isLoading}>Submit answers</button> */}
           <LoadingSpinner />
           <button onClick={userState.signOut} disabled={userState.isLoading}>
             {userState.isLoading ? "Signing out..." : "Sign out"}
@@ -68,14 +69,27 @@ function HomePage() {
             <p>
               <input
                 type="text"
-                name="message"
-                id="message"
-                value={message}
-                onChange={onMessageChange}
+                name="message1"
+                id="message1"
+                value={message1}
+                onChange={onMessage1Change}
+              />
+            </p>
+            <p>2. How would you describe your financial needs?</p>
+            <p>
+              <input
+                type="text"
+                name="message2"
+                id="message2"
+                value={message2}
+                onChange={onMessage2Change}
               />
             </p>
           </form>
-          <button onClick={() => callServer({ message })} disabled={isLoading}>
+          <button
+            onClick={() => callServer({ message1 }, { message2 })}
+            disabled={isLoading}
+          >
             Submit answers
           </button>
           <ResultsPage routeServiceName={recommendedRouteService}></ResultsPage>

@@ -24,7 +24,7 @@ def get_response_gpt(user_input_json, res_bert):
     return response_value
 
 def generate_prompt(user_input_json, res_bert):
-    user_input = user_input_json['message']['message']
+    user_input = user_input_json['messages']['message1']
     if res_bert == route_names_param_dict[1]:
         return gpt_prompts_param_dict[1].format(
         user_input.capitalize()

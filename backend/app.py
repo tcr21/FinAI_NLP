@@ -4,7 +4,7 @@ import openai
 from flask import Flask, redirect, render_template, request, url_for, jsonify
 from flask_cors import CORS, cross_origin
 
-# Import bert
+# Import bert 
 dirname = os.path.dirname(__file__)
 sys.path.append(os.path.join(dirname, './high_level_classification'))
 from bertmodel import get_response_bert
@@ -37,6 +37,7 @@ def start():
     print("TEST: start() function is running...")
     if request.method == "POST":
         user_input_json =  request.json # Get message value from callServer
+        print("TEST user_input_json: ", user_input_json)
         res_bert = get_response_bert(user_input_json)
         res_gpt = get_response_gpt(user_input_json, res_bert)
         res = jsonify(route=res_bert, service=res_gpt)
