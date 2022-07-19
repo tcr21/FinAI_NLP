@@ -56,7 +56,6 @@ function App() {
   );
 }
 
-// Up to lesson 10 included
 // App component: class components vs function ones. Using functional ones here
 // Components must be PascalCase
 // A functional component is just a JS function that returns JSX (markup)

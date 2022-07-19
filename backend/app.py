@@ -7,8 +7,6 @@ from flask_cors import CORS, cross_origin
 # Import bert
 dirname = os.path.dirname(__file__)
 sys.path.append(os.path.join(dirname, './high_level_classification'))
-# TO DO: why does this show + using cash (this is not normal, bert etc warning) here, without get_bert_response even being called?
-print("TEST: bertmodel.py has just been imported!") 
 from bertmodel import get_response_bert
 
 # Import gpt3
@@ -17,14 +15,24 @@ from gptthree import get_response_gpt
 
 # CORS error handling
 app = Flask(__name__)
-CORS(app)
+CORS(app, support_credentials=True)
 app.config["CORS_HEADERS"] = "Content-Type"
+# app.config["CORS_ORIGINS"] = "http://localhost:3000"
 
 # Get gpt key
 openai.api_key = os.getenv("OPENAI_API_KEY")
 
+# TEST
+print("TEST: Server is up and running...")
+
+# TEST
+# @app.route("/api")
+# @cross_origin()
+# def hello():
+#     return "World"
+
 @app.route("/", methods=("GET", "POST"))
-@cross_origin()
+@cross_origin(supports_credentials=True)
 def start():
     print("TEST: start() function is running...")
     if request.method == "POST":
@@ -32,5 +40,5 @@ def start():
         res_bert = get_response_bert(user_input_json)
         res_gpt = get_response_gpt(user_input_json, res_bert)
         res = jsonify(route=res_bert, service=res_gpt)
-        print("TEST: done running get_bert_response!")
+        print("TEST: done running get_responses!")
         return res

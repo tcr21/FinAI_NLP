@@ -3,7 +3,9 @@ import os
 from bertmodel_utilities.read_training_data import read_training_data_into_dtf
 from bertmodel_utilities.preprocess_data import preprocess_training_data
 from bertmodel_utilities.preprocess_data import preprocess_text_input
+from glovemodel_utilities.generate_clusters import load_glove_model
 from glovemodel_utilities.generate_clusters import generate_clusters_dict
+from bertmodel_utilities.encode_with_bert import load_bert_tokenizer_and_model
 from bertmodel_utilities.encode_with_bert import embed_text_with_bert
 from bertmodel_utilities.encode_with_bert import generate_mean_vector_training_data
 from bertmodel_utilities.encode_with_bert import generate_mean_vector_clusters
@@ -13,8 +15,6 @@ from bertmodel_utilities.evaluate import print_evaluation_metrics
 from bertmodel_utilities.evaluate import plot_confusion_matrix
 
 # =================================================================================
-
-# Training data dtf (optional), Clusters dict, User input text
 
 def get_response_bert(user_input_json):
     # Read in "training" data (optional)
@@ -29,15 +29,21 @@ def get_response_bert(user_input_json):
     # Preprocess user input
     user_input_clean = preprocess_text_input(user_input, flag_stemm=False, flag_lemm=True)
     
+    # Load glove model
+    glove_model = load_glove_model()
+    print("TEST: Glove model loaded")
     # Create clusters. Note: can call visualise_clusters from within generate_clusters if needed
-    glove_clusters_dict = generate_clusters_dict()
-
+    glove_clusters_dict = generate_clusters_dict(glove_model)
+    
+    # Load bert tokenizer and model
+    bert_tokenizer, bert_model = load_bert_tokenizer_and_model()
+    print("TEST: Bert model and tokenizer loaded")
     # Embed & get mean vector for "training" data (optional)
-    mean_vecs_training_data_dict = generate_mean_vector_training_data(dtf_training_data) # TR calls embed text with bert
+    mean_vecs_training_data_dict = generate_mean_vector_training_data(dtf_training_data, bert_tokenizer, bert_model) # TR calls embed text with bert
     # Embed & get mean vector for user input
-    mean_vec_user_input = embed_text_with_bert(user_input_clean).mean(0)
+    mean_vec_user_input = embed_text_with_bert(user_input_clean, bert_tokenizer, bert_model).mean(0)
     # Embed & get mean vector for clusters
-    mean_vecs_clusters_dict = generate_mean_vector_clusters(glove_clusters_dict)
+    mean_vecs_clusters_dict = generate_mean_vector_clusters(glove_clusters_dict, bert_tokenizer, bert_model)
 
     # Generate similarity score, prediction & truth matrix by "training" data line & cluster (optional)
     similarity_matrix_training_data_dtf = generate_similarity_matrix_training_data(mean_vecs_clusters_dict, mean_vecs_training_data_dict, dtf_training_data)

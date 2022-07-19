@@ -6,44 +6,41 @@ from flask import Flask, redirect, render_template, request, url_for
 app = Flask(__name__)
 openai.api_key = os.getenv("OPENAI_API_KEY") 
 
+# for params
+import sys
+dirname = os.path.dirname(__file__)
+sys.path.append(os.path.join(dirname, '../parameters_backend'))
+from parameters import gpt_model_name_param_str, gpt_temperature_param_flt, gpt_prompts_param_dict, route_names_param_dict
+
+
 
 def get_response_gpt(user_input_json, res_bert):
     response = openai.Completion.create(
-        model="text-davinci-002",
+        model=gpt_model_name_param_str,
         prompt=generate_prompt(user_input_json, res_bert),
-        temperature=0.0,
+        temperature=gpt_temperature_param_flt,
     )
     response_value = response['choices'][0]['text']
     return response_value
 
 def generate_prompt(user_input_json, res_bert):
     user_input = user_input_json['message']['message']
-    if res_bert == "Route 1: Learning":
-        return """Solutions: Financial products quiz; Saving and borrowing quiz
-        Account: I want to learn about products in finance
-        Solution: Financial products quiz
-        Account: I want to learn about how to save money
-        Solution: Saving and borrowing quiz
-        Account: {}
-        Solution:
-        """.format(
+    if res_bert == route_names_param_dict[1]:
+        return gpt_prompts_param_dict[1].format(
         user_input.capitalize()
         )
-    elif res_bert == "Route 2: Personal finance":
-        return """Solutions: Budgeting calculator; Interest rate calculator
-        Account: I need help with my personal finances especially a budgeting and saving
-        Solution: Budget calculator
-        Account: I need help with my personal finances especially loans and interest rates
-        Solution: Loan calculator
-        Account: {}
-        Solution:
-            """.format(
+    elif res_bert == route_names_param_dict[2]:
+        return gpt_prompts_param_dict[2].format(
+            user_input.capitalize()
+            )
+    elif res_bert == route_names_param_dict[3]:
+        return gpt_prompts_param_dict[3].format(
             user_input.capitalize()
             )
     else:
-        return """If this person is in danger and needs to call an emergency contact, say: Please contact an emergency number.
-        Account: {}
-            """.format(
+        return """Account: {} 
+        Please just say the following: 
+        Sorry, something went wrong""".format(
             user_input.capitalize()
             )
-    
+

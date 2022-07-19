@@ -7,6 +7,14 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 
+# for params
+import sys
+import os
+dirname = os.path.dirname(__file__)
+sys.path.append(os.path.join(dirname, '../../parameters_backend'))
+from parameters import cluster_model_name_param_str, route_names_param_dict, cluster_key_words_param_dict, cluster_size_param_dict
+
+
 
 def get_similar_words(list_words, top_number, nlp_model):
     list_out = list_words
@@ -53,19 +61,20 @@ def visualise_clusters(clusters_dict, nlp_model):
 
     plt.show()
 
-def generate_clusters_dict():
+def load_glove_model():
     # Load glove model used to generate similar words
-    glove_model = gensim_api.load("glove-wiki-gigaword-300")
+    glove_model = gensim_api.load(cluster_model_name_param_str)
+    return glove_model
 
-    # OPTIMISE ROUTE NAMES & KEY WORDS HERE (= SOURCE)
+def generate_clusters_dict(glove_model):
     # Create dictionary {category:[keywords]}
     glove_clusters_dict = {}
-    glove_clusters_dict["Route 1: Learning"] = get_similar_words(['learn','skills','education','teach'], 
-                    top_number=30, nlp_model=glove_model)
-    glove_clusters_dict["Route 2: Personal finance"] = get_similar_words(['loan','debt','income', 'finance', 'job', 'fired'], 
-                    top_number=30, nlp_model=glove_model)
-    glove_clusters_dict["Route 3: Emergency"] = get_similar_words(['danger','attack', 'threat', 'physical'], 
-                    top_number=30, nlp_model=glove_model)
+    glove_clusters_dict[route_names_param_dict[1]] = get_similar_words(cluster_key_words_param_dict[1], 
+                    top_number=cluster_size_param_dict[1], nlp_model=glove_model)
+    glove_clusters_dict[route_names_param_dict[2]] = get_similar_words(cluster_key_words_param_dict[2], 
+                    top_number=cluster_size_param_dict[2], nlp_model=glove_model)
+    glove_clusters_dict[route_names_param_dict[3]] = get_similar_words(cluster_key_words_param_dict[3], 
+                    top_number=cluster_size_param_dict[3], nlp_model=glove_model)
     
     # Visualise clusters (optional)
     # visualise_clusters(glove_clusters_dict, glove_model)

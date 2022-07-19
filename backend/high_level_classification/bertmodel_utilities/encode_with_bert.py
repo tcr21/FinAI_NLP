@@ -8,6 +8,13 @@ import torch
 # for bert
 import transformers
 
+# for params
+import sys
+import os
+dirname = os.path.dirname(__file__)
+sys.path.append(os.path.join(dirname, '../../parameters_backend'))
+from parameters import bert_tokenizer_transformer_param_str, bert_tokenizer_type_param_str, bert_tokenizer_name_param_str, bert_model_transformer_param_str, bert_model_type_param_str, bert_model_name_param_str  
+
 # ERROR HANDLING ===============================================================
 
 try:
@@ -17,11 +24,13 @@ except AttributeError:
 else:
     ssl._create_default_https_context = _create_unverified_https_context
 
-# load model and tokenizer
-bert_tokenizer = torch.hub.load('huggingface/pytorch-transformers', 'tokenizer', 'bert-base-uncased', trust_repo=True)    # Download vocabulary from S3 and cache.
-bert_model = torch.hub.load('huggingface/pytorch-transformers', 'model', 'bert-base-uncased')    # Download model and configuration from S3 and cache.
+def load_bert_tokenizer_and_model():
+    # load model and tokenizer
+    bert_tokenizer = torch.hub.load(bert_tokenizer_transformer_param_str, bert_tokenizer_type_param_str, bert_tokenizer_name_param_str, trust_repo=True)    # Download vocabulary from S3 and cache.
+    bert_model = torch.hub.load(bert_model_transformer_param_str, bert_model_type_param_str, bert_model_name_param_str)    # Download model and configuration from S3 and cache.
+    return bert_tokenizer, bert_model
 
-def embed_text_with_bert(text_input_clean):
+def embed_text_with_bert(text_input_clean, bert_tokenizer, bert_model):
     
     tokenized_text = bert_tokenizer.encode(text_input_clean)
 
@@ -35,9 +44,9 @@ def embed_text_with_bert(text_input_clean):
 
     return embedded_text_array
 
-def generate_mean_vector_training_data(dtf_training_data): 
+def generate_mean_vector_training_data(dtf_training_data, bert_tokenizer, bert_model): 
     # make list
-    mean_vecs_training_data_list = [embed_text_with_bert(text).mean(0) 
+    mean_vecs_training_data_list = [embed_text_with_bert(text, bert_tokenizer, bert_model).mean(0) 
         for text in dtf_training_data.iloc[:,1]]
 
     # make array
@@ -52,7 +61,7 @@ def generate_mean_vector_training_data(dtf_training_data):
 
     return mean_vecs_training_data_dict
 
-def generate_mean_vector_clusters(clusters_dict):
+def generate_mean_vector_clusters(clusters_dict, bert_tokenizer, bert_model):
     # merge cluster words into string and into dtf (1 row per cluster)
     dtf_glove_clusters_as_strings = pd.DataFrame(columns=["cluster", "words"])
     # For each cluster in dict
@@ -65,7 +74,7 @@ def generate_mean_vector_clusters(clusters_dict):
         dtf_glove_clusters_as_strings.loc[len(dtf_glove_clusters_as_strings.index)] = [k, cluster_words_string]
 
     # make list
-    mean_vecs_clusters_list = [embed_text_with_bert(text).mean(0)
+    mean_vecs_clusters_list = [embed_text_with_bert(text, bert_tokenizer, bert_model).mean(0)
             for text in dtf_glove_clusters_as_strings["words"]] 
 
     # make array
