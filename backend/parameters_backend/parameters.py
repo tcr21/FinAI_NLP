@@ -4,7 +4,7 @@ BACKEND PARAMETERS==========================
 
 - Glove model name
 - Bert model names (tokenizer and model)
-- Route names
+->> Route names => Should be replaced with 'route1', 'route2', 'route3' everywhere because they do not have any weighting (only cluster key words do)
 - User questions
 - Cluster key words
 - Cluster size
@@ -15,7 +15,7 @@ FILES AFFECTED BY BACKEND PARAMETERS==========================
 
 High level classification/
 - bert utilities/encode_with_bert : bert tokenizer params, bert model params
-->> bert utilities/preprocess_data.py : user questions
+- bert utilities/preprocess_data.py : user questions
 - glove utilities/generate_clusters : glove model name, route names, key words, 
 cluster size (number of similarity words)
 

@@ -47,7 +47,8 @@ def preprocess_text_input(text, flag_stemm=False, flag_lemm=True):
     return text_input_clean
 
 
-def preprocess_data_dtf(dtf_training_data):
-    # TO DO: make scalable for more questions
-    dtf_training_data["1. What is your primary concern when it comes to finance?_clean"] = dtf_training_data["1. What is your primary concern when it comes to finance?"].apply(lambda x: 
-          preprocess_text_input(x, flag_stemm=False, flag_lemm=True))
+def preprocess_data_dtf(dtf_data):
+    for col, value in dtf_data.items():
+        if "message" in col:
+            dtf_data[col+"_clean"] = dtf_data[col].apply(lambda x: 
+                preprocess_text_input(x, flag_stemm=False, flag_lemm=True))

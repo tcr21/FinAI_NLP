@@ -44,23 +44,6 @@ def embed_text_with_bert(text_input_clean, bert_tokenizer, bert_model):
 
     return embedded_text_array
 
-def generate_mean_vector_training_data(dtf_training_data, bert_tokenizer, bert_model): 
-    # make list
-    mean_vecs_training_data_list = [embed_text_with_bert(text, bert_tokenizer, bert_model).mean(0) 
-        for text in dtf_training_data.iloc[:,1]]
-
-    # make array
-    mean_vecs_training_data_array = np.array(mean_vecs_training_data_list)
-
-    # make dict
-    mean_vecs_training_data_dict = {}
-    i = 0
-    for text in dtf_training_data.iloc[:,1]:
-        mean_vecs_training_data_dict[text] = mean_vecs_training_data_array[i]
-        i = i + 1
-
-    return mean_vecs_training_data_dict
-
 def generate_mean_vector_clusters(clusters_dict, bert_tokenizer, bert_model):
     # merge cluster words into string and into dtf (1 row per cluster)
     dtf_glove_clusters_as_strings = pd.DataFrame(columns=["cluster", "words"])
