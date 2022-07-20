@@ -13,20 +13,25 @@ sys.path.append(os.path.join(dirname, '../parameters_backend'))
 from parameters import gpt_model_name_param_str, gpt_temperature_param_flt, gpt_prompts_param_dict
 
 
-
 def get_response_gpt(user_input_json, res_bert):
+    # TO DO: Insert questions in user input at right places using preprocess function
+    # Get cleaner user input from rest bert instead of json?
+
+    # Note: am giving number questions to GPT in prompt so should give numbered answers. If not will need to ask 1 question at a time and make 1 call to openAI server per question (and send same user responses each time)
     response = openai.Completion.create(
         model=gpt_model_name_param_str,
         prompt=generate_prompt(user_input_json, res_bert),
         temperature=gpt_temperature_param_flt,
     )
     response_value = response['choices'][0]['text']
-    # Clean up response value here so it responds:
-    # tags if 
+    print("gpt response", response)
+    print("gpt response['choices'][0]['text']", response['choices'][0]['text'])
+    # TO DO Clean up response value here using yes/no logic function
+
     return response_value
 
 def generate_prompt(user_input_json, res_bert):
-    user_input = user_input_json['messages']['message1'] # TO FIX FOR MORE THAN 1 QUESTION
+    user_input = user_input_json['messages']['message1'] # TO DO: See above, use cleaned user input
     if res_bert == "route1":
         return gpt_prompts_param_dict[1].format(
         user_input.capitalize()
@@ -39,10 +44,11 @@ def generate_prompt(user_input_json, res_bert):
         return gpt_prompts_param_dict[3].format(
             user_input.capitalize()
             )
-    else:
-        return """Account: {} 
-        Please just say the following: 
-        Sorry, something went wrong""".format(
-            user_input.capitalize() # TO FIX FOR MORE THAN 1 QUESTION
-            )
+    else: # If bert did not classify correctly (or did not meet min threshold similarity) so undefined
+        return gpt_prompts_param_dict[4].format(
+            user_input.capitalize()
+            ) 
+
+# TO DO: evaluate.py evaluate function + call it there
+
 
