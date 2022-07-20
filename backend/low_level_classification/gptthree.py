@@ -21,6 +21,8 @@ def get_response_gpt(user_input_json, res_bert):
         temperature=gpt_temperature_param_flt,
     )
     response_value = response['choices'][0]['text']
+    # Clean up response value here so it responds:
+    # tags if 
     return response_value
 
 def generate_prompt(user_input_json, res_bert):

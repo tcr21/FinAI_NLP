@@ -13,15 +13,17 @@ function HomePage() {
   const [message1, setMessage1] = useState("");
   const [message2, setMessage2] = useState("");
   const [message3, setMessage3] = useState("");
+  const [message4, setMessage4] = useState("");
   const [recommendedRouteService, setRecommendedRouteService] = useState(null);
   const [isLoading, setLoading] = useState(null);
 
   const onMessage1Change = (e) => setMessage1(e.target.value);
   const onMessage2Change = (e) => setMessage2(e.target.value);
   const onMessage3Change = (e) => setMessage3(e.target.value);
+  const onMessage4Change = (e) => setMessage4(e.target.value);
 
-  const callServer = (message1, message2, message3) => {
-    let messages = Object.assign(message1, message2, message3);
+  const callServer = (message1, message2, message3, message4) => {
+    let messages = Object.assign(message1, message2, message3, message4);
     setLoading(true);
     console.log("Messages", messages);
     axios
@@ -85,9 +87,21 @@ function HomePage() {
                 onChange={onMessage3Change}
               />
             </p>
+            <UserQuestions questionNumber="4" />
+            <p>
+              <input
+                type="text"
+                name="message4"
+                id="message4"
+                value={message4}
+                onChange={onMessage4Change}
+              />
+            </p>
           </form>
           <button
-            onClick={() => callServer({ message1 }, { message2 }, { message3 })}
+            onClick={() =>
+              callServer({ message1 }, { message2 }, { message3 }, { message4 })
+            }
             disabled={isLoading}
           >
             Submit answers
@@ -112,8 +126,6 @@ function HomePage() {
       </>
     );
   }
-
-  console.log("Messages 1 2 3 : ", message1, message2, message3);
 
   return (
     <main>

@@ -22,25 +22,6 @@ def generate_similarity_matrix_dtf(mean_vecs_clusters_dict, mean_vecs_input_data
         metrics.pairwise.cosine_similarity([input_vector], [mean_vecs_clusters_dict.get(keys_clst[1])]),
         metrics.pairwise.cosine_similarity([input_vector], [mean_vecs_clusters_dict.get(keys_clst[2])])]
         i += 1
-
-    # # Rescale & set prediction
-    # for i in range(len(similarity_matrix_dtf.index)):
-    #     sum = 0
-    #     max_score = 0
-    #     max_pred = ""
-    #     for col, value in similarity_matrix_dtf.items():
-    #         # For each of 3 routes
-    #         if "route" in col: 
-    #             # Convert cluster score cols from string to int 
-    #             similarity_matrix_dtf[col] = int(similarity_matrix_dtf[col])
-    #             # Update max score and max pred if higher
-    #             if similarity_matrix_dtf.iloc[i,similarity_matrix_dtf.columns.get_loc(col)] > max_score:
-    #                 max_score = similarity_matrix_dtf.iloc[i,similarity_matrix_dtf.columns.get_loc(col)]
-    #                 max_pred = col
-    #             # Add to sum for rescale
-    #             sum += similarity_matrix_dtf.iloc[i,similarity_matrix_dtf.columns.get_loc(col)]
-    #             # Make a rescale column
-    #             similarity_matrix_dtf["rescaled: "+col] = ""
     
     # Create 1 column per route for rescaling
     for cluster, cluster_vector in mean_vecs_clusters_dict.items():
@@ -48,7 +29,6 @@ def generate_similarity_matrix_dtf(mean_vecs_clusters_dict, mean_vecs_input_data
     # Create 1 column for predicted label
     similarity_matrix_dtf["predicted"] = ""  
 
-    # ------------------------------------------------------------------------------------------------
     for i in range(len(similarity_matrix_dtf.index)):
         # Convert cluster score cols from string to int 
         similarity_matrix_dtf.iloc[i,1:4][0] = int(similarity_matrix_dtf.iloc[i,1:4][0])
@@ -67,12 +47,12 @@ def generate_similarity_matrix_dtf(mean_vecs_clusters_dict, mean_vecs_input_data
             if similarity_matrix_dtf.iloc[i,j][0] > max_score:
                 max_score = similarity_matrix_dtf.iloc[i,j][0] 
                 max_pred = similarity_matrix_dtf.columns[j] 
-        # TO DO: set min for max_score (if below a certain threshold then get user to pick path themselves)
+        # TO DO: set min for max_score (if below a certain threshold then return undefined-route and it will go to that component on frontend)
         # Set prediction based on highest score
         similarity_matrix_dtf.iloc[i, 7] = max_pred
 
     # Create 1 column for true label for training data 
     if "category" in dtf_input_data:
         similarity_matrix_dtf["true"] = dtf_input_data["category"]
-    # ------------------------------------------------------------------------------------------------
+    
     return similarity_matrix_dtf

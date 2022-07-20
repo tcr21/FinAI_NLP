@@ -1,14 +1,13 @@
 import { useEffect, useState } from "react";
 import { db } from "../firebase";
-import { collection, doc, query, where, getDocs } from "firebase/firestore";
+import { collection, query, where, getDocs } from "firebase/firestore";
 
-function useQuizOnceByName(quizName) {
+function useQuizOnceByName(tagName) {
+  console.log("tagName.trim: ", tagName);
   const [quizState, setQuizState] = useState({
     status: "loading",
     snapshot: null,
     error: null,
-    docID: null,
-    docData: null,
   });
 
   useEffect(() => {
@@ -17,24 +16,19 @@ function useQuizOnceByName(quizName) {
         status: "loading",
         snapshot: null,
         error: null,
-        docID: null,
-        docData: null,
       });
       try {
         // Get gives promise to doc snapshot
         const q = query(
           collection(db, "Quizzes"),
-          where("title", "==", quizName.trim())
+          where("tags", "array-contains", tagName.trim()) // Tested and works with right tag input
         );
         const snapshot = await getDocs(q);
         snapshot.forEach((doc) => {
-          // NOTE: if had multiple quizzes (docs) in snapshot, would be updating it to each doc and ultimately to the last doc
           setQuizState({
             status: "success",
             snapshot: snapshot,
             error: null,
-            docID: doc.id,
-            docData: doc.data(),
           });
         });
       } catch (error) {
@@ -43,22 +37,26 @@ function useQuizOnceByName(quizName) {
       }
     }
     getDocument();
-  }, [quizName]);
+  }, [tagName]); // Should this be empty?
 
-  const { status, snapshot, error, docID, docData } = quizState;
+  const { status, snapshot, error } = quizState;
 
-  let exists;
+  let results = [];
   if (snapshot) {
-    exists = snapshot.exists;
+    results = snapshot.docs.map((docSnapshot) => {
+      return {
+        id: docSnapshot.id,
+        data: docSnapshot.data(),
+      };
+    });
   }
 
   return {
     status,
     snapshot,
     error,
-    docID,
-    docData,
-    exists,
+    results,
+    isEmpty: results.length === 0,
   };
 }
 
