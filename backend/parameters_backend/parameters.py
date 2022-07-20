@@ -40,6 +40,7 @@ bert_model_type_param_str = 'model'
 bert_model_name_param_str = 'bert-base-uncased'
 
 # USER QUESTIONS------------------------------------------
+# Need to be updated manually in frontend Questions component
 
 user_questions_param_dict = {
 1: "What is your primary concern when it comes to finance?",

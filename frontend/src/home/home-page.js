@@ -11,14 +11,16 @@ function HomePage() {
   const userState = useUser();
   const [message1, setMessage1] = useState("");
   const [message2, setMessage2] = useState("");
+  const [message3, setMessage3] = useState("");
   const [recommendedRouteService, setRecommendedRouteService] = useState(null);
   const [isLoading, setLoading] = useState(null);
 
   const onMessage1Change = (e) => setMessage1(e.target.value);
   const onMessage2Change = (e) => setMessage2(e.target.value);
+  const onMessage3Change = (e) => setMessage3(e.target.value);
 
-  const callServer = (message1, message2) => {
-    let messages = Object.assign(message1, message2);
+  const callServer = (message1, message2, message3) => {
+    let messages = Object.assign(message1, message2, message3);
     setLoading(true);
     axios
       .post("http://127.0.0.1:5000/", {
@@ -85,9 +87,19 @@ function HomePage() {
                 onChange={onMessage2Change}
               />
             </p>
+            <p>3. Please describe your personal situation.</p>
+            <p>
+              <input
+                type="text"
+                name="message3"
+                id="message3"
+                value={message3}
+                onChange={onMessage3Change}
+              />
+            </p>
           </form>
           <button
-            onClick={() => callServer({ message1 }, { message2 })}
+            onClick={() => callServer({ message1 }, { message2 }, { message3 })}
             disabled={isLoading}
           >
             Submit answers

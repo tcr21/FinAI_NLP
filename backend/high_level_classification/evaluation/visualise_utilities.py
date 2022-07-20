@@ -21,9 +21,8 @@ def plot_confusion_matrix(similarity_matrix_training_data_dtf):
     fig, ax = plt.subplots()
     sns.heatmap(cm, annot=True, fmt='d', ax=ax, cmap=plt.cm.Blues, 
                 cbar=False)
-    ax.set(xlabel="redicted", ylabel="True", xticklabels=classes, 
+    ax.set(xlabel="Predicted", ylabel="True", xticklabels=classes, 
         yticklabels=classes, title="Confusion matrix")
     plt.yticks(rotation=0)
-    fig, ax = plt.subplots(nrows=1, ncols=2)
 
     plt.show()
