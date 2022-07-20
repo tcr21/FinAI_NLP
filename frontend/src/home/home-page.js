@@ -5,6 +5,7 @@ import axios from "axios";
 import { useState } from "react";
 import ResultsPage from "../results/results-page";
 import LoadingSpinner from "../common/loading-spinner";
+import UserQuestions from "../questions/questions";
 
 // Sign in through google account (but could do through email and password if wanted to)
 function HomePage() {
@@ -22,6 +23,7 @@ function HomePage() {
   const callServer = (message1, message2, message3) => {
     let messages = Object.assign(message1, message2, message3);
     setLoading(true);
+    console.log("Messages", messages);
     axios
       .post("http://127.0.0.1:5000/", {
         messages,
@@ -42,20 +44,6 @@ function HomePage() {
     if (isLoading) {
       contents = (
         <>
-          {/* <h3>Please answer the following questions.</h3>
-          <form action="#" method="post">
-            <p>1. What is your primary concern when it comes to finance?</p>
-            <p>
-              <input
-                type="text"
-                name="message1"
-                id="message1"
-                value={message1}
-                onChange={onMessage1Change}
-              />
-            </p>
-          </form>
-          <button disabled={isLoading}>Submit answers</button> */}
           <LoadingSpinner />
           <button onClick={userState.signOut} disabled={userState.isLoading}>
             {userState.isLoading ? "Signing out..." : "Sign out"}
@@ -67,7 +55,7 @@ function HomePage() {
         <>
           <h3>Please answer the following questions.</h3>
           <form action="#" method="post">
-            <p>1. What is your primary concern when it comes to finance?</p>
+            <UserQuestions questionNumber="1" />
             <p>
               <input
                 type="text"
@@ -77,7 +65,7 @@ function HomePage() {
                 onChange={onMessage1Change}
               />
             </p>
-            <p>2. How would you describe your financial needs?</p>
+            <UserQuestions questionNumber="2" />
             <p>
               <input
                 type="text"
@@ -87,7 +75,7 @@ function HomePage() {
                 onChange={onMessage2Change}
               />
             </p>
-            <p>3. Please describe your personal situation.</p>
+            <UserQuestions questionNumber="3" />
             <p>
               <input
                 type="text"
@@ -124,6 +112,8 @@ function HomePage() {
       </>
     );
   }
+
+  console.log("Messages 1 2 3 : ", message1, message2, message3);
 
   return (
     <main>
