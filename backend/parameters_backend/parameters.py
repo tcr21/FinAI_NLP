@@ -4,26 +4,27 @@ BACKEND PARAMETERS==========================
 
 - Glove model name
 - Bert model names (tokenizer and model)
-->> Route names => Should be replaced with 'route1', 'route2', 'route3' everywhere because they do not have any weighting (only cluster key words do)
 - User questions
 - Cluster key words
 - Cluster size
 - GPT model name, temperature
 - GPT prompts
 
+Note: route names are not params (just "route1", "route2", "route3") since their names do not impact Bert classification
+
 FILES AFFECTED BY BACKEND PARAMETERS==========================
 
 High level classification/
 - bert utilities/encode_with_bert : bert tokenizer params, bert model params
 - bert utilities/preprocess_data.py : user questions
-- glove utilities/generate_clusters : glove model name, route names, key words, 
+- glove utilities/generate_clusters : glove model name, (route names), key words, 
 cluster size (number of similarity words)
 
 Low level classification/
-- gptthree.py : route names, gpt model name, gpt temperature, gpt prompts
+- gptthree.py : (route names), gpt model name, gpt temperature, gpt prompts
 
 Data/ = Manual updates required
--> Bert training data needs manual updating: route names
+-> Bert training data needs manual updating: (route names)
 -> Any GPT training data (on top of prompts) will need manual updating
 
 """
@@ -37,10 +38,6 @@ bert_tokenizer_name_param_str = 'bert-base-uncased'
 bert_model_transformer_param_str = 'huggingface/pytorch-transformers'
 bert_model_type_param_str = 'model'
 bert_model_name_param_str = 'bert-base-uncased'
-
-# ROUTE NAMES------------------------------------------
-
-route_names_param_dict = {1: "Route 1: Learning", 2: "Route 2: Personal finance", 3: "Route 3: Emergency"}
 
 # USER QUESTIONS------------------------------------------
 

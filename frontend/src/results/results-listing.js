@@ -11,7 +11,7 @@ function ResultsListing({ route, serviceName }) {
   // TO FIX: needs to be moved to if route 1 but some issue with hook being used at top level
   const quiz = useQuizOnceByName(serviceName);
 
-  if (route === "Route 1: Learning") {
+  if (route === "route1") {
     // Error handling
     if (quiz.status === "loading") {
       contents = <LoadingSpinner />;
@@ -53,7 +53,7 @@ function ResultsListing({ route, serviceName }) {
         </>
       );
     }
-  } else if (route === "Route 2: Personal finance") {
+  } else if (route === "route2") {
     console.log("serviceName.trim: ", serviceName.trim());
     if (
       serviceName.trim() !== "Budget calculator" &&
@@ -83,14 +83,14 @@ function ResultsListing({ route, serviceName }) {
         </>
       );
     }
-  } else if (route === "Route 3: Emergency") {
+  } else if (route === "route3") {
     return (
       <>
         <h2>It sounds like you are at risk.</h2>
         <p>{serviceName}</p>
       </>
     );
-  } else if (route === null) {
+  } else {
     return (
       <p>
         Sorry, we haven't found any suggestions for what you wrote. Please try

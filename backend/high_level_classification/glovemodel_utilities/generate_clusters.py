@@ -12,7 +12,7 @@ import sys
 import os
 dirname = os.path.dirname(__file__)
 sys.path.append(os.path.join(dirname, '../../parameters_backend'))
-from parameters import cluster_model_name_param_str, route_names_param_dict, cluster_key_words_param_dict, cluster_size_param_dict
+from parameters import cluster_model_name_param_str, cluster_key_words_param_dict, cluster_size_param_dict
 
 
 
@@ -69,11 +69,11 @@ def load_glove_model():
 def generate_clusters_dict(glove_model):
     # Create dictionary {category:[keywords]}
     glove_clusters_dict = {}
-    glove_clusters_dict[route_names_param_dict[1]] = get_similar_words(cluster_key_words_param_dict[1], 
+    glove_clusters_dict["route1"] = get_similar_words(cluster_key_words_param_dict[1], 
                     top_number=cluster_size_param_dict[1], nlp_model=glove_model)
-    glove_clusters_dict[route_names_param_dict[2]] = get_similar_words(cluster_key_words_param_dict[2], 
+    glove_clusters_dict["route2"] = get_similar_words(cluster_key_words_param_dict[2], 
                     top_number=cluster_size_param_dict[2], nlp_model=glove_model)
-    glove_clusters_dict[route_names_param_dict[3]] = get_similar_words(cluster_key_words_param_dict[3], 
+    glove_clusters_dict["route3"] = get_similar_words(cluster_key_words_param_dict[3], 
                     top_number=cluster_size_param_dict[3], nlp_model=glove_model)
     
     # Visualise clusters (optional)
