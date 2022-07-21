@@ -53,7 +53,7 @@ def generate_similarity_matrix_dtf(mean_vecs_clusters_dict, mean_vecs_input_data
             if similarity_matrix_dtf.iloc[i,j][0] > max_score:
                 max_score = similarity_matrix_dtf.iloc[i,j][0] 
                 max_pred = similarity_matrix_dtf.columns[j] 
-        # TO DO: set min for max_score (if below a certain threshold then return undefined-route and it will go to that component on frontend)
+        
         # Set prediction based on highest score (not scaled)
         if (max_score >= similarity_min_threshold):
             similarity_matrix_dtf.iloc[i, 7] = max_pred
