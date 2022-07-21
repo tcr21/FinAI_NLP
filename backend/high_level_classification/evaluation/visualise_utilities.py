@@ -15,6 +15,7 @@ def plot_confusion_matrix(similarity_matrix_training_data_dtf):
     classes_array = []
     for j in range(1, 4):
         classes_array.append(similarity_matrix_training_data_dtf.columns[j])
+    classes_array.append("undefined")
     classes = np.array(classes_array)
 
     cm = metrics.confusion_matrix(similarity_matrix_training_data_dtf["true"], similarity_matrix_training_data_dtf["predicted"])

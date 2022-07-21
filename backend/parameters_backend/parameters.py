@@ -50,7 +50,7 @@ cluster_key_words_param_dict = {1: ['learn','skills','education','teach'],
 
 cluster_size_param_dict = {1: 30, 2: 30, 3: 30}
 
-# BERT MODEL NAMES------------------------------------------
+# BERT MODEL PARAMS------------------------------------------
 
 bert_tokenizer_transformer_param_str = 'huggingface/pytorch-transformers'
 bert_tokenizer_type_param_str = 'tokenizer'
@@ -59,6 +59,8 @@ bert_tokenizer_name_param_str = 'bert-base-uncased'
 bert_model_transformer_param_str = 'huggingface/pytorch-transformers'
 bert_model_type_param_str = 'model'
 bert_model_name_param_str = 'bert-base-uncased'
+
+similarity_min_threshold = 0.5 # note: not scaled
 
 # USER QUESTIONS------------------------------------------
 # TO DO: Need to be updated manually in frontend Questions component

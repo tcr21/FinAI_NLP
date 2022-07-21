@@ -1,8 +1,14 @@
+import os
+import sys
 # for data 
 import pandas as pd
 from sklearn import metrics
 # other
 import random
+# parameters
+dirname = os.path.dirname(__file__)
+sys.path.append(os.path.join(dirname, '../../parameters_backend'))
+from parameters import similarity_min_threshold
 
 def generate_similarity_matrix_dtf(mean_vecs_clusters_dict, mean_vecs_input_data_dict, dtf_input_data, input_dict):
     
@@ -43,13 +49,16 @@ def generate_similarity_matrix_dtf(mean_vecs_clusters_dict, mean_vecs_input_data
         for j in range(1, 4):
             # Add rescaled scores to 3 empty rescaled score columns. Note: rescaling does work
             similarity_matrix_dtf.iloc[i,j+3] = similarity_matrix_dtf.iloc[i,j] / sum(similarity_matrix_dtf.iloc[i,1:4])
-            # Determine highest score: right now using initial highest score (not scaled one, but should be the same) 
+            # Determine highest score: right now using initial highest score (not scaled one) 
             if similarity_matrix_dtf.iloc[i,j][0] > max_score:
                 max_score = similarity_matrix_dtf.iloc[i,j][0] 
                 max_pred = similarity_matrix_dtf.columns[j] 
         # TO DO: set min for max_score (if below a certain threshold then return undefined-route and it will go to that component on frontend)
-        # Set prediction based on highest score
-        similarity_matrix_dtf.iloc[i, 7] = max_pred
+        # Set prediction based on highest score (not scaled)
+        if (max_score >= similarity_min_threshold):
+            similarity_matrix_dtf.iloc[i, 7] = max_pred
+        else:
+            similarity_matrix_dtf.iloc[i, 7] = "undefined"
 
     # Create 1 column for true label for training data 
     if "category" in dtf_input_data:

@@ -52,6 +52,12 @@ def evaluate_bert(data_file_path):
     print("TEST: similarity matrix training data----------------------------")
     print(similarity_matrix_training_data_dtf)
 
+    print("TEST: similarity matrix training data - cols")
+    print(similarity_matrix_training_data_dtf["route1"])
+    print(similarity_matrix_training_data_dtf["route2"])
+    print(similarity_matrix_training_data_dtf["route3"])
+    print(similarity_matrix_training_data_dtf["predicted"])
+
     # Evaluate on "training" data (cannot run Matplotlib GUI when running flask app)
     print_evaluation_metrics(similarity_matrix_training_data_dtf)
     plot_confusion_matrix(similarity_matrix_training_data_dtf)

@@ -1,5 +1,5 @@
 [
-    {"category": "route1", "message1": "I want to learn more about it.", "message2": "I have some income but need to learn more", "user": "11111111111111111111"},
+    {"category": "undefined", "message1": "I don't know.", "message2": "I am unsure", "user": "11111111111111111111"},
     {"category": "route2", "message1": "I need a loan", "message2": "I have some income but need to learn more", "user": "11111111111111111122"},
     {"category": "route1", "message1": "I don't understand it, it's not taught in school.", "message2": "I have some income but need to learn more", "user": "11111111111111111112"},
     {"category": "route3", "message1": "I am scared for my safety and for my life because I can't repay my loan in time", "message2": "I have some income but need to learn more", "user": "11111111111111111132"},
