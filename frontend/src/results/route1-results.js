@@ -7,17 +7,17 @@ import QuizPreview from "../quizzes/quiz-preview";
 
 function Route1Results({ serviceName }) {
   let contents;
-  const quiz = useQuizOnceByName(serviceName);
+  const quizzes = useQuizOnceByName(serviceName);
   // Error handling
-  if (quiz.status === "loading") {
+  if (quizzes.status === "loading") {
     contents = <LoadingSpinner />;
   }
-  if (quiz.status === "error") {
+  if (quizzes.status === "error") {
     contents = (
       <ErrorMessage>Something went wrong. Please try again.</ErrorMessage>
     );
   }
-  if (quiz.isEmpty) {
+  if (quizzes.isEmpty) {
     contents = (
       <>
         <h2>Sounds like you need to learn more about finance.</h2>
@@ -37,7 +37,7 @@ function Route1Results({ serviceName }) {
           told us, we recommend:{" "}
         </h2>
         <ul className="quiz-listing">
-          {quiz.results.map((quiz) => (
+          {quizzes.results.map((quiz) => (
             <li key={quiz.id}>
               <QuizPreview id={quiz.id} data={quiz.data} />
             </li>

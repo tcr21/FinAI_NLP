@@ -3,7 +3,6 @@ import { db } from "../firebase";
 import { collection, query, where, getDocs } from "firebase/firestore";
 
 function useQuizOnceByName(tagName) {
-  console.log("tagName.trim: ", tagName);
   const [quizState, setQuizState] = useState({
     status: "loading",
     snapshot: null,
@@ -21,7 +20,7 @@ function useQuizOnceByName(tagName) {
         // Get gives promise to doc snapshot
         const q = query(
           collection(db, "Quizzes"),
-          where("tags", "array-contains", tagName.trim()) // Tested and works with right tag input
+          where("tags", "array-contains-any", tagName) // Tested and works with right tag input
         );
         const snapshot = await getDocs(q);
         snapshot.forEach((doc) => {
