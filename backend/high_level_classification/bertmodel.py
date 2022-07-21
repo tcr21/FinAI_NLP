@@ -25,7 +25,7 @@ def get_response_bert(user_input_json):
     glove_clusters_dict = generate_clusters_dict(glove_model)
 
     # Create user input data dict to prep for embedding
-    user_input_dict = generate_input_data_dict(dtf_user_input)
+    user_input_dict = generate_input_data_dict(dtf_user_input, "clean")
 
     # Load bert tokenizer and model
     bert_tokenizer, bert_model = load_bert_tokenizer_and_model()

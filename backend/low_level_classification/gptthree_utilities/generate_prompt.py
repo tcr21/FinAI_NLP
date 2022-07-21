@@ -31,7 +31,7 @@ def generate_prompt(user_input_clean, res_bert):
             user_input_clean.capitalize()
             )
     else: 
-        print("TEST Sending this to GPT as prompt for route 4: ")
+        print("TEST Sending this to GPT as prompt for undefined route: ")
         print(gpt_prompts_param_dict[4].format(
         user_input_clean.capitalize()
         ))

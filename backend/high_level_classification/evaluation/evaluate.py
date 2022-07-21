@@ -32,7 +32,7 @@ def evaluate_bert(data_file_path):
     print(glove_clusters_dict)
 
     # Create training data dict to prep for embedding
-    training_data_dict = generate_input_data_dict(dtf_training_data)
+    training_data_dict = generate_input_data_dict(dtf_training_data, "clean")
     print("TEST: Training data dict-------------------------------")
     print(training_data_dict)
 
@@ -63,4 +63,4 @@ def evaluate_bert(data_file_path):
     plot_confusion_matrix(similarity_matrix_training_data_dtf)
     
 
-evaluate_bert('../../data/initial-data.json')
+evaluate_bert('../../data/test-data.json')

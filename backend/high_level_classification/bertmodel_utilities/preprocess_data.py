@@ -54,11 +54,11 @@ def preprocess_data_dtf(dtf_data):
                 preprocess_text_input(x, flag_stemm=False, flag_lemm=True))
 
 
-def generate_input_data_dict(dtf_data):
+def generate_input_data_dict(dtf_data, criteria):
     input_data_dict = {}
     for i in range(0, len(dtf_data)):
         input_data_dict[i] = []
         for col, value in dtf_data.items():
-            if "clean" in col:
+            if criteria in col:
                 input_data_dict[i].append(dtf_data.iloc[i][dtf_data.columns.get_loc(col)])
     return input_data_dict
