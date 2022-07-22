@@ -29,3 +29,9 @@
 # NLP====================================
 
 /venv
+
+/backend/high_level_classification/glovemodel_utilities/glove_models
+
+/backend/high_level_classification/bertmodel_utilities/bert_models
+
+/backend/high_level_classification/bertmodel_utilities/bert_tokenizers
