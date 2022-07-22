@@ -1,7 +1,7 @@
 import os
 import sys
 
-# functions
+# functions 
 dirname = os.path.dirname(__file__)
 from visualise_utilities import print_evaluation_metrics
 from visualise_utilities import plot_confusion_matrix
@@ -58,9 +58,10 @@ def evaluate_bert(data_file_path):
     print(similarity_matrix_training_data_dtf["route3"])
     print(similarity_matrix_training_data_dtf["predicted"])
 
-    # Evaluate on "training" data (cannot run Matplotlib GUI when running flask app)
+    # Evaluate on "training" data (Note: cannot run Matplotlib GUI when running flask app)
     print_evaluation_metrics(similarity_matrix_training_data_dtf)
-    plot_confusion_matrix(similarity_matrix_training_data_dtf)
+    # TO FIX (subfunction)
+    # plot_confusion_matrix(similarity_matrix_training_data_dtf)
     
 
 evaluate_bert('../../data/test-data.json')

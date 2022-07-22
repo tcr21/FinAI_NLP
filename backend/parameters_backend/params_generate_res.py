@@ -1,5 +1,4 @@
-from parameters import tags
-from parameters import services
+from parameters import tags, services, route3_options, undefined_options
 
 # MANUAL UPDATE: YES/NO LOGIC ------------------------------------------
 # Must be manually updated here if Questions to GPT change
@@ -52,21 +51,21 @@ def generate_res_route3(gpt_res_text, serviceNames):
     # If any of responses are true, confirm route3. If none of them are (else), then say unsure if route3
     gpt_answers_as_bool = generate_gpt_answers_bool_dict(gpt_res_text, 3)
     if (gpt_answers_as_bool['1']  == True) or (gpt_answers_as_bool['2']  == True) or (gpt_answers_as_bool['3']  == True):
-        serviceNames = ['route3'] 
+        serviceNames.append(route3_options['1'])
     else: 
-        serviceNames = ['unsure if route3'] 
+        serviceNames.append(route3_options['2'])
     return serviceNames 
 
 def generate_res_route_undefined(gpt_res_text, serviceNames):
     gpt_answers_as_bool = generate_gpt_answers_bool_dict(gpt_res_text, 3)
     if (gpt_answers_as_bool['1']  == True) and (gpt_answers_as_bool['2'] != True) and (gpt_answers_as_bool['3'] != True):
-        serviceNames = ['route1']
+        serviceNames.append(undefined_options['1'])
     elif (gpt_answers_as_bool['1'] != True) and (gpt_answers_as_bool['2']  == True) and (gpt_answers_as_bool['3'] != True):
-        serviceNames = ['route2']
+        serviceNames.append(undefined_options['2'])
     elif (gpt_answers_as_bool['1'] != True) and (gpt_answers_as_bool['2'] != True) and (gpt_answers_as_bool['3']  == True):
-        serviceNames = ['route3']
+        serviceNames.append(undefined_options['3'])
     else:
-        serviceNames = ['undefined']
+        serviceNames.append(undefined_options['4'])
     return serviceNames
 
 def generate_res_based_on_gpt(gpt_res_text, res_bert):
@@ -81,7 +80,6 @@ def generate_res_based_on_gpt(gpt_res_text, res_bert):
     elif res_bert == "route3": 
         serviceNames = generate_res_route3(gpt_res_text, serviceNames)
         print("TEST serviceNames route3", serviceNames)
-    # TO TEST (once have min threshold on Bert. Already set up in frontend)
     else: 
         serviceNames = generate_res_route_undefined(gpt_res_text, serviceNames)
         print("TEST serviceNames undefined", serviceNames)

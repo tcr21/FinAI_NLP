@@ -13,8 +13,10 @@ def print_evaluation_metrics(similarity_matrix_training_data_dtf):
 
 def plot_confusion_matrix(similarity_matrix_training_data_dtf):
     classes_array = []
-    for j in range(1, 4):
-        classes_array.append(similarity_matrix_training_data_dtf.columns[j])
+    # Just for labels
+    classes_array.append("route1")
+    classes_array.append("route2")
+    classes_array.append("route3")
     classes_array.append("undefined")
     classes = np.array(classes_array)
 
@@ -26,4 +28,4 @@ def plot_confusion_matrix(similarity_matrix_training_data_dtf):
         yticklabels=classes, title="Confusion matrix")
     plt.yticks(rotation=0)
 
-    plt.show()
+    plt.show() 

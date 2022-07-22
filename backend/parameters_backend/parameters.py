@@ -145,11 +145,21 @@ Answer saying 'Yes' or 'No' only, next to each of the numbers:
     """
 }
 
-# FIXED (NOT PARAMETERS UNLIKE OTHERS): TAGS, SERVICE NAMES------------------------------------------
+# FIXED (NOT PARAMETERS UNLIKE OTHERS): TAGS & SERVICES------------------------------------------
 # Tags: Must be manually updated in all quizzes in database if they change here
 # Service names: Must be manually updated in front end
 
+# Route1: below tags, and all combinations
 tags = {'1': 'saving', '2': 'borrowing', '3': 'finance products', '4': 'banking'}
 
+# Route2: below services, and all combinations
 services = {'1': 'Budget calculator', '2': 'Loan calculator'}
+
+# Route3
+
+route3_options = {'1': 'route3', '2': 'unsure if route3'}
+
+# Undefined
+
+undefined_options = {'1': 'route1', '2': 'route2', '3': 'route3', '4': 'undefined'}
 
