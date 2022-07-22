@@ -18,9 +18,8 @@ def get_response_bert(user_input_json):
     print("TEST: Dtf user input preprocessed-------------------------------")
     print(dtf_user_input)
     
-    # Load glove model
+    # Load glove model 
     glove_model = load_glove_model()
-    print("TEST: Glove model loaded")
     # Create clusters. Note: can call visualise_clusters from within generate_clusters if needed
     glove_clusters_dict = generate_clusters_dict(glove_model)
 
@@ -29,7 +28,6 @@ def get_response_bert(user_input_json):
 
     # Load bert tokenizer and model
     bert_tokenizer, bert_model = load_bert_tokenizer_and_model()
-    print("TEST: Bert model and tokenizer loaded")
 
     # Embed & get mean vector for clusters
     mean_vecs_clusters_dict = generate_mean_vector_dict(glove_clusters_dict, bert_tokenizer, bert_model)

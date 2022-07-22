@@ -3,9 +3,8 @@
 BACKEND PARAMETERS==========================
 
 Parameters:
-- Glove model name
-- Cluster key words
-- Cluster size
+- Glove model params
+- Cluster params
 - Bert model names (tokenizer and model)
 - GPT model name, temperature
 - User questions
@@ -33,17 +32,19 @@ Data/ = Manual updates required
 
 """
 
-# GLOVE MODEL NAMES------------------------------------------
+# GLOVE MODEL PARAMS------------------------------------------
 
 cluster_model_name_param_str = "glove-wiki-gigaword-300"
 
-# CLUSTER KEY WORDS------------------------------------------
+load_new_glove_model = False 
+selected_saved_glove_model = 'high_level_classification/glovemodel_utilities/glove_models/glove_model.bin' 
+name_new_glove_model = 'high_level_classification/glovemodel_utilities/glove_models/glove_model.bin'
+
+# CLUSTER PARAMS------------------------------------------
 
 cluster_key_words_param_dict = {1: ['learn','skills','education','teach'], 
 2: ['loan','debt','income', 'finance', 'job', 'fired'], 
 3: ['danger','attack', 'threat', 'physical']}
-
-# CLUSTER SIZE------------------------------------------
 
 cluster_size_param_dict = {1: 30, 2: 30, 3: 30}
 
@@ -58,6 +59,14 @@ bert_model_type_param_str = 'model'
 bert_model_name_param_str = 'bert-base-uncased'
 
 similarity_min_threshold = 0.5 # note: not scaled
+
+load_new_bert_tokenizer = False
+selected_saved_bert_tokenizer = 'high_level_classification/bertmodel_utilities/bert_tokenizers/bert_tokenizer.bin' 
+name_new_bert_tokenizer = 'high_level_classification/bertmodel_utilities/bert_tokenizers/bert_tokenizer.bin' 
+
+load_new_bert_model = False 
+selected_saved_bert_model = 'high_level_classification/bertmodel_utilities/bert_models/bert_model.bin' 
+name_new_bert_model = 'high_level_classification/bertmodel_utilities/bert_models/bert_model.bin'
 
 # USER QUESTIONS------------------------------------------
 # TO DO: Need to be updated manually in frontend Questions component
