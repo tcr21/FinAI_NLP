@@ -17,7 +17,7 @@ from generate_clusters import load_glove_model
 from generate_clusters import generate_clusters_dict
 
 def evaluate_bert(data_file_path):
-    # Read in & preprocess "training" data (optional)
+    # Read in & preprocess "training" data (optional) 
     dtf_training_data = read_training_data_into_dtf(os.path.join(dirname, data_file_path))
     preprocess_data_dtf(dtf_training_data)
     print("TEST: Dtf training data preprocessed-------------------------------")

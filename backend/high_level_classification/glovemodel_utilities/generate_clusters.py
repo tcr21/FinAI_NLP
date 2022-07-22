@@ -1,18 +1,19 @@
+from os.path import exists 
 # for w2v
-import gensim
 import gensim.downloader as gensim_api
+from gensim.models import KeyedVectors
 # for plotting
 from sklearn import manifold
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 
-# for params
+# for params 
 import sys
 import os
 dirname = os.path.dirname(__file__)
 sys.path.append(os.path.join(dirname, '../../parameters_backend'))
-from parameters import cluster_model_name_param_str, cluster_key_words_param_dict, cluster_size_param_dict
+from parameters import cluster_model_name_param_str, cluster_key_words_param_dict, cluster_size_param_dict, load_new_glove_model, selected_saved_glove_model, name_new_glove_model 
 
 
 
@@ -62,8 +63,16 @@ def visualise_clusters(clusters_dict, nlp_model):
     plt.show()
 
 def load_glove_model():
-    # Load glove model used to generate similar words
-    glove_model = gensim_api.load(cluster_model_name_param_str)
+    # Load glove model used to generate similar words if want to / if no saved model
+    if (load_new_glove_model == True) or (exists(selected_saved_glove_model) == False):
+        glove_model = gensim_api.load(cluster_model_name_param_str)
+        print("TEST glove model loaded from gensim")
+        glove_model.save(name_new_glove_model)
+        print("TEST glove model saved")
+    # If want to use saved model and have saved model
+    else: 
+        glove_model = KeyedVectors.load(selected_saved_glove_model)
+        print("TEST glove model loaded from saved models")
     return glove_model
 
 def generate_clusters_dict(glove_model):
