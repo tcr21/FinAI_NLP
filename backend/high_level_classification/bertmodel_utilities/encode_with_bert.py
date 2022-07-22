@@ -25,7 +25,7 @@ else:
     ssl._create_default_https_context = _create_unverified_https_context
 
 def load_bert_tokenizer_and_model():
-    # load model and tokenizer
+    # load model and tokenizer 
     bert_tokenizer = torch.hub.load(bert_tokenizer_transformer_param_str, bert_tokenizer_type_param_str, bert_tokenizer_name_param_str, trust_repo=True)    # Download vocabulary from S3 and cache.
     bert_model = torch.hub.load(bert_model_transformer_param_str, bert_model_type_param_str, bert_model_name_param_str)    # Download model and configuration from S3 and cache.
     return bert_tokenizer, bert_model
@@ -44,38 +44,21 @@ def embed_text_with_bert(text_input_clean, bert_tokenizer, bert_model):
 
     return embedded_text_array
 
-def generate_mean_vector_training_data(dtf_training_data, bert_tokenizer, bert_model): 
-    # make list
-    mean_vecs_training_data_list = [embed_text_with_bert(text, bert_tokenizer, bert_model).mean(0) 
-        for text in dtf_training_data.iloc[:,1]]
-
-    # make array
-    mean_vecs_training_data_array = np.array(mean_vecs_training_data_list)
-
-    # make dict
-    mean_vecs_training_data_dict = {}
-    i = 0
-    for text in dtf_training_data.iloc[:,1]:
-        mean_vecs_training_data_dict[text] = mean_vecs_training_data_array[i]
-        i = i + 1
-
-    return mean_vecs_training_data_dict
-
-def generate_mean_vector_clusters(clusters_dict, bert_tokenizer, bert_model):
+def generate_mean_vector_dict(input_dict, bert_tokenizer, bert_model):
     # merge cluster words into string and into dtf (1 row per cluster)
-    dtf_glove_clusters_as_strings = pd.DataFrame(columns=["cluster", "words"])
+    dtf_clusters_as_strings = pd.DataFrame(columns=["cluster", "words"])
     # For each cluster in dict
-    for k, v in clusters_dict.items():
+    for k, v in input_dict.items():
         # Join the elements (words) in the array into one big string
         cluster_words_string = " "
         cluster_words_string = cluster_words_string.join(v)
         # print(cluster_words_string)
         # Put cluster word strings into dataframe (one row per cluster)
-        dtf_glove_clusters_as_strings.loc[len(dtf_glove_clusters_as_strings.index)] = [k, cluster_words_string]
+        dtf_clusters_as_strings.loc[len(dtf_clusters_as_strings.index)] = [k, cluster_words_string]
 
     # make list
     mean_vecs_clusters_list = [embed_text_with_bert(text, bert_tokenizer, bert_model).mean(0)
-            for text in dtf_glove_clusters_as_strings["words"]] 
+            for text in dtf_clusters_as_strings["words"]] 
 
     # make array
     mean_vecs_clusters_array = np.array(mean_vecs_clusters_list)
@@ -83,7 +66,7 @@ def generate_mean_vector_clusters(clusters_dict, bert_tokenizer, bert_model):
     # make dict
     mean_vecs_clusters_dict  = {}
     i = 0
-    for k, v in clusters_dict.items():
+    for k, v in input_dict.items():
         mean_vecs_clusters_dict[k] = mean_vecs_clusters_array[i]
         i = i + 1
 

@@ -5,21 +5,30 @@ import axios from "axios";
 import { useState } from "react";
 import ResultsPage from "../results/results-page";
 import LoadingSpinner from "../common/loading-spinner";
+import UserQuestions from "../questions/questions";
 
 // Sign in through google account (but could do through email and password if wanted to)
 function HomePage() {
   const userState = useUser();
-  const [message, setMessage] = useState("");
+  const [message1, setMessage1] = useState("");
+  const [message2, setMessage2] = useState("");
+  const [message3, setMessage3] = useState("");
+  const [message4, setMessage4] = useState("");
   const [recommendedRouteService, setRecommendedRouteService] = useState(null);
   const [isLoading, setLoading] = useState(null);
 
-  const onMessageChange = (e) => setMessage(e.target.value);
+  const onMessage1Change = (e) => setMessage1(e.target.value);
+  const onMessage2Change = (e) => setMessage2(e.target.value);
+  const onMessage3Change = (e) => setMessage3(e.target.value);
+  const onMessage4Change = (e) => setMessage4(e.target.value);
 
-  const callServer = (message) => {
+  const callServer = (message1, message2, message3, message4) => {
+    let messages = Object.assign(message1, message2, message3, message4);
     setLoading(true);
+    console.log("Messages", messages);
     axios
       .post("http://127.0.0.1:5000/", {
-        message,
+        messages,
       })
       .then((res) => {
         console.log("Receiving server output:", res);
@@ -37,22 +46,6 @@ function HomePage() {
     if (isLoading) {
       contents = (
         <>
-          <h3>Please answer the following questions.</h3>
-          <form action="#" method="post">
-            <p>1. What is your primary concern when it comes to finance?</p>
-            <p>
-              <input
-                type="text"
-                name="message"
-                id="message"
-                value={message}
-                onChange={onMessageChange}
-              />
-            </p>
-          </form>
-          <button onClick={() => callServer({ message })} disabled={isLoading}>
-            Submit answers
-          </button>
           <LoadingSpinner />
           <button onClick={userState.signOut} disabled={userState.isLoading}>
             {userState.isLoading ? "Signing out..." : "Sign out"}
@@ -64,18 +57,53 @@ function HomePage() {
         <>
           <h3>Please answer the following questions.</h3>
           <form action="#" method="post">
-            <p>1. What is your primary concern when it comes to finance?</p>
+            <UserQuestions questionNumber="1" />
             <p>
               <input
                 type="text"
-                name="message"
-                id="message"
-                value={message}
-                onChange={onMessageChange}
+                name="message1"
+                id="message1"
+                value={message1}
+                onChange={onMessage1Change}
+              />
+            </p>
+            <UserQuestions questionNumber="2" />
+            <p>
+              <input
+                type="text"
+                name="message2"
+                id="message2"
+                value={message2}
+                onChange={onMessage2Change}
+              />
+            </p>
+            <UserQuestions questionNumber="3" />
+            <p>
+              <input
+                type="text"
+                name="message3"
+                id="message3"
+                value={message3}
+                onChange={onMessage3Change}
+              />
+            </p>
+            <UserQuestions questionNumber="4" />
+            <p>
+              <input
+                type="text"
+                name="message4"
+                id="message4"
+                value={message4}
+                onChange={onMessage4Change}
               />
             </p>
           </form>
-          <button onClick={() => callServer({ message })} disabled={isLoading}>
+          <button
+            onClick={() =>
+              callServer({ message1 }, { message2 }, { message3 }, { message4 })
+            }
+            disabled={isLoading}
+          >
             Submit answers
           </button>
           <ResultsPage routeServiceName={recommendedRouteService}></ResultsPage>
