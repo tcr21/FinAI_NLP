@@ -26,9 +26,10 @@
 # 07.REACT/react-quiz-game/yarn-error.log*
 # 07.REACT/react-quiz-game/.vercel
 
-# NLP====================================
 
 /venv
+
+# NL MODELS====================================
 
 /backend/high_level_classification/glovemodel_utilities/glove_models
 
