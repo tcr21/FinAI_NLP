@@ -129,7 +129,9 @@ function HomePage() {
 
   return (
     <main>
-      <h1>Welcome to the financial literacy app!</h1>
+      <h1 className="text-3xl font-bold underline">
+        Welcome to the financial literacy app!
+      </h1>
       {userState.error && (
         <ErrorMessage>Something went wrong. Please try again.</ErrorMessage>
       )}
