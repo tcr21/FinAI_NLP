@@ -20,7 +20,6 @@ function Route1Results({ serviceName }) {
   if (quizzes.isEmpty) {
     contents = (
       <>
-        <h2>Sounds like you need to learn more about finance.</h2>
         <p>
           Here are some relevant resources. Please try to re-phrase your answers
           for more specific results.
@@ -32,10 +31,6 @@ function Route1Results({ serviceName }) {
     // If no errors
     contents = (
       <>
-        <h2>
-          Sounds like you need to learn more about finance. Based on what you've
-          told us, we recommend:{" "}
-        </h2>
         <ul className="quiz-listing">
           {quizzes.results.map((quiz) => (
             <li key={quiz.id}>

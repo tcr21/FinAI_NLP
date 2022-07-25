@@ -16,6 +16,7 @@ function HomePage() {
   const [message4, setMessage4] = useState("");
   const [recommendedRouteService, setRecommendedRouteService] = useState(null);
   const [isLoading, setLoading] = useState(null);
+  const [resultsReady, setResultsReady] = useState(false);
 
   const onMessage1Change = (e) => setMessage1(e.target.value);
   const onMessage2Change = (e) => setMessage2(e.target.value);
@@ -34,104 +35,132 @@ function HomePage() {
         console.log("Receiving server output:", res);
         setRecommendedRouteService(res);
         setLoading(false);
+        setResultsReady(true);
       })
       .catch((err) => console.error(err));
   };
 
   console.log("recommendedRouteService", recommendedRouteService);
+  console.log("results ready", resultsReady);
 
   let contents;
 
-  if (userState.isSignedIn) {
-    if (isLoading) {
-      contents = (
-        <>
-          <LoadingSpinner />
-          <button onClick={userState.signOut} disabled={userState.isLoading}>
-            {userState.isLoading ? "Signing out..." : "Sign out"}
-          </button>
-        </>
-      );
-    } else {
-      contents = (
-        <>
-          <h3>Please answer the following questions.</h3>
-          <form action="#" method="post">
-            <UserQuestions questionNumber="1" />
-            <p>
-              <input
-                type="text"
-                name="message1"
-                id="message1"
-                value={message1}
-                onChange={onMessage1Change}
-              />
-            </p>
-            <UserQuestions questionNumber="2" />
-            <p>
-              <input
-                type="text"
-                name="message2"
-                id="message2"
-                value={message2}
-                onChange={onMessage2Change}
-              />
-            </p>
-            <UserQuestions questionNumber="3" />
-            <p>
-              <input
-                type="text"
-                name="message3"
-                id="message3"
-                value={message3}
-                onChange={onMessage3Change}
-              />
-            </p>
-            <UserQuestions questionNumber="4" />
-            <p>
-              <input
-                type="text"
-                name="message4"
-                id="message4"
-                value={message4}
-                onChange={onMessage4Change}
-              />
-            </p>
-          </form>
-          <button
-            onClick={() =>
-              callServer({ message1 }, { message2 }, { message3 }, { message4 })
-            }
-            disabled={isLoading}
-          >
-            Submit answers
-          </button>
-          <ResultsPage routeServiceName={recommendedRouteService}></ResultsPage>
-          <button onClick={userState.signOut} disabled={userState.isLoading}>
-            {userState.isLoading ? "Signing out..." : "Sign out"}
-          </button>
-        </>
-      );
-    }
-  } else {
+  if (isLoading) {
     contents = (
       <>
-        <p>
-          This app is here to help you learn about how to improve your personal
-          finances! Sign in with your Google account below to get started.
-        </p>
-        <button onClick={userState.signIn} disabled={userState.isLoading}>
-          {userState.isLoading ? "Signing in..." : "Sign in"}
-        </button>
+        <LoadingSpinner />
       </>
+    );
+  } else if (resultsReady !== true) {
+    contents = (
+      <section className="text-gray-600 body-font">
+        <div className="container px-1 py-10 mx-auto">
+          <div className="flex flex-col text-center w-full mb-10">
+            <h2 className="text-xs text-indigo-500 tracking-widest font-medium title-font mb-1">
+              YOUR GUIDE TO FINANCE
+            </h2>
+            <h1 className="sm:text-3xl text-2xl font-medium title-font text-gray-900">
+              Please answer so we can help
+            </h1>
+          </div>
+
+          <div className="p-1 lg:w-1/1">
+            <div className="h-full bg-gray-100 bg-opacity-75 px-8 py-1 pt-8 pb-8 rounded-lg overflow-hidden text-center relative">
+              <form action="#" method="post">
+                <div>
+                  <UserQuestions questionNumber="1" />
+                  <div class="mt-1">
+                    <textarea
+                      type="text"
+                      name="message1"
+                      id="message1"
+                      value={message1}
+                      onChange={onMessage1Change}
+                      class="shadow-sm focus:ring-gray-900 focus:border-gray-900 mt-1 block w-full sm:text-sm border border-gray-300 rounded-md p-2 py-1 px-2"
+                      placeholder=" Type here"
+                      rows="4"
+                    />
+                  </div>
+                  <br></br>
+                </div>
+                <div>
+                  <UserQuestions questionNumber="2" />
+                  <div class="mt-1">
+                    <textarea
+                      type="text"
+                      name="message2"
+                      id="message2"
+                      value={message2}
+                      onChange={onMessage2Change}
+                      class="shadow-sm focus:ring-gray-900 focus:border-gray-900 mt-1 block w-full sm:text-sm border border-gray-300 rounded-md p-2 py-1 px-2"
+                      placeholder=" Type here"
+                      rows="4"
+                    />
+                  </div>
+                  <br></br>
+                </div>
+                <div>
+                  <UserQuestions questionNumber="3" />
+                  <div class="mt-1">
+                    <textarea
+                      type="text"
+                      name="message3"
+                      id="message3"
+                      value={message3}
+                      onChange={onMessage3Change}
+                      class="shadow-sm focus:ring-gray-900 focus:border-gray-900 mt-1 block w-full sm:text-sm border border-gray-300 rounded-md p-2 py-1 px-2"
+                      placeholder=" Type here"
+                      rows="4"
+                    />
+                  </div>
+                  <br></br>
+                </div>
+                <div>
+                  <UserQuestions questionNumber="4" />
+                  <div class="mt-1">
+                    <textarea
+                      type="text"
+                      name="message4"
+                      id="message4"
+                      value={message4}
+                      onChange={onMessage4Change}
+                      class="shadow-sm focus:ring-gray-900 focus:border-gray-900 mt-1 block w-full sm:text-sm border border-gray-300 rounded-md p-2 py-1 px-2"
+                      placeholder=" Type here"
+                      rows="4"
+                    />
+                  </div>
+                  <br></br>
+                </div>
+              </form>
+              <br></br>
+              <br></br>
+              <button
+                className="inline-flex items-center bg-indigo-500 border-0 py-1 px-3 focus:outline-none hover:bg-gray-200 rounded text-base mt-4 md:mt-0"
+                onClick={() =>
+                  callServer(
+                    { message1 },
+                    { message2 },
+                    { message3 },
+                    { message4 }
+                  )
+                }
+                disabled={isLoading}
+              >
+                Submit answers
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+    );
+  } else {
+    contents = (
+      <ResultsPage routeServiceName={recommendedRouteService}></ResultsPage>
     );
   }
 
   return (
     <main>
-      <h1 className="text-3xl font-bold underline">
-        Welcome to the financial literacy app!
-      </h1>
       {userState.error && (
         <ErrorMessage>Something went wrong. Please try again.</ErrorMessage>
       )}

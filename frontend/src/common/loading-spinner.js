@@ -14,8 +14,8 @@ import "./loading-spinner.css";
  */
 function LoadingSpinner(props) {
   const {
-    size = "3rem",
-    borderWidth = "0.5em",
+    size = "10rem",
+    borderWidth = "2em",
     spinnerColor = "#6060ff",
     backgroundColor = "rgba(86, 86, 86, 0.1)",
     screenReaderMessage = "Loading...",

@@ -34,7 +34,8 @@
 }
 
 .trivia-item__button:hover {
-  background: #3c3cda;
+  /* background: #3c3cda; */
+  background: #6060ff;
   transform: rotate(1deg) scale(1.01);
 }
 
@@ -43,12 +44,13 @@
   transform: rotate(2deg) scale(1.02);
 }
 
-.trivia-item__button:focus {
+/* .trivia-item__button:focus {
   border-color: black;
-}
+} */
 
 .trivia-item__button.trivia-item__button--disabled {
-  background: #c3c3d8;
+  /* background: #c3c3d8; */
+  background: #ebecf0;
 }
 
 .trivia-item__button.trivia-item__button--correct {

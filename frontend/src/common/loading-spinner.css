@@ -1,17 +1,18 @@
 .loading-spinner {
     text-align: center;
     position: relative;
+    top: 50%
   }
   
   .loading-spinner__spinner {
     display: inline-block;
-    border-radius: 50%;
-    width: 10rem;
-    height: 10rem;
+    border-radius: 70%;
+    width: 50rem;
+    height: 50rem;
     vertical-align: text-bottom;
     border-style: solid;
     border-right-color: transparent;
-    animation: loading-spinner 0.9s linear infinite;
+    animation: loading-spinner 1.2s linear infinite;
   }
   
   @keyframes loading-spinner {
