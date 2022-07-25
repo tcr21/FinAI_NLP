@@ -18,14 +18,15 @@ function Route1Results({ serviceName }) {
     );
   }
   if (quizzes.isEmpty) {
+    // TO TEST RENDER
     contents = (
-      <>
+      <div className="h-full bg-white bg-opacity-75 px-0 py-5 pt-5 pb-5 rounded-lg overflow-hidden text-center relative">
         <p>
           Here are some relevant resources. Please try to re-phrase your answers
           for more specific results.
         </p>
         <QuizListing />
-      </>
+      </div>
     );
   } else {
     // If no errors

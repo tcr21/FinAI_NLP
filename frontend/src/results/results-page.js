@@ -1,4 +1,3 @@
-import { Link } from "react-router-dom";
 import ErrorMessage from "../common/error-message";
 import ResultsListing from "./results-listing";
 
@@ -17,18 +16,22 @@ function ResultsPage({ routeServiceName }) {
               Here is what we recommend
             </h1>
           </div>
-          <ResultsListing
-            route={routeServiceName.data.route}
-            serviceName={routeServiceName.data.service}
-          />
+          <div className="h-full bg-white bg-opacity-75 px-0 py-5 pt-5 pb-5 rounded-lg overflow-hidden text-center relative">
+            <ResultsListing
+              route={routeServiceName.data.route}
+              serviceName={routeServiceName.data.service}
+            />
+            <br></br>
+            <br></br>
+            <button
+              onClick={() => window.location.reload()}
+              className="inline-flex items-center bg-indigo-500 border-0 py-1 px-3 focus:outline-none hover:bg-gray-200 rounded text-base mt-4 md:mt-0"
+            >
+              Submit new answers
+            </button>
+          </div>
         </div>
       </section>
-      <button
-        onClick={() => window.location.reload()}
-        className="inline-flex items-center bg-indigo-500 border-0 py-1 px-3 focus:outline-none hover:bg-gray-200 rounded text-base mt-4 md:mt-0"
-      >
-        Submit new answers
-      </button>
     </>
   );
 }

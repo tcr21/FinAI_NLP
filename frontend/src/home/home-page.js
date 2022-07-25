@@ -69,14 +69,14 @@ function HomePage() {
               <form action="#" method="post">
                 <div>
                   <UserQuestions questionNumber="1" />
-                  <div class="mt-1">
+                  <div className="mt-1">
                     <textarea
                       type="text"
                       name="message1"
                       id="message1"
                       value={message1}
                       onChange={onMessage1Change}
-                      class="shadow-sm focus:ring-gray-900 focus:border-gray-900 mt-1 block w-full sm:text-sm border border-gray-300 rounded-md p-2 py-1 px-2"
+                      className="shadow-sm focus:ring-gray-900 focus:border-gray-900 mt-1 block w-full sm:text-sm border border-gray-300 rounded-md p-2 py-1 px-2"
                       placeholder=" Type here"
                       rows="4"
                     />
@@ -85,14 +85,14 @@ function HomePage() {
                 </div>
                 <div>
                   <UserQuestions questionNumber="2" />
-                  <div class="mt-1">
+                  <div className="mt-1">
                     <textarea
                       type="text"
                       name="message2"
                       id="message2"
                       value={message2}
                       onChange={onMessage2Change}
-                      class="shadow-sm focus:ring-gray-900 focus:border-gray-900 mt-1 block w-full sm:text-sm border border-gray-300 rounded-md p-2 py-1 px-2"
+                      className="shadow-sm focus:ring-gray-900 focus:border-gray-900 mt-1 block w-full sm:text-sm border border-gray-300 rounded-md p-2 py-1 px-2"
                       placeholder=" Type here"
                       rows="4"
                     />
@@ -101,14 +101,14 @@ function HomePage() {
                 </div>
                 <div>
                   <UserQuestions questionNumber="3" />
-                  <div class="mt-1">
+                  <div className="mt-1">
                     <textarea
                       type="text"
                       name="message3"
                       id="message3"
                       value={message3}
                       onChange={onMessage3Change}
-                      class="shadow-sm focus:ring-gray-900 focus:border-gray-900 mt-1 block w-full sm:text-sm border border-gray-300 rounded-md p-2 py-1 px-2"
+                      className="shadow-sm focus:ring-gray-900 focus:border-gray-900 mt-1 block w-full sm:text-sm border border-gray-300 rounded-md p-2 py-1 px-2"
                       placeholder=" Type here"
                       rows="4"
                     />
@@ -117,14 +117,14 @@ function HomePage() {
                 </div>
                 <div>
                   <UserQuestions questionNumber="4" />
-                  <div class="mt-1">
+                  <div className="mt-1">
                     <textarea
                       type="text"
                       name="message4"
                       id="message4"
                       value={message4}
                       onChange={onMessage4Change}
-                      class="shadow-sm focus:ring-gray-900 focus:border-gray-900 mt-1 block w-full sm:text-sm border border-gray-300 rounded-md p-2 py-1 px-2"
+                      className="shadow-sm focus:ring-gray-900 focus:border-gray-900 mt-1 block w-full sm:text-sm border border-gray-300 rounded-md p-2 py-1 px-2"
                       placeholder=" Type here"
                       rows="4"
                     />

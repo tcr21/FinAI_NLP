@@ -13,6 +13,11 @@ function PageHeader() {
     setStartPage(true);
     setLearnPage(false);
     setBudgetPage(false);
+    console.log("window location", window.location);
+    console.log(window.location.pathname === "/");
+    if (window.location.pathname === "/") {
+      window.location.reload();
+    }
   };
 
   const setLearnPageFunction = () => {
