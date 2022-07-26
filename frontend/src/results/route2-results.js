@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import ErrorMessage from "../common/error-message";
 
 function Route2Results({ serviceName }) {
@@ -34,9 +35,11 @@ function Route2Results({ serviceName }) {
                 Plan your family budget for the month.
               </p>
               <br></br>
-              <button className="mt-3 inline-flex items-center bg-indigo-500 border-0 py-1 px-3 focus:outline-none hover:bg-gray-200 rounded text-base mt-4 md:mt-0">
-                Start now
-              </button>
+              <Link to="/personal-finance/budget-calculator">
+                <button className="mt-3 inline-flex items-center bg-indigo-500 border-0 py-1 px-3 focus:outline-none hover:bg-gray-200 rounded text-base mt-4 md:mt-0">
+                  Start now
+                </button>
+              </Link>
             </div>
           </div>
         </div>
@@ -65,9 +68,11 @@ function Route2Results({ serviceName }) {
                 Find out what interest rates mean for your family.
               </p>
               <br></br>
-              <button className=" mt-3 inline-flex items-center bg-indigo-500 border-0 py-1 px-3 focus:outline-none hover:bg-gray-200 rounded text-base mt-4 md:mt-0">
-                Start now
-              </button>
+              <Link to="/personal-finance/loan-calculator">
+                <button className=" mt-3 inline-flex items-center bg-indigo-500 border-0 py-1 px-3 focus:outline-none hover:bg-gray-200 rounded text-base mt-4 md:mt-0">
+                  Start now
+                </button>
+              </Link>
             </div>
           </div>
         </div>
@@ -96,9 +101,11 @@ function Route2Results({ serviceName }) {
                 Access a list of licensed microfinance institutions.
               </p>
               <br></br>
-              <button className=" mt-3 inline-flex items-center bg-indigo-500 border-0 py-1 px-3 focus:outline-none hover:bg-gray-200 rounded text-base mt-4 md:mt-0">
-                Start now
-              </button>
+              <Link to="/personal-finance/mfis">
+                <button className=" mt-3 inline-flex items-center bg-indigo-500 border-0 py-1 px-3 focus:outline-none hover:bg-gray-200 rounded text-base mt-4 md:mt-0">
+                  Start now
+                </button>
+              </Link>
             </div>
           </div>
         </div>

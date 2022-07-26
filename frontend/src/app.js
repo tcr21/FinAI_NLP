@@ -9,6 +9,9 @@ import useUser, { UserProvider } from "./data/hooks/use-user";
 import NotFoundPage from "./not-found/page-not-found";
 import QuizzesPage from "./quizzes/quizzes-page";
 import PersonalFinancePage from "./personal-finance/personal-finance-page";
+import LoanCalculatorPage from "./personal-finance/loan-calculator-page";
+import BudgetCalculatorPage from "./personal-finance/budget-calculator-page";
+import MfisPage from "./personal-finance/mfis-page";
 
 function ProviderWrappedApp() {
   return (
@@ -46,8 +49,21 @@ function App() {
             exact
             element={<PersonalFinancePage />}
           ></Route>
-          {/* <Route path="/about" exact element={<AboutPage />}></Route> */}
-          {/* <Route path="/demos" exact element={<DemosPage />}></Route> */}
+          <Route
+            path="/personal-finance/loan-calculator"
+            exact
+            element={<LoanCalculatorPage />}
+          ></Route>
+          <Route
+            path="/personal-finance/budget-calculator"
+            exact
+            element={<BudgetCalculatorPage />}
+          ></Route>
+          <Route
+            path="/personal-finance/mfis"
+            exact
+            element={<MfisPage />}
+          ></Route>
           <Route path="*" exact element={<NotFoundPage />}></Route>
         </Routes>
       )}
