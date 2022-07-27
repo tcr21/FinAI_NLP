@@ -43,7 +43,7 @@ function LoanCalculatorPage() {
               I want a loan
             </button>
           </div>
-          <p className="text-gray-900 text-sm">
+          <p className="text-gray-900 text-sm italic">
             Please input amounts for all fields, or fields 1-4, or fields 1-2
             and 5.
           </p>
