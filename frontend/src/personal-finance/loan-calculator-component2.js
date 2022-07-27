@@ -28,12 +28,12 @@ function LoanCalculatorOutputComponent2({
             {
               title: "Amount borrowed",
               value: Math.round(amountNeeded),
-              color: "#32CD32",
+              color: "#22c55e",
             },
             {
               title: "Cost of loan",
               value: Math.round(totalCostOfLoan),
-              color: "#DC143C",
+              color: "#dc2626",
             },
           ]}
           lineWidth={40}
