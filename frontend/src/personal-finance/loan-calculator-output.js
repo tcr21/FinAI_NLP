@@ -1,5 +1,7 @@
 import ErrorMessage from "../common/error-message";
 import { PieChart } from "react-minimal-pie-chart";
+import LoanCalculatorOutputComponent from "./loan-calculator-output-component";
+import LoanCalculatorOutputComponentNoInput from "./loan-calculator-component-no-input";
 
 function LoanCalculatorOutput({
   inputType,
@@ -81,7 +83,6 @@ function LoanCalculatorOutput({
     console.log("APR", aprFlt);
 
     // Handle missing essential inputs: loan amount or missing costs or missing loan term
-    // TO DO: FIX FORMAT
     if (
       amountBorrowedFlt === 0 ||
       loanTermMonths === 0 ||
@@ -89,21 +90,18 @@ function LoanCalculatorOutput({
     ) {
       return (
         <div>
-          <PieChart
-            data={[
-              {
-                title: "Missing key inputs",
-                value: 100,
-                color: "#A9A9A9",
-              },
-            ]}
-            lineWidth={40}
-          />
-          <br></br>
           <p class="text-red-700 text-sm italic">
             Please input 1 and 2, and at least one of 3, 4 or 5 on the left hand
-            side.
+            side to get results below.
           </p>
+          <br></br>
+          <LoanCalculatorOutputComponentNoInput
+            totalMonthlyRepayment={0}
+            amountBorrowedFlt={0}
+            totalCostOfLoan={0}
+            totalAmountToRepay={0}
+            currency={currency}
+          ></LoanCalculatorOutputComponentNoInput>
         </div>
       );
     }
@@ -168,128 +166,44 @@ function LoanCalculatorOutput({
 
     // Set contents and handle warnings if missing interest or fees
     if (missingFees === true) {
-      // TO DO: FIX FORMAT
       contents = (
         <div>
-          <PieChart
-            data={[
-              {
-                title: "Amount borrowed",
-                value: Math.round(amountBorrowedFlt),
-                color: "#32CD32",
-              },
-              {
-                title: "Cost of loan",
-                value: Math.round(totalCostOfLoan),
-                color: "#DC143C",
-              },
-            ]}
-            lineWidth={40}
-          />
-
-          <p>Amount borrowed: {Math.round(amountBorrowedFlt)}</p>
-          <p>Total cost of loan: {Math.round(totalCostOfLoan)}</p>
-          <p>Total amount to repay: {Math.round(totalAmountToRepay)}</p>
-          <p>Total monthly repayment: {Math.round(totalMonthlyRepayment)}</p>
-          <p class="italic">Note: You have not included fees.</p>
+          <LoanCalculatorOutputComponent
+            totalMonthlyRepayment={totalMonthlyRepayment}
+            amountBorrowedFlt={amountBorrowedFlt}
+            totalCostOfLoan={totalCostOfLoan}
+            totalAmountToRepay={totalAmountToRepay}
+            currency={currency}
+          ></LoanCalculatorOutputComponent>
+          <p class="italic text-red-700 text-sm">
+            Note: You have not included any fees
+          </p>
         </div>
       );
     } else if (missingInterestRate === true) {
-      // TO DO: FIX FORMAT
       contents = (
         <div>
-          <PieChart
-            data={[
-              {
-                title: "Amount borrowed",
-                value: Math.round(amountBorrowedFlt),
-                color: "#32CD32",
-              },
-              {
-                title: "Cost of loan",
-                value: Math.round(totalCostOfLoan),
-                color: "#DC143C",
-              },
-            ]}
-            lineWidth={40}
-          />
-
-          <p>Amount borrowed: {Math.round(amountBorrowedFlt)}</p>
-          <p>Total cost of loan: {Math.round(totalCostOfLoan)}</p>
-          <p>Total amount to repay: {Math.round(totalAmountToRepay)}</p>
-          <p>Total monthly repayment: {Math.round(totalMonthlyRepayment)}</p>
-          <p class="italic">Note: You have not included interest</p>
+          <LoanCalculatorOutputComponent
+            totalMonthlyRepayment={totalMonthlyRepayment}
+            amountBorrowedFlt={amountBorrowedFlt}
+            totalCostOfLoan={totalCostOfLoan}
+            totalAmountToRepay={totalAmountToRepay}
+            currency={currency}
+          ></LoanCalculatorOutputComponent>
+          <p class="italic text-red-700 text-sm">
+            Note: You have not included interest, which is unusual
+          </p>
         </div>
       );
     } else {
       contents = (
-        <div>
-          <h2 class="text-sm tracking-widest title-font mb-0 font-medium">
-            Monthly repayment
-          </h2>
-          <div className="flex mt-1 items-center pb-5 border-b-2 border-gray-100 mb-0">
-            <h1 class="text-2xl text-gray-900 leading-none flex items-center pb-0 mb-0 border-b border-gray-200">
-              <span>
-                {Math.round(totalMonthlyRepayment).toLocaleString("en-US")}{" "}
-                {currency}
-              </span>
-            </h1>
-          </div>
-          <div className="flex relative pb-10 py-5">
-            <PieChart
-              data={[
-                {
-                  title: "Amount borrowed",
-                  value: Math.round(amountBorrowedFlt),
-                  color: "#32CD32",
-                },
-                {
-                  title: "Cost of loan",
-                  value: Math.round(totalCostOfLoan),
-                  color: "#DC143C",
-                },
-              ]}
-              lineWidth={40}
-            />
-          </div>
-          <div>
-            <h2 class="text-sm tracking-widest title-font mb-0 font-medium">
-              Amount borrowed
-            </h2>
-            <div className="flex mt-1 items-center pb-5 border-b-2 border-gray-100 mb-0">
-              <div className="w-4 h-4 mr-3 inline-flex items-center justify-center rounded-full bg-green-500 text-white flex-shrink-0"></div>
-              <h1 class="text-2xl text-gray-900 leading-none flex items-center pb-0 mb-0 border-b border-gray-200">
-                <span>
-                  {Math.round(amountBorrowedFlt).toLocaleString("en-US")}{" "}
-                  {currency}
-                </span>
-              </h1>
-            </div>
-            <h2 class="text-sm tracking-widest title-font mb-0 font-medium">
-              Cost of loan
-            </h2>
-            <div className="flex mt-1 items-center pb-5 border-b-2 border-gray-100 mb-0">
-              <div className="w-4 h-4 mr-3 inline-flex items-center justify-center rounded-full bg-red-600 text-white flex-shrink-0"></div>
-              <h1 class="text-2xl text-gray-900 leading-none flex items-center pb-0 mb-0 border-b border-gray-200">
-                <span>
-                  {Math.round(totalCostOfLoan).toLocaleString("en-US")}{" "}
-                  {currency}
-                </span>
-              </h1>
-            </div>
-            <h2 class="text-sm tracking-widest title-font mb-0 font-medium">
-              Total amount to repay
-            </h2>
-            <div className="flex mt-1 items-center pb-5 border-b-2 border-gray-100 mb-0">
-              <h1 class="text-2xl text-gray-900 leading-none flex items-center pb-0 mb-0 border-b border-gray-200">
-                <span>
-                  {Math.round(totalAmountToRepay).toLocaleString("en-US")}{" "}
-                  {currency}
-                </span>
-              </h1>
-            </div>
-          </div>
-        </div>
+        <LoanCalculatorOutputComponent
+          totalMonthlyRepayment={totalMonthlyRepayment}
+          amountBorrowedFlt={amountBorrowedFlt}
+          totalCostOfLoan={totalCostOfLoan}
+          totalAmountToRepay={totalAmountToRepay}
+          currency={currency}
+        ></LoanCalculatorOutputComponent>
       );
     }
     // Scenario 2: I want a loan------------------------------------------------------

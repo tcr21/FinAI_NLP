@@ -120,7 +120,7 @@ function PageHeader() {
               className="w-10 h-10 text-white p-2 bg-indigo-500 rounded-full"
               viewBox="0 0 24 24"
             >
-              <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
+              <path d="M22 12h-4l-3 9L9 3l-3 9H2"></path>
             </svg>
             <span className="ml-3 text-xl">FinLit</span>
           </a>
@@ -188,7 +188,7 @@ function PageHeader() {
               className="w-10 h-10 text-white p-2 bg-indigo-500 rounded-full"
               viewBox="0 0 24 24"
             >
-              <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
+              <path d="M22 12h-4l-3 9L9 3l-3 9H2"></path>
             </svg>
             <span className="ml-3 text-xl">FinLit</span>
           </a>
