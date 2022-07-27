@@ -1,5 +1,5 @@
 function BudgetCalculatorPage() {
-  return <>Budget calculator</>;
+  return <>Budget calculator </>;
 }
 
 export default BudgetCalculatorPage;
