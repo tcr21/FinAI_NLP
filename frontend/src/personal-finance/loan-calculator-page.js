@@ -11,12 +11,17 @@ function LoanCalculatorPage() {
   const [interestRate, setInterestRate] = useState("");
   const [fees, setFees] = useState("");
   const [apr, setApr] = useState("");
+  const [selectedCurrency, setSelectedCurrency] = useState("Rs");
 
   const onAmountBorrowedChange = (e) => setAmountBorrowed(e.target.value);
   const onLoanTermChange = (e) => setLoanTerm(e.target.value);
   const onInterestRateChange = (e) => setInterestRate(e.target.value);
   const onFeesChange = (e) => setFees(e.target.value);
   const onAprChange = (e) => setApr(e.target.value);
+
+  const onChangeCurrency = (e) => {
+    setSelectedCurrency(e.target.value);
+  };
 
   let contents;
   if (inputType === "Amount borrowed") {
@@ -43,7 +48,7 @@ function LoanCalculatorPage() {
               I want a loan
             </button>
           </div>
-          <p className="text-gray-900 text-sm italic">
+          <p className="text-gray-900 text-sm italic mb-4">
             Please input amounts for all fields, or fields 1-4, or fields 1-2
             and 5.
           </p>
@@ -52,7 +57,7 @@ function LoanCalculatorPage() {
           <div className="container px-5 py-0 mx-auto flex flex-wrap bg-gray-100 rounded-lg">
             <div className="flex flex-wrap w-full">
               {/* INPUT */}
-              <div className="lg:w-2/5 md:w-1/2 md:pr-10 md:py-6">
+              <div className="lg:w-1/2 md:w-1/2 md:pr-10 md:py-6 mb-10">
                 <div className="flex relative pb-12">
                   <div className="h-full w-10 absolute inset-0 flex items-center justify-center">
                     <div className="h-full w-1 bg-gray-400 pointer-events-none"></div>
@@ -85,9 +90,10 @@ function LoanCalculatorPage() {
                             id="currency"
                             name="currency"
                             className="focus:ring-indigo-500 focus:border-indigo-500 h-full py-0 pl-0 pr-0 border-transparent bg-transparent text-gray-500 sm:text-sm rounded-md"
+                            onChange={onChangeCurrency}
                           >
-                            <option>Rs</option>
-                            <option>USD</option>
+                            <option value="Rs">Rs</option>
+                            <option value="USD">USD</option>
                           </select>
                         </div>
                       </div>
@@ -257,14 +263,17 @@ function LoanCalculatorPage() {
                 </div>
               </div>
               {/* OUTPUT */}
-              <LoanCalculatorOutput
-                inputType={inputType}
-                amountBorrowed={amountBorrowed}
-                loanTerm={loanTerm}
-                interestRate={interestRate}
-                fees={fees}
-                apr={apr}
-              />
+              <div className="lg:w-1/2 md:w-1/2 md:pl-10 md:py-6 md:pr-5 mb-10">
+                <LoanCalculatorOutput
+                  inputType={inputType}
+                  amountBorrowed={amountBorrowed}
+                  loanTerm={loanTerm}
+                  interestRate={interestRate}
+                  fees={fees}
+                  apr={apr}
+                  currency={selectedCurrency}
+                />
+              </div>
             </div>
           </div>
         </section>
