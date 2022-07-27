@@ -2,6 +2,7 @@ import { useState } from "react";
 import { PieChart } from "react-minimal-pie-chart";
 
 function BudgetCalculatorPage() {
+  // INCOME VARIABLES-----------------------------------------------------------------
   // Income input fields
   const [mainIncome, setMainIncome] = useState("");
   const [spouseIncome, setSpouseIncome] = useState("");
@@ -10,8 +11,6 @@ function BudgetCalculatorPage() {
   const [sickPay, setSickPay] = useState("");
   const [otherBenefits, setOtherBenefits] = useState("");
   const [anyOtherIncome, setAnyOtherIncome] = useState("");
-  const [selectedCurrency, setSelectedCurrency] = useState("Rs");
-
   const onMainIncomeChange = (e) => setMainIncome(e.target.value);
   const onSpouseIncomeChange = (e) => setSpouseIncome(e.target.value);
   const onOtherFamilyIncomeChange = (e) => setOtherFamilyIncome(e.target.value);
@@ -19,13 +18,12 @@ function BudgetCalculatorPage() {
   const onSickPayChange = (e) => setSickPay(e.target.value);
   const onOtherBenefitsChange = (e) => setOtherBenefits(e.target.value);
   const onAnyOtherIncomeChange = (e) => setAnyOtherIncome(e.target.value);
-
-  // Income currency
+  // Income currency input
+  const [selectedCurrency, setSelectedCurrency] = useState("Rs");
   const onChangeCurrency = (e) => {
     setSelectedCurrency(e.target.value);
   };
-
-  // Income inputs
+  // Income input floats
   let mainIncomeFlt = Math.abs(parseFloat(mainIncome));
   let spouseIncomeFlt = Math.abs(parseFloat(spouseIncome));
   let otherFamilyIncomeFlt = Math.abs(parseFloat(otherFamilyIncome));
@@ -33,8 +31,7 @@ function BudgetCalculatorPage() {
   let sickPayFlt = Math.abs(parseFloat(sickPay));
   let otherBenefitsFlt = Math.abs(parseFloat(otherBenefits));
   let anyOtherIncomeFlt = Math.abs(parseFloat(anyOtherIncome));
-
-  // Handle empty inputs
+  // Income handle empty inputs
   if (isNaN(mainIncomeFlt)) {
     mainIncomeFlt = 0;
   }
@@ -56,18 +53,33 @@ function BudgetCalculatorPage() {
   if (isNaN(anyOtherIncomeFlt)) {
     anyOtherIncomeFlt = 0;
   }
-
   // Income pie chart categories
   let mainIncomeSum = mainIncomeFlt;
   let familyIncomeSum = spouseIncomeFlt + otherFamilyIncomeFlt;
   let benefitsSum = maternityPayFlt + sickPayFlt + otherBenefitsFlt;
   let anyOtherIncomeSum = anyOtherIncomeFlt;
-
   // Income total
   let totalIncome =
     mainIncomeSum + familyIncomeSum + benefitsSum + anyOtherIncomeSum;
 
-  let contents = (
+  // EXPENSES VARIABLES-----------------------------------------------------------------
+  // Expenses total placeholder TO DO: fix
+  let totalExpenses = 2;
+
+  // DIFFERENCE VARIABLES-----------------------------------------------------------------
+  let differenceIncomeExpenses = totalIncome - totalExpenses;
+  let message = "";
+  if (differenceIncomeExpenses < 0) {
+    message = "Could you reduce your expenses?";
+  } else if (differenceIncomeExpenses > 0) {
+    message = "Well done! You have extra income.";
+  } else if (differenceIncomeExpenses === 0) {
+    message = "You've got just enough.";
+  }
+
+  // CONTENTS ALL-----------------------------------------------------------------
+  let contents;
+  contents = (
     <>
       <div className="flex flex-col text-center w-full mb-0 py-10">
         <h2 className="text-xs text-indigo-500 tracking-widest font-medium title-font mb-1">
@@ -84,9 +96,37 @@ function BudgetCalculatorPage() {
       </div>
       <section className="text-gray-600 body-font">
         <div className="container px-5 py-0 mx-auto flex flex-wrap bg-gray-100 rounded-lg">
+          <div className="flex flex-col text-center items-center w-full mb-0">
+            <h2 className="text-sm tracking-widest title-font mb-0 font-medium py-3">
+              Difference between income & expenses
+            </h2>
+            <div className="flex mt-0 items-center pb-0 border-b-2 border-gray-100 mb-0">
+              <h1
+                className={
+                  differenceIncomeExpenses >= 0
+                    ? "text-2xl text-green-500 leading-none flex items-center pb-0 mb-0 border-b border-gray-200"
+                    : "text-2xl text-red-500 leading-none flex items-center pb-0 mb-0 border-b border-gray-200"
+                }
+              >
+                <span>
+                  {differenceIncomeExpenses} {selectedCurrency}
+                </span>
+              </h1>
+            </div>
+            <p
+              className={
+                differenceIncomeExpenses >= 0
+                  ? "text-green-500 text-sm italic mb-2"
+                  : "text-red-500 text-sm italic mb-2"
+              }
+            >
+              {message}
+            </p>
+          </div>
+
           <div className="flex flex-wrap w-full">
-            <div className="lg:w-1/2 md:w-1/2 md:pr-10 md:py-6 mb-10">
-              {/* OUTPUT */}
+            <div className="lg:w-1/2 md:w-1/2 md:pr-10 md:py-2 mb-10">
+              {/* INCOME OUTPUT */}
               <h2 className="text-sm tracking-widest title-font mb-0 font-medium">
                 Total income
               </h2>
@@ -101,6 +141,11 @@ function BudgetCalculatorPage() {
               <div className="flex relative pb-7 py-0 pl-5">
                 <PieChart
                   data={[
+                    {
+                      title: "No input",
+                      value: Math.round(totalIncome) === 0 ? 1 : 0,
+                      color: "#A9A9A9",
+                    },
                     {
                       title: "Main income",
                       value: Math.round(mainIncomeSum),
@@ -125,7 +170,7 @@ function BudgetCalculatorPage() {
                   lineWidth={40}
                 />
               </div>
-              {/* INPUT */}
+              {/* INCOME INPUT */}
               <div className="flex relative pb-12">
                 <div className="h-full w-10 absolute inset-0 flex items-center justify-center">
                   <div className="h-full w-1 bg-gray-400 pointer-events-none"></div>
@@ -384,7 +429,7 @@ function BudgetCalculatorPage() {
                 </div>
               </div>
             </div>
-            {/* EXPENSES */}
+            {/* EXPENSES TO DO */}
             <div className="lg:w-1/2 md:w-1/2 md:pl-10 md:py-6 md:pr-5 mb-10">
               Expenses
             </div>
