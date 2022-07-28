@@ -142,32 +142,68 @@ function BudgetCalculatorPage() {
                 <PieChart
                   data={[
                     {
-                      title: "No input",
+                      title: "",
                       value: Math.round(totalIncome) === 0 ? 1 : 0,
                       color: "#A9A9A9",
+
+                      displayLabel: "",
                     },
                     {
-                      title: "Main income",
+                      title: "Main",
                       value: Math.round(mainIncomeSum),
                       color: "#15803d",
+
+                      displayLabel:
+                        Math.round(mainIncomeSum) === 0
+                          ? ""
+                          : "Main \n" +
+                            Math.round((mainIncomeSum / totalIncome) * 100) +
+                            "%",
                     },
                     {
-                      title: "Other family income",
+                      title: "Family",
                       value: Math.round(familyIncomeSum),
                       color: "#22c55e",
+                      displayLabel:
+                        Math.round(familyIncomeSum) === 0
+                          ? ""
+                          : "Family \n" +
+                            Math.round((familyIncomeSum / totalIncome) * 100) +
+                            "%",
                     },
                     {
                       title: "Benefits",
                       value: Math.round(benefitsSum),
                       color: "#bbf7d0",
+                      displayLabel:
+                        Math.round(benefitsSum) === 0
+                          ? ""
+                          : "Benefits \n" +
+                            Math.round((benefitsSum / totalIncome) * 100) +
+                            "%",
                     },
                     {
-                      title: "Any other income",
+                      title: "Other",
                       value: Math.round(anyOtherIncomeSum),
                       color: "#5eead4",
+                      displayLabel:
+                        Math.round(anyOtherIncomeSum) === 0
+                          ? ""
+                          : "Other \n" +
+                            Math.round(
+                              (anyOtherIncomeSum / totalIncome) * 100
+                            ) +
+                            "%",
                     },
                   ]}
                   lineWidth={40}
+                  labelPosition={65}
+                  label={(data) => data.dataEntry.displayLabel}
+                  labelStyle={{
+                    fontSize: "6px",
+                    fontColor: "FFFFFA",
+                    fontWeight: "400",
+                  }}
                 />
               </div>
               {/* INCOME INPUT */}
