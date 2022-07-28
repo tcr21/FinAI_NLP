@@ -58,4 +58,4 @@ def returnMfis():
     if request.method == "POST":
         res = get_mfi_list()
         print("TEST: done retrieving Mfis!")
-    return res
+        return res
