@@ -60,7 +60,7 @@ function LoanCalculatorOutputComponent1NoInput({
           Total amount to repay
         </h2>
         <div className="flex mt-1 items-center pb-5 border-b-2 border-gray-100 mb-0">
-          <h1 class="text-2xl text-gray-400 leading-none flex items-center pb-0 mb-0 border-b border-gray-200">
+          <h1 className="text-2xl text-gray-400 leading-none flex items-center pb-0 mb-0 border-b border-gray-200">
             <span>
               {Math.round(totalAmountToRepay).toLocaleString("en-US")}{" "}
               {currency}

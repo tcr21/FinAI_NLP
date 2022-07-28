@@ -40,6 +40,7 @@ load_new_glove_model = False
 selected_saved_glove_model = 'high_level_classification/glovemodel_utilities/glove_models/glove_model.bin' 
 name_new_glove_model = 'high_level_classification/glovemodel_utilities/glove_models/glove_model.bin'
 
+
 # CLUSTER PARAMS------------------------------------------
 
 cluster_key_words_param_dict = {1: ['learn','skills','education','teach'], 
