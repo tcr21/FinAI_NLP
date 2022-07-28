@@ -28,7 +28,7 @@ function HomePage() {
     setLoading(true);
     console.log("Messages", messages);
     axios
-      .post("http://127.0.0.1:5000/", {
+      .post("http://127.0.0.1:5000/start", {
         messages,
       })
       .then((res) => {
