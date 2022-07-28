@@ -41,6 +41,7 @@ function TriviaItem({
   return (
     <div>
       <p className="trivia-item__question">{question}</p>
+      <br></br>
       <ul className="trivia-item__answers">
         {shuffledAnswers.map((answer, i) => {
           let className = "trivia-item__button";

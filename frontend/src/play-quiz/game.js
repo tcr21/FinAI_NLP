@@ -100,6 +100,7 @@ function Game({ quizData }) {
         questionNumber={questionNumber}
         totalQuestions={numQuestions}
       />
+      <br></br>
       <FadeWrapper>
         <FadeTransition key={pageKey}>{pageContent}</FadeTransition>
       </FadeWrapper>

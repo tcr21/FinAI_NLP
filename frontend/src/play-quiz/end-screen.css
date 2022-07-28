@@ -13,7 +13,7 @@
 
 .end-screen__stat-label {
   font-size: 1rem;
-  font-style: italic;
+  /* font-style: italic; */
 }
 
 .end-screen__stat-value {

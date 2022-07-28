@@ -18,24 +18,20 @@ function Route1Results({ serviceName }) {
     );
   }
   if (quizzes.isEmpty) {
+    // TO TEST RENDER
     contents = (
-      <>
-        <h2>Sounds like you need to learn more about finance.</h2>
+      <div className="h-full bg-white bg-opacity-75 px-0 py-5 pt-5 pb-5 rounded-lg overflow-hidden text-center relative">
         <p>
           Here are some relevant resources. Please try to re-phrase your answers
           for more specific results.
         </p>
         <QuizListing />
-      </>
+      </div>
     );
   } else {
     // If no errors
     contents = (
       <>
-        <h2>
-          Sounds like you need to learn more about finance. Based on what you've
-          told us, we recommend:{" "}
-        </h2>
         <ul className="quiz-listing">
           {quizzes.results.map((quiz) => (
             <li key={quiz.id}>

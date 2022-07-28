@@ -18,21 +18,28 @@ function QuizPreview({ id, data }) {
   if (!ownerName) ownerName = "Anonymous";
 
   return (
-    <article className="quiz-preview">
-      <h3 className="quiz-preview__title">{title}</h3>
-      <ul className="quiz-preview__tags">
+    <div className="p-3 lg:w-1/1">
+      <div className="h-full bg-gray-100 bg-opacity-75 px-8 pt-16 pb-24 rounded-lg overflow-hidden text-center relative">
         {tags.map((tag) => (
-          <li className="quiz-preview__tag" key={tag}>
-            {tag}
-          </li>
+          <h2
+            className="inline-block py-1 px-2 rounded bg-indigo-50 text-indigo-500 text-xs font-medium tracking-widest"
+            key={tag}
+          >
+            {tag.toUpperCase()}
+          </h2>
         ))}
-      </ul>
-      <div className="quiz-preview__author">By: {ownerName}</div>
-      <p className="quiz-preview__description">{description}</p>
-      <Link to={`/play-quiz/${id}`} className="quiz-preview__play">
-        <button>Play</button>
-      </Link>
-    </article>
+        <h1 className="title-font sm:text-2xl text-xl font-medium text-gray-900 mb-3">
+          {title}
+        </h1>
+        <p className="leading-relaxed mb-3">{description}</p>
+        <br></br>
+        <Link to={`/play-quiz/${id}`} className="quiz-preview__play">
+          <button className=" mt-3 inline-flex items-center bg-indigo-500 border-0 py-1 px-8 focus:outline-none hover:bg-gray-200 rounded text-base mt-4 md:mt-0">
+            Play
+          </button>
+        </Link>
+      </div>
+    </div>
   );
 }
 

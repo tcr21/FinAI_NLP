@@ -17,13 +17,13 @@ function QuizListing() {
   if (quizzes.isEmpty) return <p>No quizzes found.</p>;
 
   return (
-    <ul className="quiz-listing">
+    // <div class="container px-5 py-0 mx-auto">
+    <div className="flex flex-wrap -m-4 py-1">
       {quizzes.results.map((quiz) => (
-        <li key={quiz.id}>
-          <QuizPreview id={quiz.id} data={quiz.data} />
-        </li>
+        <QuizPreview id={quiz.id} data={quiz.data} key={quiz.id} />
       ))}
-    </ul>
+    </div>
+    // </div>
   );
 }
 
