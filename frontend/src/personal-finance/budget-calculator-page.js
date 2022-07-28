@@ -2,6 +2,12 @@ import { useState } from "react";
 import { PieChart } from "react-minimal-pie-chart";
 
 function BudgetCalculatorPage() {
+  // COMMON VARIABLES-----------------------------------------------------------------
+  // All currency input (taken from first income input)
+  const [selectedCurrency, setSelectedCurrency] = useState("Rs");
+  const onChangeCurrency = (e) => {
+    setSelectedCurrency(e.target.value);
+  };
   // INCOME VARIABLES-----------------------------------------------------------------
   // Income input fields
   const [mainIncome, setMainIncome] = useState("");
@@ -18,11 +24,7 @@ function BudgetCalculatorPage() {
   const onSickPayChange = (e) => setSickPay(e.target.value);
   const onOtherBenefitsChange = (e) => setOtherBenefits(e.target.value);
   const onAnyOtherIncomeChange = (e) => setAnyOtherIncome(e.target.value);
-  // Income currency input
-  const [selectedCurrency, setSelectedCurrency] = useState("Rs");
-  const onChangeCurrency = (e) => {
-    setSelectedCurrency(e.target.value);
-  };
+
   // Income input floats
   let mainIncomeFlt = Math.abs(parseFloat(mainIncome));
   let spouseIncomeFlt = Math.abs(parseFloat(spouseIncome));
@@ -63,16 +65,145 @@ function BudgetCalculatorPage() {
     mainIncomeSum + familyIncomeSum + benefitsSum + anyOtherIncomeSum;
 
   // EXPENSES VARIABLES-----------------------------------------------------------------
-  // Expenses total placeholder TO DO: fix
-  let totalExpenses = 2;
+  // Expenses input fields
+  // Household
+  const [rentOrMortgage, setRentOrMortgage] = useState("");
+  const [utilityBills, setUtilityBills] = useState("");
+  const [otherHouseExpenses, setOtherHouseExpenses] = useState("");
+  // Living costs
+  const [foodAndDrink, setFoodAndDrink] = useState("");
+  const [health, setHealth] = useState("");
+  const [otherLivingCosts, setOtherLivingCosts] = useState("");
+  // Family & friends
+  const [children, setChildren] = useState("");
+  const [spouse, setSpouse] = useState("");
+  const [otherFamilyAndFriends, setOtherFamilyAndFriends] = useState("");
+  // Transport
+  const [gas, setGas] = useState("");
+  const [personalTransport, setPersonalTransport] = useState("");
+  const [publicTransport, setPublicTransport] = useState("");
+  // Finance
+  const [loanRepayment, setLoanRepayment] = useState("");
+  const [savingTarget, setSavingTarget] = useState("");
+  // Other
+  const [anyOtherExpenses, setAnyOtherExpenses] = useState("");
+  // OnChange functions
+  // Household
+  const onRentOrMortgageChange = (e) => setRentOrMortgage(e.target.value);
+  const onUtilityBillsChange = (e) => setUtilityBills(e.target.value);
+  const onOtherHouseExpensesChange = (e) =>
+    setOtherHouseExpenses(e.target.value);
+  // Living costs
+  const onFoodAndDrinkChange = (e) => setFoodAndDrink(e.target.value);
+  const onHealthChange = (e) => setHealth(e.target.value);
+  const onOtherLivingCostsChange = (e) => setOtherLivingCosts(e.target.value);
+  // Family & friends
+  const onChildrenChange = (e) => setChildren(e.target.value);
+  const onSpouseChange = (e) => setSpouse(e.target.value);
+  const onOtherFamilyAndFriendsChange = (e) =>
+    setOtherFamilyAndFriends(e.target.value);
+  // Transport
+  const onGasChange = (e) => setGas(e.target.value);
+  const onPersonalTransportChange = (e) => setPersonalTransport(e.target.value);
+  const onPublicTransportChange = (e) => setPublicTransport(e.target.value);
+  // Finance
+  const onLoanRepaymentChange = (e) => setLoanRepayment(e.target.value);
+  const onSavingTargetChange = (e) => setSavingTarget(e.target.value);
+  // Other
+  const onAnyOtherExpensesChange = (e) => setAnyOtherExpenses(e.target.value);
+
+  // Expenses input floats
+  let rentOrMortgageFlt = Math.abs(parseFloat(rentOrMortgage));
+  let utilityBillsFlt = Math.abs(parseFloat(utilityBills));
+  let otherHouseExpensesFlt = Math.abs(parseFloat(otherHouseExpenses));
+  let foodAndDrinkFlt = Math.abs(parseFloat(foodAndDrink));
+  let healthFlt = Math.abs(parseFloat(health));
+  let otherLivingCostsFlt = Math.abs(parseFloat(otherLivingCosts));
+  let childrenFlt = Math.abs(parseFloat(children));
+  let spouseFlt = Math.abs(parseFloat(spouse));
+  let otherFamilyAndFriendsFlt = Math.abs(parseFloat(otherFamilyAndFriends));
+  let gasFlt = Math.abs(parseFloat(gas));
+  let personalTransportFlt = Math.abs(parseFloat(personalTransport));
+  let publicTransportFlt = Math.abs(parseFloat(publicTransport));
+  let loanRepaymentFlt = Math.abs(parseFloat(loanRepayment));
+  let savingTargetFlt = Math.abs(parseFloat(savingTarget));
+  let anyOtherExpensesFlt = Math.abs(parseFloat(anyOtherExpenses));
+
+  // Income handle empty inputs
+  if (isNaN(rentOrMortgageFlt)) {
+    rentOrMortgageFlt = 0;
+  }
+  if (isNaN(utilityBillsFlt)) {
+    utilityBillsFlt = 0;
+  }
+  if (isNaN(otherHouseExpensesFlt)) {
+    otherHouseExpensesFlt = 0;
+  }
+  if (isNaN(foodAndDrinkFlt)) {
+    foodAndDrinkFlt = 0;
+  }
+  if (isNaN(healthFlt)) {
+    healthFlt = 0;
+  }
+  if (isNaN(otherLivingCostsFlt)) {
+    otherLivingCostsFlt = 0;
+  }
+  if (isNaN(childrenFlt)) {
+    childrenFlt = 0;
+  }
+  if (isNaN(spouseFlt)) {
+    spouseFlt = 0;
+  }
+  if (isNaN(otherFamilyAndFriendsFlt)) {
+    otherFamilyAndFriendsFlt = 0;
+  }
+  if (isNaN(gasFlt)) {
+    gasFlt = 0;
+  }
+  if (isNaN(personalTransportFlt)) {
+    personalTransportFlt = 0;
+  }
+  if (isNaN(publicTransportFlt)) {
+    publicTransportFlt = 0;
+  }
+  if (isNaN(loanRepaymentFlt)) {
+    loanRepaymentFlt = 0;
+  }
+  if (isNaN(savingTargetFlt)) {
+    savingTargetFlt = 0;
+  }
+  if (isNaN(anyOtherExpensesFlt)) {
+    anyOtherExpensesFlt = 0;
+  }
+  // Income pie chart categories
+  let houseBillsSum =
+    rentOrMortgageFlt + utilityBillsFlt + otherHouseExpensesFlt;
+  let livingCostsSum = foodAndDrinkFlt + healthFlt + otherLivingCostsFlt;
+  let familyAndFriendsSum = childrenFlt + spouseFlt + otherFamilyAndFriendsFlt;
+
+  let transportSum = gasFlt + personalTransportFlt + publicTransportFlt;
+  let financeSum = loanRepaymentFlt + savingTargetFlt;
+
+  let otherExpensesSum = anyOtherExpensesFlt;
+
+  // Expenses total TO DO: fix
+  let totalExpenses =
+    houseBillsSum +
+    livingCostsSum +
+    familyAndFriendsSum +
+    transportSum +
+    financeSum +
+    otherExpensesSum;
 
   // DIFFERENCE VARIABLES-----------------------------------------------------------------
   let differenceIncomeExpenses = totalIncome - totalExpenses;
   let message = "";
-  if (differenceIncomeExpenses < 0) {
+  if (totalIncome === 0 && totalExpenses === 0) {
+    message = "";
+  } else if (differenceIncomeExpenses < 0) {
     message = "Could you reduce your expenses?";
   } else if (differenceIncomeExpenses > 0) {
-    message = "Well done! You have extra income.";
+    message = "You have extra, add this to your savings!";
   } else if (differenceIncomeExpenses === 0) {
     message = "You've got just enough.";
   }
@@ -125,10 +256,10 @@ function BudgetCalculatorPage() {
           </div>
 
           <div className="flex flex-wrap w-full">
-            <div className="lg:w-1/2 md:w-1/2 md:pr-10 md:py-2 mb-10">
+            <div className="lg:w-1/2 md:w-1/2 md:pr-5 md:pl-5 md:py-2 mb-10">
               {/* INCOME OUTPUT */}
               <h2 className="text-sm tracking-widest title-font mb-0 font-medium">
-                Total income
+                Total monthly income
               </h2>
               <div className="flex mt-1 items-center pb-5 border-b-2 border-gray-100 mb-0">
                 <h1 className="text-2xl text-gray-900 leading-none flex items-center pb-0 mb-0 border-b border-gray-200">
@@ -259,11 +390,11 @@ function BudgetCalculatorPage() {
                   <h2 className="font-medium title-font text-sm text-indigo-500 mb-1 tracking-wider">
                     FAMILY INCOME
                   </h2>
-                  <p className="font-medium title-font text-xs text-indigo-500 mb-1 tracking-wider italic">
+                  <p className="font-medium title-font text-xs text-indigo-500 mb-0 tracking-wider italic">
                     Spouse income
                   </p>
                   <div>
-                    <div className="mt-1 relative rounded-md shadow-sm">
+                    <div className="mt-0 relative rounded-md shadow-sm">
                       <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"></div>
                       <input
                         type="text"
@@ -289,11 +420,11 @@ function BudgetCalculatorPage() {
                       </div>
                     </div>
                   </div>
-                  <p className="font-medium title-font text-xs text-indigo-500 mb-1 tracking-wider italic">
+                  <p className="font-medium title-font text-xs text-indigo-500 mb-0 tracking-wider italic mt-1">
                     Other family income
                   </p>
                   <div>
-                    <div className="mt-1 relative rounded-md shadow-sm">
+                    <div className="mt-0 relative rounded-md shadow-sm">
                       <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"></div>
                       <input
                         type="text"
@@ -332,11 +463,11 @@ function BudgetCalculatorPage() {
                   <h2 className="font-medium title-font text-sm text-indigo-500 mb-1 tracking-wider">
                     BENEFITS
                   </h2>
-                  <p className="font-medium title-font text-xs text-indigo-500 mb-1 tracking-wider italic">
+                  <p className="font-medium title-font text-xs text-indigo-500 mb-0 tracking-wider italic">
                     Maternity pay
                   </p>
                   <div>
-                    <div className="mt-1 relative rounded-md shadow-sm">
+                    <div className="mt-0 relative rounded-md shadow-sm">
                       <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"></div>
                       <input
                         type="text"
@@ -363,11 +494,11 @@ function BudgetCalculatorPage() {
                       </div>
                     </div>
                   </div>
-                  <p className="font-medium title-font text-xs text-indigo-500 mb-1 tracking-wider italic">
+                  <p className="font-medium title-font text-xs text-indigo-500 mb-0 tracking-wider italic mt-1">
                     Sick pay
                   </p>
                   <div>
-                    <div className="mt-1 relative rounded-md shadow-sm">
+                    <div className="mt-0 relative rounded-md shadow-sm">
                       <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"></div>
                       <input
                         type="text"
@@ -394,11 +525,11 @@ function BudgetCalculatorPage() {
                       </div>
                     </div>
                   </div>
-                  <p className="font-medium title-font text-xs text-indigo-500 mb-1 tracking-wider italic">
+                  <p className="font-medium title-font text-xs text-indigo-500 mb-0 tracking-wider italic mt-1">
                     Other benefits
                   </p>
                   <div>
-                    <div className="mt-1 relative rounded-md shadow-sm">
+                    <div className="mt-0 relative rounded-md shadow-sm">
                       <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"></div>
                       <input
                         type="text"
@@ -465,9 +596,652 @@ function BudgetCalculatorPage() {
                 </div>
               </div>
             </div>
+
             {/* EXPENSES TO DO */}
-            <div className="lg:w-1/2 md:w-1/2 md:pl-10 md:py-6 md:pr-5 mb-10">
-              Expenses
+            <div className="lg:w-1/2 md:w-1/2 md:pr-5 md:pl-5 md:py-2 mb-10">
+              {/* EXPENSES OUTPUT */}
+              <h2 className="text-sm tracking-widest title-font mb-0 font-medium">
+                Total monthly expenses
+              </h2>
+              <div className="flex mt-1 items-center pb-5 border-b-2 border-gray-100 mb-0">
+                <h1 className="text-2xl text-gray-900 leading-none flex items-center pb-0 mb-0 border-b border-gray-200">
+                  <span>
+                    {Math.round(totalExpenses).toLocaleString("en-US")}{" "}
+                    {selectedCurrency}
+                  </span>
+                </h1>
+              </div>
+              <div className="flex relative pb-7 py-0 pl-5">
+                <PieChart
+                  data={[
+                    {
+                      title: "",
+                      value: Math.round(totalExpenses) === 0 ? 1 : 0,
+                      color: "#A9A9A9",
+                      displayLabel: "",
+                    },
+                    {
+                      title: "House",
+                      value: Math.round(houseBillsSum),
+                      color: "#7f1d1d",
+                      displayLabel:
+                        Math.round(houseBillsSum) === 0
+                          ? ""
+                          : "House \n" +
+                            Math.round((houseBillsSum / totalExpenses) * 100) +
+                            "%",
+                    },
+                    {
+                      title: "Living costs",
+                      value: Math.round(livingCostsSum),
+                      color: "#dc2626",
+                      displayLabel:
+                        Math.round(livingCostsSum) === 0
+                          ? ""
+                          : "Living \n" +
+                            Math.round((livingCostsSum / totalExpenses) * 100) +
+                            "%",
+                    },
+                    {
+                      title: "Family & friends",
+                      value: Math.round(familyAndFriendsSum),
+                      color: "#f87171",
+                      displayLabel:
+                        Math.round(familyAndFriendsSum) === 0
+                          ? ""
+                          : "Family \n" +
+                            Math.round(
+                              (familyAndFriendsSum / totalExpenses) * 100
+                            ) +
+                            "%",
+                    },
+                    {
+                      title: "Transport",
+                      value: Math.round(transportSum),
+                      color: "#fecaca",
+                      displayLabel:
+                        Math.round(transportSum) === 0
+                          ? ""
+                          : "Transport \n" +
+                            Math.round((transportSum / totalExpenses) * 100) +
+                            "%",
+                    },
+                    {
+                      title: "Finance",
+                      value: Math.round(financeSum),
+                      color: "#fed7aa",
+                      displayLabel:
+                        Math.round(financeSum) === 0
+                          ? ""
+                          : "Finance \n" +
+                            Math.round((financeSum / totalExpenses) * 100) +
+                            "%",
+                    },
+                    {
+                      title: "Other",
+                      value: Math.round(otherExpensesSum),
+                      color: "#fb923c",
+                      displayLabel:
+                        Math.round(otherExpensesSum) === 0
+                          ? ""
+                          : "Other \n" +
+                            Math.round(
+                              (otherExpensesSum / totalExpenses) * 100
+                            ) +
+                            "%",
+                    },
+                  ]}
+                  lineWidth={40}
+                  labelPosition={65}
+                  label={(data) => data.dataEntry.displayLabel}
+                  labelStyle={{
+                    fontSize: "6px",
+                    fontColor: "FFFFFA",
+                    fontWeight: "400",
+                  }}
+                />
+              </div>
+              {/* EXPENSES INPUT */}
+
+              <div className="flex relative pb-5">
+                <div className="h-full w-10 absolute inset-0 flex items-center justify-center">
+                  <div className="h-full w-1 bg-gray-400 pointer-events-none"></div>
+                </div>
+                <div className="flex-shrink-0 w-10 h-10 rounded-full bg-red-900 inline-flex items-center justify-center text-white relative z-10">
+                  1
+                </div>
+                <div className="flex-grow pl-4">
+                  <h2 className="font-medium title-font text-sm text-indigo-500 mb-1 tracking-wider">
+                    HOUSEHOLD
+                  </h2>
+                  <p className="font-medium title-font text-xs text-indigo-500 mb-0 tracking-wider italic">
+                    Rent or mortgage
+                  </p>
+                  <div>
+                    <div className="mt-0 relative rounded-md shadow-sm">
+                      <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"></div>
+                      <input
+                        type="text"
+                        name="rent-or-mortgage"
+                        id="rent-or-mortgage"
+                        value={rentOrMortgage}
+                        onChange={onRentOrMortgageChange}
+                        className="focus:ring-indigo-500 focus:border-indigo-500 block w-full pl-1 pr-12 sm:text-sm border-gray-300 rounded-md"
+                        placeholder="0.00"
+                      />
+
+                      <div className="absolute inset-y-0 right-0 flex items-center">
+                        <label htmlFor="currency" className="sr-only">
+                          Currency
+                        </label>
+                        <select
+                          id="currency"
+                          name="currency"
+                          className="focus:ring-indigo-500 focus:border-indigo-500 h-full py-0 pl-0 pr-0 border-transparent bg-transparent text-gray-500 sm:text-sm rounded-md"
+                        >
+                          <option value="Rs">Rs</option>
+                          <option value="USD">USD</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                  <p className="font-medium title-font text-xs text-indigo-500 mb-0 tracking-wider italic mt-1">
+                    Utility bills
+                  </p>
+                  <div>
+                    <div className="mt-0 relative rounded-md shadow-sm">
+                      <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"></div>
+                      <input
+                        type="text"
+                        name="utility-bills"
+                        id="utility-bills"
+                        value={utilityBills}
+                        onChange={onUtilityBillsChange}
+                        className="focus:ring-indigo-500 focus:border-indigo-500 block w-full pl-1 pr-12 sm:text-sm border-gray-300 rounded-md"
+                        placeholder="0.00"
+                      />
+
+                      <div className="absolute inset-y-0 right-0 flex items-center">
+                        <label htmlFor="currency" className="sr-only">
+                          Currency
+                        </label>
+                        <select
+                          id="currency"
+                          name="currency"
+                          className="focus:ring-indigo-500 focus:border-indigo-500 h-full py-0 pl-0 pr-0 border-transparent bg-transparent text-gray-500 sm:text-sm rounded-md"
+                        >
+                          <option value="Rs">Rs</option>
+                          <option value="USD">USD</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                  <p className="font-medium title-font text-xs text-indigo-500 mb-0 tracking-wider italic mt-1">
+                    Other house expenses
+                  </p>
+                  <div>
+                    <div className="mt-0 relative rounded-md shadow-sm">
+                      <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"></div>
+                      <input
+                        type="text"
+                        name="other-house-expenses"
+                        id="other-house-expenses"
+                        value={otherHouseExpenses}
+                        onChange={onOtherHouseExpensesChange}
+                        className="focus:ring-indigo-500 focus:border-indigo-500 block w-full pl-1 pr-12 sm:text-sm border-gray-300 rounded-md"
+                        placeholder="0.00"
+                      />
+
+                      <div className="absolute inset-y-0 right-0 flex items-center">
+                        <label htmlFor="currency" className="sr-only">
+                          Currency
+                        </label>
+                        <select
+                          id="currency"
+                          name="currency"
+                          className="focus:ring-indigo-500 focus:border-indigo-500 h-full py-0 pl-0 pr-0 border-transparent bg-transparent text-gray-500 sm:text-sm rounded-md"
+                        >
+                          <option value="Rs">Rs</option>
+                          <option value="USD">USD</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="flex relative pb-5">
+                <div className="h-full w-10 absolute inset-0 flex items-center justify-center">
+                  <div className="h-full w-1 bg-gray-400 pointer-events-none"></div>
+                </div>
+                <div className="flex-shrink-0 w-10 h-10 rounded-full bg-red-600 inline-flex items-center justify-center text-white relative z-10">
+                  2
+                </div>
+                <div className="flex-grow pl-4">
+                  <h2 className="font-medium title-font text-sm text-indigo-500 mb-1 tracking-wider">
+                    LIVING COSTS
+                  </h2>
+                  <p className="font-medium title-font text-xs text-indigo-500 mb-0 tracking-wider italic">
+                    Food & drink
+                  </p>
+                  <div>
+                    <div className="mt-0 relative rounded-md shadow-sm">
+                      <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"></div>
+                      <input
+                        type="text"
+                        name="food-drink"
+                        id="food-drink"
+                        value={foodAndDrink}
+                        onChange={onFoodAndDrinkChange}
+                        className="focus:ring-indigo-500 focus:border-indigo-500 block w-full pl-1 pr-12 sm:text-sm border-gray-300 rounded-md"
+                        placeholder="0.00"
+                      />
+
+                      <div className="absolute inset-y-0 right-0 flex items-center">
+                        <label htmlFor="currency" className="sr-only">
+                          Currency
+                        </label>
+                        <select
+                          id="currency"
+                          name="currency"
+                          className="focus:ring-indigo-500 focus:border-indigo-500 h-full py-0 pl-0 pr-0 border-transparent bg-transparent text-gray-500 sm:text-sm rounded-md"
+                        >
+                          <option value="Rs">Rs</option>
+                          <option value="USD">USD</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                  <p className="font-medium title-font text-xs text-indigo-500 mb-0 mt-1 tracking-wider italic">
+                    Health
+                  </p>
+                  <div>
+                    <div className="mt-0 relative rounded-md shadow-sm">
+                      <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"></div>
+                      <input
+                        type="text"
+                        name="health"
+                        id="health"
+                        value={health}
+                        onChange={onHealthChange}
+                        className="focus:ring-indigo-500 focus:border-indigo-500 block w-full pl-1 pr-12 sm:text-sm border-gray-300 rounded-md"
+                        placeholder="0.00"
+                      />
+
+                      <div className="absolute inset-y-0 right-0 flex items-center">
+                        <label htmlFor="currency" className="sr-only">
+                          Currency
+                        </label>
+                        <select
+                          id="currency"
+                          name="currency"
+                          className="focus:ring-indigo-500 focus:border-indigo-500 h-full py-0 pl-0 pr-0 border-transparent bg-transparent text-gray-500 sm:text-sm rounded-md"
+                        >
+                          <option value="Rs">Rs</option>
+                          <option value="USD">USD</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                  <p className="font-medium title-font text-xs text-indigo-500 mb-0 mt-1 tracking-wider italic">
+                    Other living costs
+                  </p>
+                  <div>
+                    <div className="mt-0 relative rounded-md shadow-sm">
+                      <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"></div>
+                      <input
+                        type="text"
+                        name="other-living-costs"
+                        id="other-living-costs"
+                        value={otherLivingCosts}
+                        onChange={onOtherLivingCostsChange}
+                        className="focus:ring-indigo-500 focus:border-indigo-500 block w-full pl-1 pr-12 sm:text-sm border-gray-300 rounded-md"
+                        placeholder="0.00"
+                      />
+
+                      <div className="absolute inset-y-0 right-0 flex items-center">
+                        <label htmlFor="currency" className="sr-only">
+                          Currency
+                        </label>
+                        <select
+                          id="currency"
+                          name="currency"
+                          className="focus:ring-indigo-500 focus:border-indigo-500 h-full py-0 pl-0 pr-0 border-transparent bg-transparent text-gray-500 sm:text-sm rounded-md"
+                        >
+                          <option value="Rs">Rs</option>
+                          <option value="USD">USD</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="flex relative pb-5">
+                <div className="h-full w-10 absolute inset-0 flex items-center justify-center">
+                  <div className="h-full w-1 bg-gray-400 pointer-events-none"></div>
+                </div>
+                <div className="flex-shrink-0 w-10 h-10 rounded-full bg-red-400 inline-flex items-center justify-center text-white relative z-10">
+                  3
+                </div>
+                <div className="flex-grow pl-4">
+                  <h2 className="font-medium title-font text-sm text-indigo-500 mb-1 tracking-wider">
+                    FAMILY & FRIENDS
+                  </h2>
+                  <p className="font-medium title-font text-xs text-indigo-500 mb-0 tracking-wider italic">
+                    Child expenses
+                  </p>
+                  <div>
+                    <div className="mt-0 relative rounded-md shadow-sm">
+                      <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"></div>
+                      <input
+                        type="text"
+                        name="child-expenses"
+                        id="child-expenses"
+                        value={children}
+                        onChange={onChildrenChange}
+                        className="focus:ring-indigo-500 focus:border-indigo-500 block w-full pl-1 pr-12 sm:text-sm border-gray-300 rounded-md"
+                        placeholder="0.00"
+                      />
+
+                      <div className="absolute inset-y-0 right-0 flex items-center">
+                        <label htmlFor="currency" className="sr-only">
+                          Currency
+                        </label>
+                        <select
+                          id="currency"
+                          name="currency"
+                          className="focus:ring-indigo-500 focus:border-indigo-500 h-full py-0 pl-0 pr-0 border-transparent bg-transparent text-gray-500 sm:text-sm rounded-md"
+                        >
+                          <option value="Rs">Rs</option>
+                          <option value="USD">USD</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                  <p className="font-medium title-font text-xs text-indigo-500 mb-0 mt-1 tracking-wider italic">
+                    Spouse expenses
+                  </p>
+                  <div>
+                    <div className="mt-0 relative rounded-md shadow-sm">
+                      <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"></div>
+                      <input
+                        type="text"
+                        name="spouse-expenses"
+                        id="spouse-expenses"
+                        value={spouse}
+                        onChange={onSpouseChange}
+                        className="focus:ring-indigo-500 focus:border-indigo-500 block w-full pl-1 pr-12 sm:text-sm border-gray-300 rounded-md"
+                        placeholder="0.00"
+                      />
+
+                      <div className="absolute inset-y-0 right-0 flex items-center">
+                        <label htmlFor="currency" className="sr-only">
+                          Currency
+                        </label>
+                        <select
+                          id="currency"
+                          name="currency"
+                          className="focus:ring-indigo-500 focus:border-indigo-500 h-full py-0 pl-0 pr-0 border-transparent bg-transparent text-gray-500 sm:text-sm rounded-md"
+                        >
+                          <option value="Rs">Rs</option>
+                          <option value="USD">USD</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                  <p className="font-medium title-font text-xs text-indigo-500 mb-0 mt-1 tracking-wider italic">
+                    Other relatives
+                  </p>
+                  <div>
+                    <div className="mt-0 relative rounded-md shadow-sm">
+                      <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"></div>
+                      <input
+                        type="text"
+                        name="other-family-friends-expenses"
+                        id="other-family-friends-expenses"
+                        value={otherFamilyAndFriends}
+                        onChange={onOtherFamilyAndFriendsChange}
+                        className="focus:ring-indigo-500 focus:border-indigo-500 block w-full pl-1 pr-12 sm:text-sm border-gray-300 rounded-md"
+                        placeholder="0.00"
+                      />
+
+                      <div className="absolute inset-y-0 right-0 flex items-center">
+                        <label htmlFor="currency" className="sr-only">
+                          Currency
+                        </label>
+                        <select
+                          id="currency"
+                          name="currency"
+                          className="focus:ring-indigo-500 focus:border-indigo-500 h-full py-0 pl-0 pr-0 border-transparent bg-transparent text-gray-500 sm:text-sm rounded-md"
+                        >
+                          <option value="Rs">Rs</option>
+                          <option value="USD">USD</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="flex relative pb-5">
+                <div className="h-full w-10 absolute inset-0 flex items-center justify-center">
+                  <div className="h-full w-1 bg-gray-400 pointer-events-none"></div>
+                </div>
+                <div className="flex-shrink-0 w-10 h-10 rounded-full bg-red-200 inline-flex items-center justify-center text-white relative z-10">
+                  4
+                </div>
+                <div className="flex-grow pl-4">
+                  <h2 className="font-medium title-font text-sm text-indigo-500 mb-1 tracking-wider">
+                    TRANSPORT
+                  </h2>
+                  <p className="font-medium title-font text-xs text-indigo-500 mb-0 tracking-wider italic">
+                    Gas
+                  </p>
+                  <div>
+                    <div className="mt-0 relative rounded-md shadow-sm">
+                      <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"></div>
+                      <input
+                        type="text"
+                        name="gas"
+                        id="gas"
+                        value={gas}
+                        onChange={onGasChange}
+                        className="focus:ring-indigo-500 focus:border-indigo-500 block w-full pl-1 pr-12 sm:text-sm border-gray-300 rounded-md"
+                        placeholder="0.00"
+                      />
+
+                      <div className="absolute inset-y-0 right-0 flex items-center">
+                        <label htmlFor="currency" className="sr-only">
+                          Currency
+                        </label>
+                        <select
+                          id="currency"
+                          name="currency"
+                          className="focus:ring-indigo-500 focus:border-indigo-500 h-full py-0 pl-0 pr-0 border-transparent bg-transparent text-gray-500 sm:text-sm rounded-md"
+                        >
+                          <option value="Rs">Rs</option>
+                          <option value="USD">USD</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                  <p className="font-medium title-font text-xs text-indigo-500 mb-0 mt-1 tracking-wider italic">
+                    Personal transport
+                  </p>
+                  <div>
+                    <div className="mt-0 relative rounded-md shadow-sm">
+                      <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"></div>
+                      <input
+                        type="text"
+                        name="personal-transport"
+                        id="personal-transport"
+                        value={personalTransport}
+                        onChange={onPersonalTransportChange}
+                        className="focus:ring-indigo-500 focus:border-indigo-500 block w-full pl-1 pr-12 sm:text-sm border-gray-300 rounded-md"
+                        placeholder="0.00"
+                      />
+
+                      <div className="absolute inset-y-0 right-0 flex items-center">
+                        <label htmlFor="currency" className="sr-only">
+                          Currency
+                        </label>
+                        <select
+                          id="currency"
+                          name="currency"
+                          className="focus:ring-indigo-500 focus:border-indigo-500 h-full py-0 pl-0 pr-0 border-transparent bg-transparent text-gray-500 sm:text-sm rounded-md"
+                        >
+                          <option value="Rs">Rs</option>
+                          <option value="USD">USD</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                  <p className="font-medium title-font text-xs text-indigo-500 mb-0 mt-1 tracking-wider italic">
+                    Public transport
+                  </p>
+                  <div>
+                    <div className="mt-0 relative rounded-md shadow-sm">
+                      <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"></div>
+                      <input
+                        type="text"
+                        name="public-transport"
+                        id="public-transport"
+                        value={publicTransport}
+                        onChange={onPublicTransportChange}
+                        className="focus:ring-indigo-500 focus:border-indigo-500 block w-full pl-1 pr-12 sm:text-sm border-gray-300 rounded-md"
+                        placeholder="0.00"
+                      />
+
+                      <div className="absolute inset-y-0 right-0 flex items-center">
+                        <label htmlFor="currency" className="sr-only">
+                          Currency
+                        </label>
+                        <select
+                          id="currency"
+                          name="currency"
+                          className="focus:ring-indigo-500 focus:border-indigo-500 h-full py-0 pl-0 pr-0 border-transparent bg-transparent text-gray-500 sm:text-sm rounded-md"
+                        >
+                          <option value="Rs">Rs</option>
+                          <option value="USD">USD</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="flex relative pb-5">
+                <div className="h-full w-10 absolute inset-0 flex items-center justify-center">
+                  <div className="h-full w-1 bg-gray-400 pointer-events-none"></div>
+                </div>
+                <div className="flex-shrink-0 w-10 h-10 rounded-full bg-orange-200 inline-flex items-center justify-center text-white relative z-10">
+                  5
+                </div>
+                <div className="flex-grow pl-4">
+                  <h2 className="font-medium title-font text-sm text-indigo-500 mb-1 tracking-wider">
+                    FINANCE
+                  </h2>
+                  <p className="font-medium title-font text-xs text-indigo-500 mb-0 tracking-wider italic">
+                    Loan repayment
+                  </p>
+                  <div>
+                    <div className="mt-0 relative rounded-md shadow-sm">
+                      <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"></div>
+                      <input
+                        type="text"
+                        name="loan-repayment"
+                        id="loan-repayment"
+                        value={loanRepayment}
+                        onChange={onLoanRepaymentChange}
+                        className="focus:ring-indigo-500 focus:border-indigo-500 block w-full pl-1 pr-12 sm:text-sm border-gray-300 rounded-md"
+                        placeholder="0.00"
+                      />
+                      <div className="absolute inset-y-0 right-0 flex items-center">
+                        <label htmlFor="currency" className="sr-only">
+                          Currency
+                        </label>
+                        <select
+                          id="currency"
+                          name="currency"
+                          className="focus:ring-indigo-500 focus:border-indigo-500 h-full py-0 pl-0 pr-0 border-transparent bg-transparent text-gray-500 sm:text-sm rounded-md"
+                        >
+                          <option value="Rs">Rs</option>
+                          <option value="USD">USD</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                  <p className="font-medium title-font text-xs text-indigo-500 mb-0 mt-1 tracking-wider italic">
+                    Savings target
+                  </p>
+                  <div>
+                    <div className="mt-0 relative rounded-md shadow-sm">
+                      <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"></div>
+                      <input
+                        type="text"
+                        name="savings-target"
+                        id="savings-target"
+                        value={savingTarget}
+                        onChange={onSavingTargetChange}
+                        className="focus:ring-indigo-500 focus:border-indigo-500 block w-full pl-1 pr-12 sm:text-sm border-gray-300 rounded-md"
+                        placeholder="0.00"
+                      />
+                      <div className="absolute inset-y-0 right-0 flex items-center">
+                        <label htmlFor="currency" className="sr-only">
+                          Currency
+                        </label>
+                        <select
+                          id="currency"
+                          name="currency"
+                          className="focus:ring-indigo-500 focus:border-indigo-500 h-full py-0 pl-0 pr-0 border-transparent bg-transparent text-gray-500 sm:text-sm rounded-md"
+                        >
+                          <option value="Rs">Rs</option>
+                          <option value="USD">USD</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="flex relative">
+                <div className="flex-shrink-0 w-10 h-10 rounded-full bg-orange-400 inline-flex items-center justify-center text-white relative z-10">
+                  6
+                </div>
+                <div className="flex-grow pl-4">
+                  <h2 className="font-medium title-font text-sm text-indigo-500 mb-1 tracking-wider">
+                    ANY OTHER EXPENSES
+                  </h2>
+                  <div>
+                    <div className="mt-1 relative rounded-md shadow-sm">
+                      <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"></div>
+                      <input
+                        type="text"
+                        name="any-other-expenses"
+                        id="any-other-expenses"
+                        value={anyOtherExpenses}
+                        onChange={onAnyOtherExpensesChange}
+                        className="focus:ring-indigo-500 focus:border-indigo-500 block w-full pl-1 pr-12 sm:text-sm border-gray-300 rounded-md"
+                        placeholder="0.00"
+                      />
+                      <div className="absolute inset-y-0 right-0 flex items-center">
+                        <label htmlFor="currency" className="sr-only">
+                          Currency
+                        </label>
+                        <select
+                          id="currency"
+                          name="currency"
+                          className="focus:ring-indigo-500 focus:border-indigo-500 h-full py-0 pl-0 pr-0 border-transparent bg-transparent text-gray-500 sm:text-sm rounded-md"
+                        >
+                          <option>Rs</option>
+                          <option>USD</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
