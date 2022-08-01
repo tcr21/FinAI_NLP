@@ -33,7 +33,7 @@ def load_bert_tokenizer_and_model():
         print("TEST bert tokenizer loaded from torch")
         torch.save(bert_tokenizer, name_new_bert_tokenizer)
         print("TEST bert tokenizer saved")
-    # If want to use saved tokenizer and have saved tokenizer
+    # If want to use saved tokenizer and have saved tokenizer 
     else: 
         bert_tokenizer = torch.load(selected_saved_bert_tokenizer)
         print("TEST bert tokenizer loaded from saved tokenizers")
@@ -56,13 +56,13 @@ def load_bert_tokenizer_and_model():
 
 def embed_text_with_bert(text_input_clean, bert_tokenizer, bert_model):
     
-    tokenized_text = bert_tokenizer.encode(text_input_clean)
+    tokenized_text = bert_tokenizer.encode(text_input_clean) # TBC: replace with API call?
 
     tokenized_text = np.array(tokenized_text)[None,:]  
     
     tokenized_text = torch.from_numpy(tokenized_text) # bert model expects a torch tensor
     
-    embedded_text = bert_model(tokenized_text)
+    embedded_text = bert_model(tokenized_text) # TBC: replace with second API call?
 
     embedded_text_array = embedded_text[0][0][1:-1].detach().numpy() 
 
