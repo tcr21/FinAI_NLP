@@ -42,6 +42,7 @@ def start():
     print("TEST: start() function is running...")
     if request.method == "POST":
         user_input_json = request.json  # Get message value from callServer
+        # Add error handling eg is user_input_json = null, return jsonify ({"error" : "no input"})
         print("TEST user_input_json: ", user_input_json)
         res_bert = get_response_bert(user_input_json)
         res_gpt = get_response_gpt(user_input_json, res_bert)
@@ -49,6 +50,8 @@ def start():
         res = jsonify(route=res_bert, service=res_gpt)
         print("TEST: done running get_responses!")
         return res
+    else:
+        return "No post request received"
 
 
 @app.route("/mfi", methods=("GET", "POST"))
@@ -59,3 +62,8 @@ def returnMfis():
         res = get_mfi_list()
         print("TEST: done retrieving Mfis!")
         return res
+    else:
+        return "No post request received"
+
+if __name__ == "__main__":
+    app.run(debug=True)

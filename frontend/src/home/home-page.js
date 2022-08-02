@@ -9,6 +9,7 @@ import UserQuestions from "../questions/questions";
 
 // Sign in through google account (but could do through email and password if wanted to)
 function HomePage() {
+  
   const userState = useUser();
   const [message1, setMessage1] = useState("");
   const [message2, setMessage2] = useState("");
@@ -28,7 +29,7 @@ function HomePage() {
     setLoading(true);
     console.log("Messages", messages);
     axios
-      .post("http://127.0.0.1:5000/start", {
+      .post("https://finance-for-women-3.ew.r.appspot.com/start", {
         messages,
       })
       .then((res) => {
