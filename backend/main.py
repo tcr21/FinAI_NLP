@@ -36,7 +36,7 @@ print("TEST: Server is up and running...")
 #     return "World"
 
 
-@app.route("/start", methods=("GET", "POST"))
+@app.route("/", methods=("GET", "POST"))
 @cross_origin(supports_credentials=True)
 def start():
     print("TEST: start() function is running...")
@@ -54,7 +54,7 @@ def start():
         return "No post request received"
 
 
-@app.route("/mfi", methods=("GET", "POST"))
+@app.route("/mfis", methods=("GET", "POST"))
 @cross_origin(supports_credentials=True)
 def returnMfis():
     print("TEST: returnMfis() function is running...")

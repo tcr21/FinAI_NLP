@@ -7,7 +7,7 @@ const savingBorrowingQuiz = {
     description:
       "Learn about about saving and borrowing money to improve your finances.",
     difficulty: "easy",
-    tags: ["saving & borrowing"],
+    tags: ["saving", "borrowing"],
     createdAt: firebase.firestore.Timestamp.fromDate(new Date("July 02, 2022")),
     lastModifiedAt: firebase.firestore.Timestamp.fromDate(
       new Date("July 03, 2022")

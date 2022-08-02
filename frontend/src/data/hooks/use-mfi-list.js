@@ -18,7 +18,7 @@ function useMfiList() {
         
         try {
             axios
-                .post("https://finance-for-women-3.ew.r.appspot.com/mfi")
+                .post("http://127.0.0.1:5000/mfis")
                 .then((res) => {
                 console.log("Receiving server mfi output:", res);
                 setMfiListState({
