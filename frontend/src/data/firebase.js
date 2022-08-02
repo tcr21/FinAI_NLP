@@ -1,3 +1,4 @@
+// require('dotenv').config();
 // Import core functionality
 import firebase from "firebase/compat/app"; // Added compat due to updates
 // Import specific services we wish to use
@@ -9,13 +10,13 @@ import "firebase/compat/auth";
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 // [RE-INSERT FIREBASE CONFIG HERE TEMPORARILY]
 const firebaseConfig = {
-  apiKey: "AIzaSyDnYKH3e8Csu85u50W2CBo9P6Zp3mnyRZY",
-  authDomain: "finance-for-women.firebaseapp.com",
-  projectId: "finance-for-women",
-  storageBucket: "finance-for-women.appspot.com",
-  messagingSenderId: "1014821405354",
-  appId: "1:1014821405354:web:94417edb09782b0697c6d3",
-  measurementId: "G-1GV8YMS9P1",
+  apiKey: process.env.REACT_APP_APIKEY,
+  authDomain: process.env.REACT_APP_AUTHDOMAIN,
+  projectId: process.env.REACT_APP_PROJECTID,
+  storageBucket: process.env.REACT_APP_STORAGEBUCKET,
+  messagingSenderId: process.env.REACT_APP_MESSAGINGSENDERID,
+  appId: process.env.REACT_APP_APPID,
+  measurementId: process.env.REACT_APP_MEASUREMENTID,
 };
 
 // For future debugging
