@@ -19,7 +19,8 @@ from mfi_process import get_mfi_list
 
 # CORS error handling
 app = Flask(__name__)
-CORS(app, support_credentials=True)
+# CORS(app, support_credentials=True)
+cors = CORS(app) # Changed this TR
 app.config["CORS_HEADERS"] = "Content-Type"
 # app.config["CORS_ORIGINS"] = "http://localhost:3000"
 
@@ -37,7 +38,8 @@ print("TEST: Server is up and running...")
 
 
 @app.route("/", methods=("GET", "POST"))
-@cross_origin(supports_credentials=True)
+# @cross_origin(supports_credentials=True) 
+@cross_origin(["finance-for-women.vercel.app", "finance-for-women-tcr21.vercel.app", "localhost"]) # Changed this TR
 def start():
     print("TEST: start() function is running...")
     if request.method == "POST":
@@ -55,7 +57,8 @@ def start():
 
 
 @app.route("/mfis", methods=("GET", "POST"))
-@cross_origin(supports_credentials=True)
+# @cross_origin(supports_credentials=True) 
+@cross_origin(["finance-for-women.vercel.app", "finance-for-women-tcr21.vercel.app", "localhost"]) # Changed this TR
 def returnMfis():
     print("TEST: returnMfis() function is running...")
     if request.method == "POST":
