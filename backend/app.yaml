@@ -1,0 +1,12 @@
+runtime: python39
+
+instance_class: B4_1G
+basic_scaling: 
+  max_instances: 25
+  # idle_timeout: 5m
+
+service: service-2
+
+# resources:
+#   memory_gb: 6.5
+#   disk_size_gb: 20

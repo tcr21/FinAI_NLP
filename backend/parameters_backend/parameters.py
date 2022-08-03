@@ -36,7 +36,7 @@ Data/ = Manual updates required
 
 cluster_model_name_param_str = "glove-wiki-gigaword-300"
 
-load_new_glove_model = False 
+load_new_glove_model = False
 selected_saved_glove_model = 'high_level_classification/glovemodel_utilities/glove_models/glove_model.bin' 
 name_new_glove_model = 'high_level_classification/glovemodel_utilities/glove_models/glove_model.bin'
 
@@ -61,7 +61,7 @@ bert_model_name_param_str = 'bert-base-uncased'
 
 similarity_min_threshold = 0.5 # note: not scaled
 
-load_new_bert_tokenizer = False
+load_new_bert_tokenizer = False 
 selected_saved_bert_tokenizer = 'high_level_classification/bertmodel_utilities/bert_tokenizers/bert_tokenizer.bin' 
 name_new_bert_tokenizer = 'high_level_classification/bertmodel_utilities/bert_tokenizers/bert_tokenizer.bin' 
 
