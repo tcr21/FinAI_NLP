@@ -28,8 +28,9 @@ function HomePage() {
     let messages = Object.assign(message1, message2, message3, message4);
     setLoading(true);
     console.log("Messages", messages);
+    // ONGOING GCP CHANGES TR 
     axios
-      .post("http://127.0.0.1:5000/", {
+      .post("https://service-7-dot-finance-for-women-3.ew.r.appspot.com/", { 
         messages,
       })
       .then((res) => {

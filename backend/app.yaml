@@ -5,7 +5,13 @@ basic_scaling:
   max_instances: 25
   # idle_timeout: 5m
 
-service: service-2
+service: service-7 # changed
+
+vpc_access_connector:
+ name: projects/finance-for-women-3/locations/europe-west1/connectors/connector-1
+
+env_variables:
+  OPENAI_API_KEY: "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"
 
 # resources:
 #   memory_gb: 6.5
