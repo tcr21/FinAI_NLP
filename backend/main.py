@@ -1,3 +1,4 @@
+# ---------------------------------------
 import os
 import sys
 import openai
@@ -39,22 +40,27 @@ print("TEST: Server is up and running...")
 
 @app.route("/", methods=("GET", "POST"))
 # @cross_origin(supports_credentials=True) 
-@cross_origin(["finance-for-women.vercel.app", "finance-for-women-tcr21.vercel.app", "localhost"]) # Changed this TR
+# ONGOING GCP CHANGES TR (VM)----------------------------------------------------------------------------
+@cross_origin(["https://service-7-dot-finance-for-women-3.ew.r.appspot.com/"])
 def start():
-    print("TEST: start() function is running...")
+    print("TEST: start() function is running from VM...")
     if request.method == "POST":
-        user_input_json = request.json  # Get message value from callServer
-        # Add error handling eg is user_input_json = null, return jsonify ({"error" : "no input"})
-        print("TEST user_input_json: ", user_input_json)
-        res_bert = get_response_bert(user_input_json)
-        res_gpt = get_response_gpt(user_input_json, res_bert)
-        # TO CHECK res_gpt is list of strings so TBC if works
-        res = jsonify(route=res_bert, service=res_gpt)
-        print("TEST: done running get_responses!")
-        return res
-    else:
-        return "No post request received"
+        # Will it decode the data from the request (was sent in byte format, whereas idk if axios sends in different format)
+        print("TEST request from VM: ", request)
 
+        user_input_json = request.json
+        print("TEST user_input_json  from VM: ", user_input_json)
+
+        res_bert = get_response_bert(user_input_json)
+        print("TEST: res_bert from VM: ", res_bert)
+        print("TEST: done running get_response_bert from VM!")
+        # TO DO: Is it fine to return as is? Or do I need to encode it to bytes again?
+        return res_bert
+    else:
+        return "No post request received on VM"
+#----------------------------------------------------------------------------------------------------
+
+# Note: the below is not in use on VM
 
 @app.route("/mfis", methods=("GET", "POST"))
 # @cross_origin(supports_credentials=True) 
@@ -69,4 +75,4 @@ def returnMfis():
         return "No post request received"
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(host='0.0.0.0', port='5000') #Doesn't seem to work, TO DO: edit in flask env variables
