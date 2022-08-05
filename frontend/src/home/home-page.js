@@ -29,7 +29,7 @@ function HomePage() {
     setLoading(true);
     console.log("Messages", messages);
     axios
-      .post("http://127.0.0.1:5000/", {
+      .post("https://service-7-dot-finance-for-women-3.ew.r.appspot.com/", {
         messages,
       })
       .then((res) => {
