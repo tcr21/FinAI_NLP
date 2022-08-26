@@ -7,7 +7,7 @@ import openai
 from flask import Flask, redirect, render_template, request, url_for
 
 app = Flask(__name__)
-openai.api_key = #TO DO WHEN TEST: INPUT AS STRING 
+openai.api_key ="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"
 
 # for functions
 dirname = os.path.dirname(__file__)
@@ -33,14 +33,15 @@ def evaluate_gpt(data_file_path):
 
     # Create and populate gpt res and predicted res
     dtf_results["gpt_res"] = ""
-    dtf_results["predicted"] = np.empty((len(dtf_results), 0)).tolist() # TO FIX
+    dtf_results["predicted"] = np.empty((len(dtf_results), 0)).tolist() 
     for i in range(len(dtf_results.index)):
         gpt_response = openai.Completion.create(
         model=gpt_model_name_param_str,
         prompt=generate_prompt(dtf_results.iloc[i][dtf_results.columns.get_loc("input")], dtf_results.iloc[i][dtf_results.columns.get_loc("bert_res")]),
         temperature=gpt_temperature_param_flt,
         )
-        dtf_results["gpt_res"] = gpt_response['choices'][0]['text']
+        # dtf_results["gpt_res"] = gpt_response['choices'][0]['text'] #Old version of below line. Does not change anything results wise, only dtf results printing
+        dtf_results.iat[i, dtf_results.columns.get_loc("gpt_res")] = gpt_response['choices'][0]['text']
         dtf_results.iat[i, dtf_results.columns.get_loc("predicted")] = generate_res_based_on_gpt(dtf_results.iat[i, dtf_results.columns.get_loc("gpt_res")], 
         dtf_results.iat[i, dtf_results.columns.get_loc("bert_res")])
         i = i + 1
@@ -59,8 +60,10 @@ def evaluate_gpt(data_file_path):
     
     print("dtf results final-----")
     print(dtf_results) 
-    print(dtf_results["bert_res"], dtf_results["gpt_res"])
-    print(dtf_results["predicted"], dtf_results["true"])
+    print(dtf_results["bert_res"])
+    print(dtf_results["gpt_res"])
+    print(dtf_results["predicted"])
+    print(dtf_results["true"])
 
     # Evaluate on "training" data (Note: cannot run Matplotlib GUI when running flask app)
     print_evaluation_metrics_gpt(dtf_results)

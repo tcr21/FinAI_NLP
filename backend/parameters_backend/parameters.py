@@ -1,6 +1,6 @@
 """Optimise backend parameters here
 
-BACKEND PARAMETERS==========================
+BACKEND PARAMETERS========================== 
 
 Parameters:
 - Glove model params
@@ -37,8 +37,14 @@ Data/ = Manual updates required
 cluster_model_name_param_str = "glove-wiki-gigaword-300"
 
 load_new_glove_model = False
-selected_saved_glove_model = 'high_level_classification/glovemodel_utilities/glove_models/glove_model.bin' 
-name_new_glove_model = 'high_level_classification/glovemodel_utilities/glove_models/glove_model.bin'
+
+# Versions for app (bertmodel.py)
+# selected_saved_glove_model = 'high_level_classification/glovemodel_utilities/glove_models/glove_model.bin' 
+# name_new_glove_model = 'high_level_classification/glovemodel_utilities/glove_models/glove_model.bin'
+
+# Versions for local, for evaluation (evaluate.py) - TO TEST
+selected_saved_glove_model = '../glovemodel_utilities/glove_models/glove_model.bin' 
+name_new_glove_model = '../glovemodel_utilities/glove_models/glove_model.bin'
 
 
 # CLUSTER PARAMS------------------------------------------
@@ -62,12 +68,25 @@ bert_model_name_param_str = 'bert-base-uncased'
 similarity_min_threshold = 0.5 # note: not scaled
 
 load_new_bert_tokenizer = False 
-selected_saved_bert_tokenizer = 'high_level_classification/bertmodel_utilities/bert_tokenizers/bert_tokenizer.bin' 
-name_new_bert_tokenizer = 'high_level_classification/bertmodel_utilities/bert_tokenizers/bert_tokenizer.bin' 
+
+# Versions for app (bertmodel.py)
+# selected_saved_bert_tokenizer = 'high_level_classification/bertmodel_utilities/bert_tokenizers/bert_tokenizer.bin' 
+# name_new_bert_tokenizer = 'high_level_classification/bertmodel_utilities/bert_tokenizers/bert_tokenizer.bin' 
+
+# Versions for local, for evaluation (evaluate.py) - TO TEST
+selected_saved_bert_tokenizer = '../bertmodel_utilities/bert_tokenizers/bert_tokenizer.bin' 
+name_new_bert_tokenizer = '../bertmodel_utilities/bert_tokenizers/bert_tokenizer.bin' 
+
 
 load_new_bert_model = False 
-selected_saved_bert_model = 'high_level_classification/bertmodel_utilities/bert_models/bert_model.bin' 
-name_new_bert_model = 'high_level_classification/bertmodel_utilities/bert_models/bert_model.bin'
+
+# Versions for app (bertmodel.py)
+# selected_saved_bert_model = 'high_level_classification/bertmodel_utilities/bert_models/bert_model.bin' 
+# name_new_bert_model = 'high_level_classification/bertmodel_utilities/bert_models/bert_model.bin'
+
+# Versions for local, for evaluation (evaluate.py) - TO TEST
+selected_saved_bert_model = '../bertmodel_utilities/bert_models/bert_model.bin' 
+name_new_bert_model = '../bertmodel_utilities/bert_models/bert_model.bin'
 
 # USER QUESTIONS------------------------------------------
 # TO DO: Need to be updated manually in frontend Questions component
@@ -115,7 +134,7 @@ Answer saying 'Yes' or 'No' only, next to each of the numbers:
 Questions for you GPT: 
 1.Does this person need help with calculating a monthly budget (Yes or No)?
 2.Does this person need to learn how to save money better (Yes or No)?
-3.Does this person need to get a loan from somewhere (Yes or No)?
+3.Does this person need to get a loan from somewhere, or learn how to repay their existing loan, or learn about loans in general (Yes or No)?
 4.Is this person in any physical danger (Yes or No)?
 
 Answer saying 'Yes' or 'No' only, next to each of the numbers:
