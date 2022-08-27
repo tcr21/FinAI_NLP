@@ -50,8 +50,8 @@ function LoanCalculatorPage() {
             </button>
           </div>
           <p className="text-gray-900 text-sm italic mb-4">
-            Please input amounts for all fields, or fields 1-4, or fields 1-2
-            and 5.
+          Please input amounts in the boxes below. 
+          You should ask your loan provider for this information.
           </p>
         </div>
         <section className="text-gray-600 body-font">
@@ -150,10 +150,10 @@ function LoanCalculatorPage() {
                   </div>
                   <div className="flex-grow pl-4">
                     <h2 className="font-medium title-font text-sm text-indigo-500 mb-1 tracking-wider">
-                      ANNUAL INTEREST RATE
+                      SIMPLE ANNUAL INTEREST RATE
                     </h2>
                     <p className="font-medium title-font text-xs text-indigo-500 mb-1 tracking-wider italic">
-                      Simple interest as % of amount borrowed
+                     The amount a lender charges a borrower as a % of loan amount
                     </p>
                     <br></br>
                     <div>
@@ -193,7 +193,7 @@ function LoanCalculatorPage() {
                       ADDITIONAL FEES
                     </h2>
                     <p className="font-medium title-font text-xs text-indigo-500 mb-1 tracking-wider italic">
-                      Any additional absolute amounts charged
+                      Any other costs a lender charges a borrower to process the loan
                     </p>
                     <br></br>
                     <div>
@@ -234,7 +234,7 @@ function LoanCalculatorPage() {
                       APR
                     </h2>
                     <p className="font-medium title-font text-xs text-indigo-500 mb-1 tracking-wider italic">
-                      Interest + fees as % of amount borrowed
+                      Sum of Annual Interest Rate and Additional Fees, as a % of amount borrowed
                     </p>
                     <br></br>
                     <div>
@@ -311,8 +311,8 @@ function LoanCalculatorPage() {
             </button>
           </div>
           <p className="text-gray-900 text-sm italic mb-4">
-            Please input amounts for all fields, or fields 1-4, or fields 1-2
-            and 5.
+            Please input amounts in the boxes below. 
+            You should ask your loan provider for this information.
           </p>
         </div>
         <section className="text-gray-600 body-font">
@@ -416,10 +416,10 @@ function LoanCalculatorPage() {
                   </div>
                   <div className="flex-grow pl-4">
                     <h2 className="font-medium title-font text-sm text-indigo-500 mb-1 tracking-wider">
-                      ANNUAL INTEREST RATE
+                      SIMPLE ANNUAL INTEREST RATE
                     </h2>
                     <p className="font-medium title-font text-xs text-indigo-500 mb-1 tracking-wider italic">
-                      Simple interest as % of amount borrowed
+                      The amount a lender charges a borrower as a % of loan amount
                     </p>
                     <br></br>
                     <div>
@@ -459,7 +459,7 @@ function LoanCalculatorPage() {
                       ADDITIONAL FEES
                     </h2>
                     <p className="font-medium title-font text-xs text-indigo-500 mb-1 tracking-wider italic">
-                      Any additional absolute amounts charged
+                      Any other costs a lender charges a borrower to process the loan
                     </p>
                     <br></br>
                     <div>
@@ -500,7 +500,7 @@ function LoanCalculatorPage() {
                       APR
                     </h2>
                     <p className="font-medium title-font text-xs text-indigo-500 mb-1 tracking-wider italic">
-                      Interest + fees as % of amount borrowed
+                    Sum of Annual Interest Rate and Additional Fees, as a % of amount borrowed
                     </p>
                     <br></br>
                     <div>

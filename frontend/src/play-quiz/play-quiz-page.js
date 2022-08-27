@@ -24,7 +24,11 @@ function PlayQuizPage() {
   } else if (!quiz.exists) {
     contents = <ErrorMessage>No quiz found.</ErrorMessage>;
   } else {
-    contents = <Game quizData={quiz.data} />;
+    contents = 
+    // Added here for mobile usage in response to user study feedback - TO TEST
+    <div className="container px-1 py-10 mx-auto">
+      <Game quizData={quiz.data} />
+    </div>;
   }
 
   return <main>{contents}</main>;

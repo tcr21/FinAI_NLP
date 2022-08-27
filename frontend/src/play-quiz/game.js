@@ -81,6 +81,7 @@ function Game({ quizData }) {
     const triviaQuestion = questions[triviaIndex];
     const { correctAnswer, incorrectAnswers, question } = triviaQuestion;
     pageContent = (
+      // Add here for mobile usage in response to user study feedback? - TO DO
       <TriviaItem
         key={triviaIndex}
         question={question}

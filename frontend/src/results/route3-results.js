@@ -5,8 +5,8 @@ function Route3Results({ serviceName }) {
     contents = (
       <>
         <h2>
-          It sounds like you are at risk. Please contact emergency services if
-          this is the case. If not, please try to rephrase your answers.
+          It sounds like you might be at risk. If this is the case, please contact emergency services. 
+          If not, please try to rephrase your answers.
         </h2>
       </>
     );
@@ -14,7 +14,8 @@ function Route3Results({ serviceName }) {
     contents = (
       <>
         <h2>
-          It sounds like you are at risk. Please contact emergency services
+          It sounds like you might be at risk. If this is the case, please contact emergency services. 
+          If not, please try to rephrase your answers.
         </h2>
       </>
     );

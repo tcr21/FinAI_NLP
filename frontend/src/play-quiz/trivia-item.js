@@ -48,10 +48,13 @@ function TriviaItem({
           if (hasPickedAnswer) {
             const pickedThisAnswer = answer === selectedAnswer;
             const isThisCorrect = answer === correctAnswer;
+            const notChosenAndCorrect = (answer !== selectedAnswer && answer === correctAnswer) // Added this in response to user study feedback:
             if (pickedThisAnswer && isThisCorrect) {
               className += " trivia-item__button--correct";
             } else if (pickedThisAnswer && !isThisCorrect) {
               className += " trivia-item__button--incorrect";
+            } else if (notChosenAndCorrect){ // Added this in response to user study feedback:
+              className += " trivia-item__button--correct"
             } else {
               className += " trivia-item__button--disabled";
             }
