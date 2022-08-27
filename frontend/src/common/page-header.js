@@ -5,7 +5,7 @@ import { useState } from "react";
 
 function PageHeader() {
   const userState = useUser();
-  const [isOnStartPage, setStartPage] = useState(true);
+  const [isOnStartPage, setStartPage] = useState(null); // Edited this from true to null to fix nav bar start page highlight 
   const [isOnLearnPage, setLearnPage] = useState(null);
   const [isOnBudgetPage, setBudgetPage] = useState(null);
 
