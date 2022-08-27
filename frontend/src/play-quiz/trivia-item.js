@@ -39,7 +39,9 @@ function TriviaItem({
   };
 
   return (
-    <div>
+    // Added for mobile optimisation
+    <section class="body-font overflow-hidden"> 
+    <div class="container px-5 py-15 mx-auto">
       <p className="trivia-item__question">{question}</p>
       <br></br>
       <ul className="trivia-item__answers">
@@ -82,6 +84,7 @@ function TriviaItem({
         Next ➡️
       </button>
     </div>
+    </section>
   );
 }
 

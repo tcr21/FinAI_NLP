@@ -105,6 +105,7 @@ function Game({ quizData }) {
       <FadeWrapper>
         <FadeTransition key={pageKey}>{pageContent}</FadeTransition>
       </FadeWrapper>
+      
     </>
   );
 }

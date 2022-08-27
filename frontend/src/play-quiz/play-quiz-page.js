@@ -26,9 +26,7 @@ function PlayQuizPage() {
   } else {
     contents = 
     // Added here for mobile usage in response to user study feedback - TO TEST
-    <div className="container px-1 py-10 mx-auto">
-      <Game quizData={quiz.data} />
-    </div>;
+      <Game quizData={quiz.data} />;
   }
 
   return <main>{contents}</main>;
