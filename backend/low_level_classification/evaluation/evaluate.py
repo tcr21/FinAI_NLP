@@ -7,7 +7,7 @@ import openai
 from flask import Flask, redirect, render_template, request, url_for
 
 app = Flask(__name__)
-openai.api_key ="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"
+openai.api_key = # ADD KEY TO RUN THIS
 
 # for functions
 dirname = os.path.dirname(__file__)

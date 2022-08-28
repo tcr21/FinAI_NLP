@@ -13,5 +13,5 @@ ReactDOM.render(
   document.querySelector("#root")
 );
 
-// Use to load new data into Firestore database. Note: overrides anything with same ID. // TO DO:  better way to do this?
+// Use to load new data into Firestore database. Note: overrides anything with same ID.
 // loadData();

@@ -21,13 +21,12 @@ const savingBorrowingQuiz = {
           "Putting money aside for my long-term future expenses, each time I receive income",
         incorrectAnswers: [
           "Giving my money to my family members in order to support them",
-          "Putting money aside for the expenses next week",
-          "Keeping any extra money that doesn't need to be spent immediately",
+          "Spending money on household expenses",
+          "Using any extra money available",
         ],
       },
       {
         question: "What is a loan?",
-        // TO DO: ANSWERS FROM HERE
         correctAnswer:
           "When money is given to me in exchange for repayment of that money over an agreed amount of time plus interest",
         incorrectAnswers: [
@@ -39,9 +38,9 @@ const savingBorrowingQuiz = {
       {
         question: "What is an interest rate?",
         correctAnswer:
-          "The cost of borrowing money, typically a percentage of the amount of money I borrow, agreed upon with the loan provider",
+          "The cost of borrowing money, typically a percentage of the amount of money I borrow, agreed with the loan provider",
         incorrectAnswers: [
-          "Any amount of money that the borrower claims I owe them on top of the amount of money I borrowed",
+          "Any amount of money that the lender claims I owe them on top of the amount of money I borrowed",
         ],
       },
       {
@@ -56,11 +55,11 @@ const savingBorrowingQuiz = {
       {
         question: "Who should I turn to if I need to borrow a lot of money?",
         correctAnswer:
-          "A bank; if they turn me down I ask them for alternatives",
+          "A bank, a licensed microfinance institution, or reliable friends and family",
         incorrectAnswers: [
           "Any microfinance institution that offers loans",
-          "Someone from my local community",
-          "Any organisation that gives out loans",
+          "Any institution that is willing, regardless of the interest rate and fees they require",
+          "Anyone who agrees to lend me money",
         ],
       },
     ],
