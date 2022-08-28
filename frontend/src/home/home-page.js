@@ -29,7 +29,7 @@ function HomePage() {
     setLoading(true);
     console.log("Messages", messages);
     axios
-      .post("http://127.0.0.1:5000/", {
+      .post("https://service-7-dot-finance-for-women-3.ew.r.appspot.com/", {
         messages,
       })
       .then((res) => {
@@ -136,7 +136,7 @@ function HomePage() {
               <br></br>
               <br></br>
               <button
-                className="inline-flex items-center bg-indigo-500 border-0 py-1 px-3 focus:outline-none hover:bg-gray-200 rounded text-base mt-4 md:mt-0"
+                className="inline-flex items-center bg-indigo-500 border-0 py-1 px-3 focus:outline-none hover:bg-gray-200 disabled:bg-gray-200 rounded text-base mt-4 md:mt-0"
                 onClick={() =>
                   callServer(
                     { message1 },
@@ -145,7 +145,7 @@ function HomePage() {
                     { message4 }
                   )
                 }
-                disabled={isLoading}
+                disabled={isLoading || message1 === "" || message2 === "" || message3 === "" || message4 === ""}
               >
                 Submit answers
               </button>

@@ -33,6 +33,18 @@
   width: 25%;
 }
 
+/* Added for mobile optimisation */
+@media only screen and (max-width:560px){
+  .trivia-item__answers {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .trivia-item__next-button {
+    width: 100%
+  }
+}
+
 .trivia-item__button:hover {
   /* background: #3c3cda; */
   background: #6060ff;

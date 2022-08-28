@@ -3,11 +3,11 @@ import { firebase } from "../../firebase";
 const formalFinanceQuiz = {
   id: "1111111111FlfwaIcmip",
   data: {
-    title: "Banking",
+    title: "Banking products",
     description:
       "Learn about the products offered by banks and other formal financial institutions.",
-    difficulty: "easy",
-    tags: ["finance products", "banking"],
+    difficulty: "medium",
+    tags: ["finance products"],
     createdAt: firebase.firestore.Timestamp.fromDate(new Date("July 02, 2022")),
     lastModifiedAt: firebase.firestore.Timestamp.fromDate(
       new Date("July 03, 2022")
@@ -29,8 +29,8 @@ const formalFinanceQuiz = {
         question: "What is credit?",
         correctAnswer: "The amount of money I can borrow",
         incorrectAnswers: [
-          "The amount of money I owe",
-          "Something I have to repay immediately",
+          "The amount of money I save",
+          "The amount of money I have to repay immediately",
           "An alternative to saving",
         ],
       },

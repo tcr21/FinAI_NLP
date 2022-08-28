@@ -24,7 +24,9 @@ function PlayQuizPage() {
   } else if (!quiz.exists) {
     contents = <ErrorMessage>No quiz found.</ErrorMessage>;
   } else {
-    contents = <Game quizData={quiz.data} />;
+    contents = 
+    // Added here for mobile usage in response to user study feedback - TO TEST
+      <Game quizData={quiz.data} />;
   }
 
   return <main>{contents}</main>;

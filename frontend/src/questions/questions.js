@@ -7,7 +7,7 @@ function UserQuestions({ questionNumber }) {
           1
         </div>
         <p className="block text-large font-medium text-indigo-500 py-2">
-          What is your primary concern when it comes to finance?
+          What is your main objective on the topic of finance?
         </p>
       </>
     );
@@ -18,7 +18,7 @@ function UserQuestions({ questionNumber }) {
           2
         </div>
         <p className="block text-large font-medium text-indigo-500 py-2">
-          How would you describe your financial needs?
+          How would you describe your financial needs and financial situation?
         </p>
       </>
     );
@@ -29,7 +29,7 @@ function UserQuestions({ questionNumber }) {
           3
         </div>
         <p className="block text-large font-medium text-indigo-500 py-2">
-          What is your income?
+          What is your monthly income? Please include the amount and main sources of income. 
         </p>
       </>
     );
@@ -40,7 +40,7 @@ function UserQuestions({ questionNumber }) {
           4
         </div>
         <p className="block text-large font-medium text-indigo-500 py-2">
-          What are your expenses?
+          What are your monthy expenses? Please include the amount and main expense items. 
         </p>
       </>
     );

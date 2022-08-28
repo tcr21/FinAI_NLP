@@ -39,7 +39,9 @@ function TriviaItem({
   };
 
   return (
-    <div>
+    // Added for mobile optimisation
+    <section class="body-font overflow-hidden"> 
+    <div class="container px-5 py-15 mx-auto">
       <p className="trivia-item__question">{question}</p>
       <br></br>
       <ul className="trivia-item__answers">
@@ -48,10 +50,13 @@ function TriviaItem({
           if (hasPickedAnswer) {
             const pickedThisAnswer = answer === selectedAnswer;
             const isThisCorrect = answer === correctAnswer;
+            const notChosenAndCorrect = (answer !== selectedAnswer && answer === correctAnswer) // Added this in response to user study feedback:
             if (pickedThisAnswer && isThisCorrect) {
               className += " trivia-item__button--correct";
             } else if (pickedThisAnswer && !isThisCorrect) {
               className += " trivia-item__button--incorrect";
+            } else if (notChosenAndCorrect){ // Added this in response to user study feedback:
+              className += " trivia-item__button--correct"
             } else {
               className += " trivia-item__button--disabled";
             }
@@ -79,6 +84,7 @@ function TriviaItem({
         Next ➡️
       </button>
     </div>
+    </section>
   );
 }
 

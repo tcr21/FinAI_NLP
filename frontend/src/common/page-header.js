@@ -5,7 +5,7 @@ import { useState } from "react";
 
 function PageHeader() {
   const userState = useUser();
-  const [isOnStartPage, setStartPage] = useState(true);
+  const [isOnStartPage, setStartPage] = useState(null); // Edited this from true to null to fix nav bar start page highlight 
   const [isOnLearnPage, setLearnPage] = useState(null);
   const [isOnBudgetPage, setBudgetPage] = useState(null);
 
@@ -54,7 +54,7 @@ function PageHeader() {
             >
               <path d="M22 12h-4l-3 9L9 3l-3 9H2"></path>
             </svg>
-            <span className="ml-3 text-xl">FinLit</span>
+            <span className="ml-3 text-xl">FinAI</span>
           </a>
           <nav className="md:mr-auto md:ml-4 md:py-1 md:pl-4 md:border-l md:border-gray-400	flex flex-wrap items-center text-base justify-center">
             <Link
@@ -122,7 +122,7 @@ function PageHeader() {
             >
               <path d="M22 12h-4l-3 9L9 3l-3 9H2"></path>
             </svg>
-            <span className="ml-3 text-xl">FinLit</span>
+            <span className="ml-3 text-xl">FinAI</span>
           </a>
           <nav className="md:mr-auto md:ml-4 md:py-1 md:pl-4 md:border-l md:border-gray-400	flex flex-wrap items-center text-base justify-center">
             <Link
@@ -190,7 +190,7 @@ function PageHeader() {
             >
               <path d="M22 12h-4l-3 9L9 3l-3 9H2"></path>
             </svg>
-            <span className="ml-3 text-xl">FinLit</span>
+            <span className="ml-3 text-xl">FinAI</span>
           </a>
           <nav className="md:mr-auto md:ml-4 md:py-1 md:pl-4 md:border-l md:border-gray-400	flex flex-wrap items-center text-base justify-center">
             <Link
@@ -258,7 +258,7 @@ function PageHeader() {
             >
               <path d="M22 12h-4l-3 9L9 3l-3 9H2"></path>
             </svg>
-            <span className="ml-3 text-xl">FinLit</span>
+            <span className="ml-3 text-xl">FinAI</span>
           </a>
           <nav className="md:mr-auto md:ml-4 md:py-1 md:pl-4 md:border-l md:border-gray-400	flex flex-wrap items-center text-base justify-center">
             <Link

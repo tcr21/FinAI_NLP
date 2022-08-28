@@ -33,7 +33,7 @@ function QuizPreview({ id, data }) {
         </h1>
         <p className="leading-relaxed mb-3">{description}</p>
         <br></br>
-        <Link to={`/play-quiz/${id}`} className="quiz-preview__play">
+        <Link to={`/play-quiz/${id}`} className="quiz-preview__play" target="_blank" rel="noreferrer">
           <button className=" mt-3 inline-flex items-center bg-indigo-500 border-0 py-1 px-8 focus:outline-none hover:bg-gray-200 rounded text-base mt-4 md:mt-0">
             Play
           </button>
