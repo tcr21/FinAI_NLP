@@ -11,7 +11,7 @@ vpc_access_connector:
  name: projects/finance-for-women-3/locations/europe-west1/connectors/connector-1
 
 env_variables:
-  OPENAI_API_KEY: "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"
+  OPENAI_API_KEY: 
 
 # resources:
 #   memory_gb: 6.5
