@@ -5,6 +5,8 @@ import useQuizOnceByName from "../data/hooks/use-quiz-once-by-name";
 import QuizListing from "../quizzes/quiz-listing";
 import QuizPreview from "../quizzes/quiz-preview";
 
+// LIMIT: handle case scenario when Bert says route2 and gpt3 says route3
+
 function Route1Results({ serviceName }) {
   let contents;
   const quizzes = useQuizOnceByName(serviceName);
