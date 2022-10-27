@@ -18,7 +18,7 @@ function useMfiList() {
         
         try {
             axios
-                .post("https://service-2-dot-finance-for-women-3.ew.r.appspot.com/mfis")
+                .post(/* Insert service address MFIs */)
                 .then((res) => {
                 console.log("Receiving server mfi output:", res);
                 setMfiListState({

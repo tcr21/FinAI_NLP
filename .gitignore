@@ -36,3 +36,7 @@
 /backend/high_level_classification/bertmodel_utilities/bert_models
 
 /backend/high_level_classification/bertmodel_utilities/bert_tokenizers
+
+# GCP deployment and config======================
+
+/backend/app.yaml

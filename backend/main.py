@@ -41,7 +41,7 @@ print("TEST: Server is up and running...")
 @app.route("/", methods=("GET", "POST"))
 # @cross_origin(supports_credentials=True) 
 # ONGOING GCP CHANGES TR (VM)----------------------------------------------------------------------------
-@cross_origin(["https://service-7-dot-finance-for-women-3.ew.r.appspot.com/"])
+@cross_origin([]) # Insert backend service name (1)
 def start():
     print("TEST: start() function is running from VM...")
     if request.method == "POST":
@@ -64,7 +64,7 @@ def start():
 
 @app.route("/mfis", methods=("GET", "POST"))
 # @cross_origin(supports_credentials=True) 
-@cross_origin(["finance-for-women.vercel.app", "finance-for-women-tcr21.vercel.app", "localhost"]) # Changed this TR
+@cross_origin([]) # Insert frontend host addresses (3)
 def returnMfis():
     print("TEST: returnMfis() function is running...")
     if request.method == "POST":
@@ -75,4 +75,4 @@ def returnMfis():
         return "No post request received"
 
 if __name__ == "__main__":
-    app.run(host='0.0.0.0', port='5000') #Doesn't seem to work, TO DO: edit in flask env variables
+    app.run(host='0.0.0.0', port='5000') # Noted: edited in flask env variables
