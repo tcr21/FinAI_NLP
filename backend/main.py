@@ -39,7 +39,7 @@ print("TEST: Server is up and running...")
 
 @app.route("/", methods=("GET", "POST"))
 # @cross_origin(supports_credentials=True) 
-@cross_origin(["finance-for-women.vercel.app", "finance-for-women-tcr21.vercel.app", "localhost"]) # Changed this TR
+@cross_origin([]) # Insert frontend host addresses (3)
 def start():
     print("TEST: start() function is running...")
     if request.method == "POST":
@@ -58,7 +58,7 @@ def start():
 
 @app.route("/mfis", methods=("GET", "POST"))
 # @cross_origin(supports_credentials=True) 
-@cross_origin(["finance-for-women.vercel.app", "finance-for-women-tcr21.vercel.app", "localhost"]) # Changed this TR
+@cross_origin([]) # Insert frontend host addresses (3)
 def returnMfis():
     print("TEST: returnMfis() function is running...")
     if request.method == "POST":
