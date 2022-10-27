@@ -36,7 +36,7 @@ print("TEST: Server is up and running...")
 
 
 @app.route("/", methods=("GET", "POST")) 
-@cross_origin(["finance-for-women.vercel.app", "finance-for-women-tcr21.vercel.app", "localhost"]) # TBC if in use
+@cross_origin([]) # Insert frontend host addresses (3)
 def start():
     print("TEST: start() function is running...")
     if request.method == "POST":
@@ -45,7 +45,7 @@ def start():
         print("TEST user_input_json: ", user_input_json)
         # ONGOING GCP CHANGES TR----------------------------------------------------------------------------
         try:
-            url = "http://10.154.0.3:5000/"
+            url = # Insert VM private IP
             req = requests.post(url, json=user_input_json)
             res_bert = req.text
             print("TEST res_bert", res_bert)
@@ -62,7 +62,7 @@ def start():
 
 
 @app.route("/mfis", methods=("GET", "POST"))
-@cross_origin(["finance-for-women.vercel.app", "finance-for-women-tcr21.vercel.app", "localhost"]) # TBC if in use
+@cross_origin([]) # Insert frontend host addresses (3)
 def returnMfis():
     print("TEST: returnMfis() function is running...")
     if request.method == "POST":
