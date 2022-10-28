@@ -1,4 +1,4 @@
-// TO DO: add loading, error handling etc.
+// TO DO: add loading, error handling etc
 import ErrorMessage from "../common/error-message";
 import useUser from "../data/hooks/use-user";
 import axios from "axios";
